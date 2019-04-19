@@ -44,6 +44,7 @@ X_draw <- graph_from_adjacency_matrix(X1, mode = c("undirected"))
 plot(X_draw)
 
 #################### Choose proper tuning parameter #########################
+plotScree(X1)
 gamma = seq(from=0.01,to=0.1,by=0.01);
 delta = seq(from=0.01,to=0.1,by=0.01);
 lambda = 1; Count = 1;
@@ -175,6 +176,7 @@ X_draw2 <- graph_from_adjacency_matrix(X2, mode = c("undirected"))
 plot(X_draw2)
 
 #################### Choose proper tuning parameter #########################
+plotScree(X2)
 gamma = seq(from=0.001,to=0.01,by=0.001);
 delta = seq(from=0.01,to=0.02,by=0.001);
 lambda = 1; Count = 1;
@@ -185,7 +187,7 @@ non_zeroS2 <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 L_Rank2 <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 Like2 <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 
-for(g in 5:length(gamma)){
+for(g in 1:length(gamma)){
   for(d in 1:length(delta)) {
     ### Use the ADMM method to estimate the parameters ###
     result <- ADMM(X2, gamma[g], delta[d])
@@ -226,6 +228,7 @@ for(g in 5:length(gamma)){
 }
 
 ################## Assign memberships to each nodes ##################
+plotScree(X2)
 result2 <- ADMM(X2, 0.004, 0.014) ## gamma : 0.004, delta : 0.014 ##
 a2<-result2[[1]]
 M2<-result2[[2]]
@@ -307,6 +310,7 @@ X_draw3 <- graph_from_adjacency_matrix(X3, mode = c("undirected"))
 plot(X_draw3)
 
 #################### Choose proper tuning parameter #########################
+plotScree(X3)
 gamma = seq(from=0.001,to=0.01,by=0.001);
 delta = seq(from=0.01,to=0.02,by=0.001);
 lambda = 1; Count = 1;
@@ -317,7 +321,7 @@ non_zeroS3 <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 L_Rank3 <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 Like3 <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 
-for(g in 3:length(gamma)){
+for(g in 1:length(gamma)){
   for(d in 1:length(delta)) {
     ### Use the ADMM method to estimate the parameters ###
     result <- ADMM(X3, gamma[g], delta[d])
