@@ -1,10 +1,10 @@
 \documentclass{article}
 \usepackage{mathtools}
-\usepackage{natbib}
 \usepackage[nottoc]{tocbibind}
 \usepackage[nohead, nomarginpar, margin=1in, foot=.25in]{geometry}
 \usepackage{mathtools}
 \usepackage{bbm}
+\usepackage{amssymb}
 
 \usepackage{amsmath}
 \usepackage{lscape} 
@@ -56,9 +56,6 @@
 \oddsidemargin \marginparwidth 0.5in \textwidth 6.5in
 
 \begin{document}
-\bibliographystyle{plainnat}
-\bibliography{name-of-your-bib-file-here}
-
 \title{Factor Analysis on Report Citations, Using a Combined Latent and logistic Model}
 \author{Namjoon Suh, Xiaoming Huo, Eric Heim, Timothy Van Slyke, and Lee Seversky}
 
@@ -68,7 +65,7 @@
 \begin{abstract}
 % To be added later...
 We propose a combined latent and logistic model for the citation network, where either a latent model or a logistic model alone is often insufficient to capture the structure of the data.
-The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (aka factors), and adds a sparse logistic component that captures the remaining ad hoc dependence. Parameter estimation are carried out through construction of a joint-likelihood function of edges and properly chosen penalty terms. The convexity of the likelihood function allows us to develop an efficient algorithm, while the penalty terms generate a low-dimensional latent component and a sparse graphical structure. Simulation results are reported that show the new method works well in practical situations. The proposed method has been applied to a real application in citation network of statistician data set (Ji and Jin).
+    The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (aka factors), and adds a sparse logistic component that captures the remaining ad hoc dependence. Parameter estimation are carried out through construction of a joint-likelihood function of edges and properly chosen penalty terms. The convexity of the likelihood function allows us to develop an efficient algorithm, while the penalty terms generate a low-dimensional latent component and a sparse graphical structure. Simulation results are reported that show the new method works well in practical situations. The proposed method has been applied to a real application in citation network of statistician data set (Ji and Jin, 2016 \cite{ji2016coauthorship}).
 \end{abstract}
 
 \noindent{\sc KEY WORDS}: citation network, matrix decomposition, latent variable model,  logistic model, convex optimization
@@ -103,13 +100,13 @@ The above \eqref{eq:logistic03} can be further rewritten as
 = \frac{\exp(\alpha \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet (F^T D F))}{\prod_{1\le i<j \le n}  1 + e^{f_i^T D f_j }},
 \end{equation}
 where we assume $X_{ii}=0$ for all $i$ ($1\le i \le n$) and $X_{ij} = X_{ji}$ for all $i$ and $j$ ($1\le i,j \le n$), i.e., the matrix $X$ is symmetric.
-The above delivers a factor analysis model. Various linear and nonlinear latent variable models have been studied extensively in the literature (e.g., \cite{joreskog1969general,mcdonald1985factor, harman1976modern,rasch1960probabilistic,lord1968statistical,karl1973general}).
+The above delivers a factor analysis model. Various linear and nonlinear latent variable models have been studied extensively in the literature (e.g.,\cite{joreskog1969general, mcdonald2014factor,lord2008statistical, rasch1980probabilistic, harman1960modern, joreskog1970general}).
 
-Our work is inspired from Fused Latent and Graphical (FLaG) model (Chen et al, 2016). They assume that majority of variation of responses can be accounted by low dimensional latent vector, and remaining dependent structure of responses can be explained by sparse graphical structure. Thus, the resulting model contains a low-dimensional latent vector and a sparse conditional graph. Their key idea is to separate these two dependent structures so that they can facilitate the statistical inference. Our model also assumes that there exist two dependent structures among citation edges in network. A low-dimensional version of the aforementioned latent vector model is largely correct and majority of the citations among the nodes are induced by these common latent vectors $f_{i}$'s (with weigh coefficients $d_{i}$'s). There is still a small remainder due to the graphical component.
+Our work is motivated from a recent work {\it Fused Latent and Graphical (FLaG) model} (Chen et al, 2016, \cite{chen2016fused}). They assume that majority of variation of responses can be accounted by low dimensional latent vector, and remaining dependent structure of responses can be explained by sparse graphical structure. Thus, the resulting model contains a low-dimensional latent vector and a sparse conditional graph. Their key idea is to separate these two dependent structures so that they can facilitate the statistical inference. Our model also assumes that there exist two dependent structures among citation edges in network. A low-dimensional version of the aforementioned latent vector model is largely correct and majority of the citations among the nodes are induced by these common latent vectors $f_{i}$'s (with weigh coefficients $d_{i}$'s). There is still a small remainder due to the graphical component.
 
-Though it may seem similar to Chen et al, we work on a different model formulation in several aspects. First, FLaG is built to analyze the Eysenck’s Personality Questionnaire that consists of items designed to measure Psychoticism, Extraversion, and Neuroticism. So there are $p$ questions that need to be answered, and each questions fall into above three categories. If there are n respondents to questions, we have n independent data generated from same distribution. In our case, the observed citation network can be thought of as one realization of random graph. Second, FLaG set a collection of binary responses for each individual questions follow a joint distribution which is a combination of Item Response Theory (IRT) model and Ising model, whereas we model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of Latent Factor Analysis model and logistic model. Last but not least, FLaG approximate the original likelihood through constructing pseudo-likelihood function by taking advantage of conditional independence among the nodes, but our model’s likelihood function is directly accessible due to the conditional independence among edges given parameters.
+Though it may seem similar to Chen et al \cite{chen2016fused}, we work on a different model formulation in several aspects. First, FLaG is built to analyze the Eysenck’s Personality Questionnaire that consists of items designed to measure Psychoticism, Extraversion, and Neuroticism. So there are $p$ questions that need to be answered, and each questions fall into above three categories. If there are n respondents to questions, we have n independent data generated from same distribution. In our case, the observed citation network can be thought of as one realization of random graph. Second, FLaG set a collection of binary responses for each individual questions follow a joint distribution which is a combination of Item Response Theory (IRT) model and Ising model, whereas we model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of Latent Factor Analysis model and logistic model. Last but not least, FLaG approximate the original likelihood through constructing pseudo-likelihood function by taking advantage of conditional independence among the nodes, but our model’s likelihood function is directly accessible due to the conditional independence among edges given parameters.
 
-The proposed modeling framework is also related with the analysis of decomposing a matrix into low-rank and sparse components and the statistical inference of a multivariate Gaussian model whose precision matrix admits the form of a low-rank matrix plus a sparse matrix (Chandrasekaran et al, 2012). However, the inference and optimization of the current model are different from those cases. We will construct a regularized-likelihood function, based on which estimator will be proposed for simultaneous model selection and parameter estimation. The optimization for the regularized estimator will be convex, for which we will develop an efficient algorithm through the alternating direction method of multiplier (Boyd et al, 2011).
+The proposed modeling framework is also related with the analysis of decomposing a matrix into low-rank and sparse components and the statistical inference of a multivariate Gaussian model whose precision matrix admits the form of a low-rank matrix plus a sparse matrix (\cite{chandrasekaran2010latent, candes2011robust, zhou2010stable}). However, the inference and optimization of the current model are different from those cases. We will construct a regularized-likelihood function, based on which estimator will be proposed for simultaneous model selection and parameter estimation. The optimization for the regularized estimator will be convex, for which we will develop an efficient algorithm through the alternating direction method of multiplier (ADMM : \cite{boyd2011distributed, gabay1975dual, glowinski1975solution}).
 
 The rest of the paper is organized as follows. In section 2 we will give a presentation on how to build a model which can encode both latent dependent structure due to the common topics and remaining ad-hoc dependent structure. In section 3, we will talk about assumptions in our model and penalization on likelihood function constructed in section 2. Section 4 gives the detailed procedure on how to compute the estimator of the optimization problem in Section 3. In Section 5, we will present simple numerical experiments on synthetic data, and application of our model on real citation network of statisticians. We finally conclude this work in section 6 with several open questions remain to be solved and some directions for future research.
 
@@ -226,25 +223,31 @@ After we have obtained $\hat{S}$ in \eqref{eq:logistic10}, we can uncover the gr
 On the other hand when we have calculated $\hat{L}$, we may not be able to find binary matrix $F$ and nonnegative diagonal matrix $D$ such that $\hat{L} = F^T D F.$
 This is the price we have to pay for an amenable computational problem. The rank of estimated $\hat{L}$ will be our estimate of the number of factors (i.e., underlying common topics). For the issue on assigning the community membership of each node $i$, we will discuss this later in Section 6.
 
-\section{ Some additional assumptions }
+\section{ Theoretical Properties }
 We are interested in verifying following optimization problem has an unique solution.
 
-\begin{align*}
+\begin{align}
 \min\limits_{\alpha \in R, S = S^T \atop L \succ 0}   
 -\frac{1}{n} \log \prod_{1\le i< j\le n}\frac{exp\left(X_{ij}\left(\alpha+
 L_{ij}+S_{ij}\right)\right)}{1+exp\left(\alpha+
 L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1
-\end{align*}
+\end{align}
 
-\noindent In our problem, we are mainly interested in separating the main stream dependent structure from ad-hoc dependent structure. From the construction of our problem, $L_{ij} = F^T_{i}DF_{j}$, which encodes the positive weight when the $i$th paper and $j$th paper share $K$ common topics, and zero weight when two paper share no common topics, is always greater than or equal to zero. And $S_{ij}$, which encodes the ad-hoc dependent structure that cannot be explained by main dependent structure (induced from commonly shared topics between papers), is always greater than or equal to zero, $S_{ij} \geq 0$. Through this construction we should note that where $S_{ij}\neq0$, $L_{ij}$ should be equal to 0, and vice versa, where $L_{ij}\neq0$, $S_{ij}=0$. By incorporating these conditions, we can add following constraints to our optimization problem stated above: $L\geq 0$, $S \geq 0$, $L_{ij}*S_{ij}=0, {1\le i< j\le n}$. \\
-
-\noindent Denote $L^*$ and $S^*$ as ground truth parameter and let $\theta^*_{ij}=\alpha+L^*_{ij}+S^*_{ij}$, $N=n(n-1)/2$. We can easily check the above logistic likelihood function's Hessian matrix is $N \times N$ diagonal matrix with each entries, $\frac{1}{n}\frac{\exp(\theta^*_{ij})}{(1+\exp(\theta^*_{ij}))^2}$. This means that our likelihood function is strictly convex in a sense that $H \succ 0$, unless $\min_{1\le i< j\le n}\theta^*_{ij}$ tends to $-\infty$. 
+\noindent \textbf{Strong convexity} Denote $L^*$ and $S^*$ as ground truth parameter and let $\theta^*_{ij}=\alpha+L^*_{ij}+S^*_{ij}$, $N=n(n-1)/2$. We can easily check the above logistic likelihood function's Hessian matrix is $N \times N$ diagonal matrix with each entries, $\frac{1}{n}\frac{\exp(\theta^*_{ij})}{(1+\exp(\theta^*_{ij}))^2}$. This means that our likelihood function is strictly convex in a sense that $H \succ 0$, unless $\min_{1\le i< j\le n}\theta^*_{ij}$ tends to $-\infty$. 
 This is automatically guaranteed through the construction of our problem, $S_{ij} \in R, S_{ij} \geq 0$, and $L_{ij} = F^T_{i}DF_{j}$.
 
 Once we have the unique $\Theta^* \in R^{n \times n}$, whose each entries are $\theta^*_{ij}$, we further need to confirm if it has an unique decomposition, $\Theta^*=\alpha+L^*+S^*$.
 As mentioned in \cite{candes2011robust}, the decomposition is unique, and problem is well posed, as long as the low-rank matrix is not sparse, and vice versa if the sparse component is not low-rank matrix. Specifically, these conditions are guaranteed if the singular vectors of $L^*$ are not sparse and if the non-vanishing entries of $S^*$ occur at random locations. 
 It is a natural question whether we can check this kind of incoherence between $L^*$ and $S^*$ by observing the given network data $X$. Since 
 $X$ is a drawn data from the probability density, which is characterized by $\Theta^*$ ; $X\sim{P_{\Theta^*}}$,... (To be worked...)
+
+I believe we can establish the the non-asymptotic error bound between optimal estimator and ground truth parameter,
+\[
+    \|\alpha^*-\hat{\alpha}\|_{F}^{2} + 
+    \|M^*-\hat{M}\|_{F}^{2} +
+    \|S^*-\hat{S}\|_{F}^{2} \leq  ?
+\]
+
 
 \section{Computation}
 \label{sec:compute}
@@ -482,7 +485,7 @@ We randomly choose one of rows, fill that row with ones, and project the column 
 
 \noindent \textbf{Choosing tuning parameter}
 We have to admit the fact that choosing good tuning parameter is an important but challenging issue in our problem. 
-In our problem where the observation can be seen as one realization of random graph, it is confusing whether to define the total number of observations as $N=\frac{n(n-1)}{2}$ or 1, since in usual BIC definition, we define effective sample size "n", when we have n i.i.d. observations. Our experience shows that both BIC and AIC tend to choose the model with smallest K and no ad-hoc dependency. As an alternative, we choose a purely heuristic approach. Following the Ji and Jin[], we plot the largest 20 eigenvalues of adjacency matrix X, which can tell us the numbers of communities embedded in network. Then, we record the rank of L and number of non-zero elements in S for each tuning parameter pair on grid, and choose proper pair of tuning parameters which can give us interesting interpretation of data. \\
+In our problem where the observation can be seen as one realization of random graph, it is confusing whether to define the total number of observations as $N=\frac{n(n-1)}{2}$ or 1, since in usual BIC definition, we define effective sample size "n", when we have n i.i.d. observations. Our experience shows that both BIC and AIC tend to choose the model with smallest K and no ad-hoc dependency. As an alternative, we choose a purely heuristic approach. Following the Ji and Jin \cite{ji2016coauthorship}, we plot the largest 20 eigenvalues of adjacency matrix X, which can tell us the numbers of communities embedded in network. Then, we record the rank of L and number of non-zero elements in S for each tuning parameter pair on grid, and choose proper pair of tuning parameters which can give us interesting interpretation of data. \\
 
 \begin{figure}[!h]
 \includegraphics[width=1\textwidth]{Fig1.pdf}
@@ -507,7 +510,7 @@ In our problem where the observation can be seen as one realization of random gr
 \noindent \textbf{Simulation Results} Our goal in this simulation experiment is to check if our model can cluster each nodes into correct communities. Also to see if it can separate the ad-hoc links from edges which come from common topics. Tuning parameter pairs, $(\gamma,\delta) = (0.01,0.03),(0.004,0.014),(0.003,0.013)$ respectively, give us the desirable results for 3 cases. Note that different dynamics of network requires different choices of tuning parameters even the synthetic setting is same, since we are generating the random graph. However, we set the seeds in our simulation so that the results are reproducible. $Fig1$ shows us the result of clustered nodes using $k$-means algorithm on first $K(=rank(\hat{L}))$ eigenvectors. We plot the rows of first two eigenvectors on plane since it tends to visualize well the clustering behavior of nodes. Our model chooses well the ad-hoc links between clusters of nodes as can be verified in $Fig2$. We color the edges in blue whose corresponding elements of estimated $\hat{S}$ are non-zero, and black whose corresponding entries of $\hat{S}$ are zero. 
 
 \subsection{Citation and Co-authorship networks for statisticians }
-Recently, Ji and Jin [] published an interesting data set on citation  and co-authorship networks of statisticians. Citation relationship over 3000 papers from 4 statistical journals, published between 2003 and 2012, were collected, and collaborative network between authors of papers is given as well. In this section, we analyze these two networks. \\ 
+Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set on citation  and co-authorship networks of statisticians. Citation relationship over 3000 papers from 4 statistical journals, published between 2003 and 2012, were collected, and collaborative network between authors of papers is given as well. In this section, we analyze these two networks. \\ 
 
 \noindent\textbf{Citation Network} This dataset is based on all published papers from 2003 to first half of 2012, in 4 of the top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association and Journal of Royal Statistical Society (Series B). Among  3248 papers, we restrict our attention on papers which have greater than or equal to 7 citations from collected papers in original dataset. We have 543 papers in our hands. The elbow points of the scree plot may be at the 3rd, 7th, or 9th largest eigenvalue, suggesting that there might be from 2 to 8 topics in network. In light of this, we performed our analysis under the assumption that there might exist 2 distinct topics and one giant component in which 3 or 4 topics mixed up. \\
 
@@ -559,7 +562,6 @@ Last but not least, when we assign the memberships of each nodes, we use $k$-mea
 
 \section{On non-asymptotic error bound of the estimator}
 Chen et al. (2016) show that their estimator recovers the algebraic structure, that is, the conditional graph structure and the number of latent variables, with probability tending to one. However, their analysis only allows a growing number of sample points whereas they keep the number of variables fixed. Their result thus severs from the tradition to analyze the more challenging high-dimensional setting, where the number of variables is also explicitly tracked. Our analysis will focus on getting a non-asymptotic error bound of estimator in the context of where the sample size is fixed as 1, and the number of variables is growing. (More detailed descriptions on the differences between Chen et al. (2016) and our model in terms of model formulation is given in Introduction section.) We are interested in solving following optimization problem : 
-
 \begin{equation}\label{eq:1}
 \min\limits_{\alpha \in R, S = S^T \atop L \succ 0}   
 -\frac{1}{n} \log \prod_{1\le i< j\le n}\frac{exp\left(X_{ij}\left(\alpha+
@@ -575,7 +577,7 @@ And denote the error term for each parameter as $\hat{\Delta}^{\Theta} = \hat{\T
 \hat{\Delta}^{\alpha} = \hat{\alpha}-\alpha^{*},
 \hat{\Delta}^L = \hat{L}-L^{*},
 \hat{\Delta}^S = \hat{L}-S^{*}.$
-Throughout the proof, let $P= \Big\{\frac{\exp(\Theta_{ij})}{1+\exp(\Theta_{ij})}\Big\}_{1 \leq i,j \leq n}$. Moreover, for any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:1}) 
+Throughout the proof, let $P=\frac{\exp(\Theta_{ij})}{1+\exp(\Theta_{ij})}$. Moreover, for any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:1}) 
 
 \[
 h(\Theta) = -\frac{1}{n}\sum_{i<j} \Big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \Big\}
@@ -630,7 +632,8 @@ According to Agarwal et al[2]'s second element of lemma 1,
 the difference $\mathbb{Q}(L^*,S^*)- \mathbb{Q}(\hat{\Delta}^L + L^{*},\hat{\Delta}^S + S^{*})$ is upper-bounded by 
 
 \begin{equation}\label{eq:5}
-\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) - \mathbb{Q}(\hat{\Delta}^L_{B},\hat{\Delta}^S_{M^\perp}) + 2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\norm{S^*_{M^{\perp}}}_{1}
+    \mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) - \mathbb{Q}(\hat{\Delta}^L_{B},\hat{\Delta}^S_{M^\perp})
+    +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\|S^*_{M^\perp}\|_{1}
 \end{equation}
 
 Here we define $S^{*}$ to be decomposable with respect to the pair of subspace $(\mathbb{M},\mathbb{M}^{\perp})$, and let $L^{*}$ be decomposable with respect to the pair of subspace $(\mathbb{A},\mathbb{B})$. 
@@ -668,7 +671,8 @@ Combining the inequalities (\ref{eq:5}) and (\ref{eq:10}), we can obtain the upp
     \frac{\tau}{2}\|\hat{\Delta}^{\Theta}\|_{F}^{2} \leq
     \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\|_{F} + 
     \frac{3\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M})
-    +2 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\gamma \norm{S^{*}_{M^\perp}}_{1}
+    +2 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\gamma \|S^*_{M^\perp}\|_{1}
+    \label{eq:11}
 \end{equation}
 
 Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\hat{\Delta}^{\Theta}\|_{F}^{2}$ with respect to $\hat{\Delta}^{\alpha},\hat{\Delta}^{L},\hat{\Delta}^{S}$.
@@ -681,24 +685,64 @@ Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\hat{\D
 &=  \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \|\hat{\Delta}^{L}\|_{F}^{2} + \|\hat{\Delta}^{S}\|_{F}^{2} + 
 2 \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ +
 2 \langle\, \hat\Delta^{L}, \hat\Delta^{S} \rangle\ \\
-& \geq \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \|\hat{\Delta}^{L}\|_{F}^{2} + \|\hat{\Delta}^{S}\|_{F}^{2} + 
+&\geq \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \|\hat{\Delta}^{L}\|_{F}^{2} + \|\hat{\Delta}^{S}\|_{F}^{2} + 
 2 \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ +
 2 \langle\, \hat\Delta^{L}, \hat\Delta^{S} \rangle\ 
 \end{align}
 
+To get the further lower bound on trace inner product terms, 
+$ \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ $, $ \langle\, \hat\Delta^{L}, \hat\Delta^{S} \rangle\ $, we use a definition of dual norm, and the assumption..., 
 \begin{align}
-    \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ 
-    &\leq \| \hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \|_{op} 
-    \|\hat{\Delta}_{L}\|_{*} + \| \hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \|_{\infty} 
-    \|\hat{\Delta}_{S}\|_1 \\
-    &= \|\hat{\Delta}^{\alpha}\|_{F}(\|\hat{\Delta}_{L}\|_{*} + \|\hat{\Delta}_{S}\|_1)
+    | \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\rangle\ |
+    &= | \langle\,\hat\Delta^{S},\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\rangle\ | \\
+    &\leq \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \|_{\infty} \|\hat{\Delta}^{S}\|_1 \\
+    &\leq (|\hat{\alpha}|+|\alpha^{*}|)\|\hat{\Delta}^{S}\|_1\\
+    &\leq 2\kappa\|\hat{\Delta}^{S}\|_1
 \end{align}
 
 \begin{align}
-    \langle\, \hat\Delta^{L}, \hat\Delta^{S} \rangle\ 
-    &\leq \|\hat{\Delta}^{L}\|_{\infty} \|\hat{\Delta}^{S}\|_1 \\
-    &\leq (\|\hat{L}\|_{\infty} + \|L^{*}\|_{\infty}) \|\hat{\Delta}^{S}\|_1
+    | \langle\, \hat\Delta^{L}, \hat\Delta^{S} \rangle\ |
+    &\leq \|\hat{\Delta}^{L}\|_{\infty} \|\hat{\Delta}^{S}\|_1\\
+    &\leq (\|\hat{L}\|_{\infty} + \|L^{*}\|_{\infty})
+    \|\hat{\Delta}^{S} \|_{1}\\
+    &\leq \big(\frac{2\kappa}{n}\big)\|\hat{\Delta}^{S} \|_{1}
 \end{align}
+
+\begin{align}
+    \frac{\tau}{2}\|\hat{\Delta}^{\Theta}\|_{F}^{2} 
+    &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} 
+    - 2\kappa\tau(\frac{n+1}{n})\|\hat{\Delta}^{S}\|_{1} \\
+    &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} - \frac{\gamma}{2}\|\hat{\Delta}^{S}\|_{1}\\
+    &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} - \frac{\delta}{2} \mathbb{Q}(\hat{\Delta}^L,\hat{\Delta}^S) \label{eq:26}
+\end{align}
+
+By combining the relations (\ref{eq:11}) and (\ref{eq:26}), we can get following inequality, 
+\[
+    \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} - \frac{\delta}{2} \mathbb{Q}(\hat{\Delta}^L,\hat{\Delta}^S)\\
+    \leq \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\|_{F} + 
+    \frac{3\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) +2 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 2\gamma \|S^{*}_{M^\perp}\|_{1}
+\]
+Further, rearrange the terms, apply triangular inequality, $\mathbb{Q}(\hat{\Delta}^L,\hat{\Delta}^S)\leq \mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + \mathbb{Q}(\hat{\Delta}^L_{B},\hat{\Delta}^S_{M^{\perp}})$, and Agarwal et al[2]’s third element of lemma 1, we get 
+\[
+    \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} -
+    \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\|_{F} 
+    \leq 
+    \frac{7\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + 4 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 4\gamma \|S^*_{M^\perp}\|_{1}
+\]
+Noting that $\hat{\Delta}^{L}_{A}$ has rank at most 2$k$ and that $\hat{\Delta}^{S}_{M}$ lies in the model space $\mathbb{M}$, we find that
+\begin{align}
+    \delta\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) 
+    \leq \sqrt{2k}\delta\|\hat{\Delta}^L_{A}\|_{F} + \Psi(\mathbb{M})\gamma\|\hat{\Delta}^S_\mathbb{M}\|_{F}\\
+    \leq \sqrt{2k}\delta\|\hat{\Delta}^L\|_{F} + \Psi(\mathbb{M})\gamma\|\hat{\Delta}^S\|_{F}
+\end{align}
+
+Our goal is to get the non-asymptotic error bound between optimal estimator and ground truth parameter,
+\[
+    \|\alpha^*-\hat{\alpha}\|_{F}^{2} + 
+    \|M^*-\hat{M}\|_{F}^{2} +
+    \|S^*-\hat{S}\|_{F}^{2} \leq  ?
+\]
+I am stuck at how to reorganize the terms in 
 
 \begin{landscape}
 \begin{table}[t]
@@ -739,10 +783,7 @@ Pair & Weight & Community & Title                                               
 \end{table}
 \end{landscape}
 
-\renewcommand\refname{Reference Cited}
-\medskip
-
-\bibliographystyle{unsrt}
-\bibliography{reference}
+\bibliographystyle{plain}
+\bibliography{references.bib}
 
 \end{document}
