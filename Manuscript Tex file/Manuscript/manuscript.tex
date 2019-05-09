@@ -5,6 +5,7 @@
 \usepackage{mathtools}
 \usepackage{bbm}
 \usepackage{amssymb}
+\usepackage{float}  % For fixing the image in draft
 
 \usepackage{amsmath}
 \usepackage{lscape} 
@@ -190,6 +191,13 @@ i.e., the choice of $F$ and $D$ is not unique.
 \item Overall, the rank of matrix $F^T D F$ cannot be larger than $\min\{n,K\}$.
 With the application that we have in mind, in this paper, we assume that $K$ is much smaller than $n$.
 
+\item To ensure unique separation of $\alpha\mathbbm{1}\mathbbm{1}^T$ and $L$, we assume that eigen-vector of $L$ is centered, that is,
+\[
+    JLJ = L \quad where \quad
+    J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T
+\]
+This condition uniquely identifies F up to a common orthogonal transformation of its columns.
+
 \end{enumerate}
 
 
@@ -222,32 +230,6 @@ and its statistical properties are studied in \cite{bach2008consistency}.
 After we have obtained $\hat{S}$ in \eqref{eq:logistic10}, we can uncover the graphical model by investigating non-zero entries in $\hat{S}$.
 On the other hand when we have calculated $\hat{L}$, we may not be able to find binary matrix $F$ and nonnegative diagonal matrix $D$ such that $\hat{L} = F^T D F.$
 This is the price we have to pay for an amenable computational problem. The rank of estimated $\hat{L}$ will be our estimate of the number of factors (i.e., underlying common topics). For the issue on assigning the community membership of each node $i$, we will discuss this later in Section 6.
-
-\section{ Theoretical Properties }
-We are interested in verifying following optimization problem has an unique solution.
-
-\begin{align}
-\min\limits_{\alpha \in R, S = S^T \atop L \succ 0}   
--\frac{1}{n} \log \prod_{1\le i< j\le n}\frac{exp\left(X_{ij}\left(\alpha+
-L_{ij}+S_{ij}\right)\right)}{1+exp\left(\alpha+
-L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1
-\end{align}
-
-\noindent \textbf{Strong convexity} Denote $L^*$ and $S^*$ as ground truth parameter and let $\theta^*_{ij}=\alpha+L^*_{ij}+S^*_{ij}$, $N=n(n-1)/2$. We can easily check the above logistic likelihood function's Hessian matrix is $N \times N$ diagonal matrix with each entries, $\frac{1}{n}\frac{\exp(\theta^*_{ij})}{(1+\exp(\theta^*_{ij}))^2}$. This means that our likelihood function is strictly convex in a sense that $H \succ 0$, unless $\min_{1\le i< j\le n}\theta^*_{ij}$ tends to $-\infty$. 
-This is automatically guaranteed through the construction of our problem, $S_{ij} \in R, S_{ij} \geq 0$, and $L_{ij} = F^T_{i}DF_{j}$.
-
-Once we have the unique $\Theta^* \in R^{n \times n}$, whose each entries are $\theta^*_{ij}$, we further need to confirm if it has an unique decomposition, $\Theta^*=\alpha+L^*+S^*$.
-As mentioned in \cite{candes2011robust}, the decomposition is unique, and problem is well posed, as long as the low-rank matrix is not sparse, and vice versa if the sparse component is not low-rank matrix. Specifically, these conditions are guaranteed if the singular vectors of $L^*$ are not sparse and if the non-vanishing entries of $S^*$ occur at random locations. 
-It is a natural question whether we can check this kind of incoherence between $L^*$ and $S^*$ by observing the given network data $X$. Since 
-$X$ is a drawn data from the probability density, which is characterized by $\Theta^*$ ; $X\sim{P_{\Theta^*}}$,... (To be worked...)
-
-I believe we can establish the the non-asymptotic error bound between optimal estimator and ground truth parameter,
-\[
-    \|\alpha^*-\hat{\alpha}\|_{F}^{2} + 
-    \|M^*-\hat{M}\|_{F}^{2} +
-    \|S^*-\hat{S}\|_{F}^{2} \leq  ?
-\]
-
 
 \section{Computation}
 \label{sec:compute}
@@ -408,7 +390,7 @@ x^{m+1}_S &=& \mbox{arg min}_{ S} \quad  \gamma \|S\|_1
 \end{eqnarray}
 where $\|\cdot\|_F$ is the matrix Frobenius norm, defined as
 $\|M\|^2_F = \sum_{i,j} m^2_{ij}$ for a matrix $M = (m_{ij})$.
-The problem in \eqref{eq:admm02} may not have a closed-form solution. We use a simple gradient descent to solve this step, setting the step size, $\alpha=0.1$ and stopping criteria, $\max(|x_\alpha^{m+1}-x_\alpha^{m}|,\|x_M^{m+1}-x_M^{m}\|_{\infty}) \leq 10^{-9}$. Note that there are close-form solutions to \eqref{eq:admm03} and \eqref{eq:admm04}, while \eqref{eq:admm02} is a unconstrained convex optimization problem. More specifically, in \eqref{eq:admm03}, suppose the eigenvalue decomposition of the symmetric matrix $(z^m_L - u^m_L)$ can be written as
+The problem in \eqref{eq:admm02} may not have a closed-form solution. We use a simple gradient descent to solve this step, setting the step size, $\alpha=0.1$ and stopping criteria, $\max(|x_{\alpha,m}^{(t+1)}-x_{\alpha,m}^{(t)}|,\|x_{M,m}^{(t+1)}-x_{M,m}^{(t)}\|_{\infty}) \leq 10^{-9}$. Note that there are close-form solutions to \eqref{eq:admm03} and \eqref{eq:admm04}, while \eqref{eq:admm02} is a unconstrained convex optimization problem. More specifically, in \eqref{eq:admm03}, suppose the eigenvalue decomposition of the symmetric matrix $(z^m_L - u^m_L)$ can be written as
 $$
 z^m_L - u^m_L = T \Lambda T^T,
 $$
@@ -473,7 +455,7 @@ z^{m+1}_S &=&
 \noindent
 Step 3. We solve $u^{m+1} = u^m + x^{m+1} - z^{m+1}$, which is a simple arithmetic. \\
 
-The most important implementation details of this algorithm are the choice of $\lambda$ and stopping criterion. In this work, we simply choose $\lambda = 0.5$. We terminate the algorithm  when in $mth$ iteration, $\|x^{m}_M - x^{m}_L - x^{m}_S\|_F \leq \delta$, with $\delta=10^-7$.
+The most important implementation details of this algorithm are the choice of $\lambda$ and stopping criterion. In this work, we simply choose $\lambda = 0.5$. We terminate the algorithm  when in $mth$ iteration, $\|x^{m}_M - x^{m}_L - x^{m}_S\|_F \leq \delta$, with $\delta=10^{-7}$.
 
 \section{ Numerical analysis and Applications}
 In this section, we have conducted a small empirical study of measuring the performance of our proposed method with artificially specified graphical structures. Also we perform a real data analysis with citation network for statisticians.
@@ -487,7 +469,7 @@ We randomly choose one of rows, fill that row with ones, and project the column 
 We have to admit the fact that choosing good tuning parameter is an important but challenging issue in our problem. 
 In our problem where the observation can be seen as one realization of random graph, it is confusing whether to define the total number of observations as $N=\frac{n(n-1)}{2}$ or 1, since in usual BIC definition, we define effective sample size "n", when we have n i.i.d. observations. Our experience shows that both BIC and AIC tend to choose the model with smallest K and no ad-hoc dependency. As an alternative, we choose a purely heuristic approach. Following the Ji and Jin \cite{ji2016coauthorship}, we plot the largest 20 eigenvalues of adjacency matrix X, which can tell us the numbers of communities embedded in network. Then, we record the rank of L and number of non-zero elements in S for each tuning parameter pair on grid, and choose proper pair of tuning parameters which can give us interesting interpretation of data. \\
 
-\begin{figure}[!h]
+\begin{figure}[h]
 \includegraphics[width=1\textwidth]{Fig1.pdf}
 \caption{\it After fitting the model, result of application of $k$-means algorithm on first $K$ eigenvectors of $\hat{L}$ matrix. (Different color represents different clusters of nodes $k$-means assign for three synthetic settings.) }
 \label{fig:figure1}
@@ -497,7 +479,11 @@ In our problem where the observation can be seen as one realization of random gr
 
 \noindent \textbf{Ad-hoc links} Ad-hoc links of synthetic network data can be thought of as $"$across edges$"$ between clusters of nodes. Since indices of non-zero entries of $S$ are randomly chosen, there might be some indices of non-zero $S_{ij}$ entries where $L_{ij}$ is also non-zero. In this case, this makes the edges indistinguishable if they come from $S_{ij}$ or $L_{ij}$. Some of "across 
 
-\begin{figure}[!h]
+\noindent edges" are also attributed to $\alpha$, and unfortunately, our algorithm cannot make a difference whether the edge comes from $\alpha$ or $S_{ij}$. So the total number of across edges might not be exactly same as we set in our data generation setting. \\
+
+\noindent \textbf{Simulation Results} Our goal in this simulation experiment is to check if our model can cluster each nodes into correct communities. Also to see if it can separate the ad-hoc links from edges which come from common topics. Tuning parameter pairs, $(\gamma,\delta) = (0.01,0.03),(0.004,0.014),(0.003,0.013)$ respectively, give us the desirable results for 3 cases. Note that different dynamics of network requires different choices of tuning parameters even the synthetic setting is same, since we are generating the random graph. However, we set the seeds in our simulation so that the results are reproducible. $Fig1$ shows us the result of clustered nodes using $k$-means algorithm on first $K(=rank(\hat{L}))$ eigenvectors. We plot the rows of first two eigenvectors on plane since it tends to visualize well the clustering behavior of nodes. Our model chooses well the ad-hoc links between clusters of nodes as can be verified in $Fig2$. We color the edges in blue whose corresponding elements of estimated $\hat{S}$ are non-zero, and black whose corresponding entries of $\hat{S}$ are zero. 
+
+\begin{figure}[b]
 \begin{center}
 \includegraphics[scale=0.75]{Fig2.pdf}
 \caption{\it Edges colored with blue correspond to non-zero entries of estimated $\hat{S}$ matrix. For all three cases, our algorithm correctly separates the "across edges" from edges coming from low-rank matrix structure.}
@@ -505,29 +491,19 @@ In our problem where the observation can be seen as one realization of random gr
 \label{fig:figure2}
 \end{figure}
 
-\noindent edges" are also attributed to $\alpha$, and unfortunately, our algorithm cannot make a difference whether the edge comes from $\alpha$ or $S_{ij}$. So the total number of across edges might not be exactly same as we set in our data generation setting. \\
-
-\noindent \textbf{Simulation Results} Our goal in this simulation experiment is to check if our model can cluster each nodes into correct communities. Also to see if it can separate the ad-hoc links from edges which come from common topics. Tuning parameter pairs, $(\gamma,\delta) = (0.01,0.03),(0.004,0.014),(0.003,0.013)$ respectively, give us the desirable results for 3 cases. Note that different dynamics of network requires different choices of tuning parameters even the synthetic setting is same, since we are generating the random graph. However, we set the seeds in our simulation so that the results are reproducible. $Fig1$ shows us the result of clustered nodes using $k$-means algorithm on first $K(=rank(\hat{L}))$ eigenvectors. We plot the rows of first two eigenvectors on plane since it tends to visualize well the clustering behavior of nodes. Our model chooses well the ad-hoc links between clusters of nodes as can be verified in $Fig2$. We color the edges in blue whose corresponding elements of estimated $\hat{S}$ are non-zero, and black whose corresponding entries of $\hat{S}$ are zero. 
-
 \subsection{Citation and Co-authorship networks for statisticians }
-Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set on citation  and co-authorship networks of statisticians. Citation relationship over 3000 papers from 4 statistical journals, published between 2003 and 2012, were collected, and collaborative network between authors of papers is given as well. In this section, we analyze these two networks. \\ 
+Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set on citation  and co-authorship networks of statisticians. Citation relationship over 3000 papers from 4 statistical journals, published between 2003 and 2012, were collected, and collaborative network between authors of papers is given as well. In this section, we analyze the citation network. \\ 
 
 \noindent\textbf{Citation Network} This dataset is based on all published papers from 2003 to first half of 2012, in 4 of the top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association and Journal of Royal Statistical Society (Series B). Among  3248 papers, we restrict our attention on papers which have greater than or equal to 7 citations from collected papers in original dataset. We have 543 papers in our hands. The elbow points of the scree plot may be at the 3rd, 7th, or 9th largest eigenvalue, suggesting that there might be from 2 to 8 topics in network. In light of this, we performed our analysis under the assumption that there might exist 2 distinct topics and one giant component in which 3 or 4 topics mixed up. \\
 
 \noindent $(\gamma,\delta) = (0.000912,0.0097)$ gives us $\hat{L}$ with rank 3, and $\hat{S}$ with $|supp(\hat{S})|=197$. We apply $k$-means algorithm on 3 eigenvectors of estimated $\hat{L}$ matrix, and visualize the result of clustering by plotting the rows of first two eigenvectors of $\hat{L}$ on plane in $Fig 4$. 404 papers colored in green are densely clustered nearby the origin with a short tail, $(Fig 4)$, and $k$-means classifies these papers as third topic. We list the first two topics discovered through our analysis. (Full lists of papers for each communities are provided in $\it https://sites.google.com/site/namjoonsuh/publications$)
-
-\begin{figure}[!h]
-\includegraphics[width=1\textwidth]{Fig4.png}
-\caption{\it Scree plots. From left to right: 543-Citation network, Mixed Topics-Citation network, Co-authorship network.}
-\label{fig:figure1}
-\end{figure}
 
 \begin{itemize}
   \item "Variable selection (85 papers)" 
   \item "Multiple Hypothesis Testing (54 papers)"
 \end{itemize}
 
-\noindent These two topics are classical research topics in field of statistics. Majority of papers in first community study about "Controlling False Discovery Rate" in various statistical settings. Second group talks about "Variable selection" in high-dimensional data. As expected, third group is quite hard to interpret and seems to have substructures. For further investigation on this group, after obtaining the subnetwork which is comprised only with papers in third group, we performed same analysis once again under the assumption that $K=4$. We obtain four subcommunities as follows: 
+\noindent These two topics are classical research topics in field of statistics. First group talks about "Variable selection" in high-dimensional data. Majority of papers in second community study about "Controlling False Discovery Rate" in various statistical settings. As expected, third group is quite hard to interpret and seems to have substructures. For further investigation on this group, after obtaining the sub-network which is comprised only with papers in third group, we performed same analysis once again under the assumption that $K=4$. We obtain four sub-communities as follows: 
 
 \begin{itemize}
   \item "Non-parametric Bayesian Statistics (17 papers)"
@@ -536,7 +512,13 @@ Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set
   \item "Mixed topics (329 papers)"
 \end{itemize}
 
-\noindent Out of this one big chunk, we got three small, but meaningful topics: "Bayesian Statistics", "Functional/longitudinal data analysis", "Dimension Reduction". Due to small volume of each communities, we could check that false discoveries for each community are all zero. \\
+\begin{figure}[b]
+\includegraphics[width=1\textwidth]{Fig4.eps}
+\caption{\it Scree plots. From left to right: 543-Citation network, Mixed Topics-Citation network.}
+\label{fig:figure4}
+\end{figure}
+
+\noindent Out of this one big chunk, we got three small, but meaningful topics: "Bayesian Statistics", "Functional/longitudinal data analysis", "Dimension Reduction". Due to small volume of each communities, we could check that false discoveries for each community are all zero.\\
 
 \noindent Sub-network structure has also a big chunk of papers which we refer to as "Mixed Topics". Not only could we see the papers with topics on "Learning Theory", "Non-parametric/semi-parametric statistics", "Spatial Statistics", "Theoretical Machine Learning", which does not seem to belong to any of five communities listed above, but also we could identify the papers with combinations of two or three topics. Papers like "The Bayesian Lasso (T Park, et al. 2008)", "Coordinate-independent sparse sufficient dimension reduction and variable selection (X Chen, et al. 2010)" are the examples of these papers. It is also interesting to think about a reason on papers which seem to have obvious membership in one of 5 communities other than Mixed topic classified as Mixed topic. For instance, "On the "degrees of freedom" on the LASSO (H Zou, et al. 2007)" is classified as Mixed Topic paper. We can simply guess model selection has lots of applications in other topics, so it might cite or have been cited by many papers in other communities. Actually, out of 19 citation relationships it has with other papers, 12 of them came from the relationships with papers from Mixed topics. \\
 
@@ -546,7 +528,9 @@ Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set
 
 \begin{figure}[!t]
 \includegraphics[width=1\textwidth]{Fig3.eps}
-\caption{ From left to right: }
+\caption{Illustration of first two eigenvectors of estimated $\hat{L}$ matrix for original
+citation network with 543 papers(left) and sub-network graph(right). Presentation
+on clustering results of k-means algorithm with different colors.}
 \label{fig:figure1}
 \end{figure}
 
@@ -560,47 +544,63 @@ Secondly, we only consider the undirected case which is somewhat unrealistic ass
 
 Last but not least, when we assign the memberships of each nodes, we use $k$-means clustering algorithm. However, $k$-means algorithm turns out that it tends to assign nodes conservatively to each communities. For example, in $Fig 4 (a)$, we can see that bunch of Multiple Testing papers are assigned as Mixed cluster, and in $Fig 4 (b)$ also, many papers which should have been classified to among three communities other than mixed topic, have been assigned as Mixed topic community. This is probably because $k$-means does not allow overlapping membership of each nodes. It would be interesting to see what happens if we apply some clustering methods which allow the overlapped memberships of nodes in network. 
 
-\section{On non-asymptotic error bound of the estimator}
-Chen et al. (2016) show that their estimator recovers the algebraic structure, that is, the conditional graph structure and the number of latent variables, with probability tending to one. However, their analysis only allows a growing number of sample points whereas they keep the number of variables fixed. Their result thus severs from the tradition to analyze the more challenging high-dimensional setting, where the number of variables is also explicitly tracked. Our analysis will focus on getting a non-asymptotic error bound of estimator in the context of where the sample size is fixed as 1, and the number of variables is growing. (More detailed descriptions on the differences between Chen et al. (2016) and our model in terms of model formulation is given in Introduction section.) We are interested in solving following optimization problem : 
+\section{ On non-asymptotic error bound of the estimator }
+Chen et al.\cite{chen2016fused} show that their estimator recovers the algebraic structure, that is, the conditional graph structure and the number of latent variables, with probability tending to one. However, their analysis only allows a growing number of sample points whereas they keep the number of variables fixed. Their result thus severs from the tradition to analyze the more challenging high-dimensional setting, where the number of variables is also explicitly tracked. Our analysis will focus on getting a non-asymptotic error bound of estimator in the context of where the sample size is fixed as 1, and the number of nodes is growing. Readers can find more detailed descriptions on the differences between Chen et al. \cite{chen2016fused} and our model in terms of model formulation in Introduction section. We are interested in solving following optimization problem : 
+
 \begin{equation}\label{eq:1}
 \min\limits_{\alpha \in R, S = S^T \atop L \succ 0}   
--\frac{1}{n} \log \prod_{1\le i< j\le n}\frac{exp\left(X_{ij}\left(\alpha+
+-\frac{1}{n} \log \prod_{1\le i,j\le n}\frac{exp\left(X_{ij}\left(\alpha+
 L_{ij}+S_{ij}\right)\right)}{1+exp\left(\alpha+
 L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1
 \end{equation}
 
-
-
-Let ($\hat{\alpha},\hat{L},\hat{S}$) be the solution to (\ref{eq:1}), and ($\alpha^{*},L^{*},S^{*}$) be the ground truth which governs the data generating process. Let $\hat{\theta},\theta^{*}$ be defined respectively as, $\hat{\Theta} = \hat{\alpha}\mathbbm{1}\mathbbm{1}^T+\hat{L}+\hat{S}$ and
-$\Theta^{*} = \alpha^{*}\mathbbm{1}\mathbbm{1}^T+L^{*}+S^{*}$.
+Astute readers might notice the slight difference of first term in objective function between (\ref{eq:logistic10})
+and (\ref{eq:1}). (\ref{eq:1}) sums over the all $(i,j)$ pairs. Due to the symmetry of $X$ and $\Theta=\alpha\mathbbm{1}\mathbbm{1}^T+L+S$, after scaling, the only difference lies in the inclusion of diagonal term of $\Theta$.
+It should be noted that this slight modification neither leads to theoretical consequences nor noticeable difference in practice.
+Rather, this formulation allows us to simplify the theoretical investigation in a direction to which we want to pursue \cite{ma2017exploration}. Let ($\hat{\alpha},\hat{L},\hat{S}$) be the solution to (\ref{eq:1}), and ($\alpha^{*},L^{*},S^{*}$) be the ground truth which governs the data generating process. Let $\hat{\Theta},\Theta^{*}$ be defined respectively as, $\hat{\Theta} = \hat{\alpha}\mathbbm{1}\mathbbm{1}^T+\hat{L}+\hat{S}$ and $\Theta^{*} = \alpha^{*}\mathbbm{1}\mathbbm{1}^T+L^{*}+S^{*}$.
 And denote the error term for each parameter as $\hat{\Delta}^{\Theta} = \hat{\Theta}-\Theta^{*}, 
 \hat{\Delta}^{\alpha} = \hat{\alpha}-\alpha^{*},
 \hat{\Delta}^L = \hat{L}-L^{*},
-\hat{\Delta}^S = \hat{L}-S^{*}.$
-Throughout the proof, let $P=\frac{\exp(\Theta_{ij})}{1+\exp(\Theta_{ij})}$. Moreover, for any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:1}) 
+\hat{\Delta}^S = \hat{S}-S^{*}.$
+Throughout the discussion, let $P^{*}=\big\{\frac{\exp(\Theta_{ij}^{*})}{1+\exp(\Theta_{ij}^{*})}\big\}_{1 \leq i,j \leq n} \in \mathbb{R}^{n \times n}$. We impose following assumptions for theoretical guarantees. 
 
+\begin{assumption} (\textbf{Strong convexity})
+For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:1}), $h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}$.We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of likelihood function is bounded away from zero ($\tau > 0$):  
 \[
-h(\Theta) = -\frac{1}{n}\sum_{i<j} \Big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \Big\}
+\nabla^{2}h(\Theta) = diag\Big(vec\Big(\frac{\exp(\Theta)}{n(1+\exp(\Theta))^{2}}
+\Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}
+\]
+For any vector $a$, diag(a) is the diagonal matrix with elements of a on its diagonal. For any square matrix A and B, $ A \succcurlyeq B $ if and only if A-B is positive semi-definite.
+\end{assumption}
+
+\begin{assumption} (\textbf{Identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, Spikiness of L})
+To ensure the identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, we assume the latent variables are centered, that is $JL=L$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, $\mathbbm{1}$ denotes all one vector in $\mathbb{R}^{n}$. We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on L, to ensure the separation of L and S matrix \cite{agarwal2012noisy}. We would also note that the constraint $|\alpha|\leq C\kappa$, for an absolute constant $C$, is included partially for obtaining theoretical guarantees.
+\end{assumption}
+
+With these assumptions we present the behavior of non-asymptotic error bound of our estimator through following theorem. In our result, we measure error using the squared Frobenius norm summed across both matrices:
+\[
+    e^{2}(\hat{\alpha}.\hat{L},\hat{S}):=\|\alpha^{*}-\hat{\alpha}\|_{F}^{2} + \|L^{*}-\hat{L}\|_{F}^{2} + \|S^{*}-\hat{S}\|_{F}^{2}
 \]
 
-Observe that 
-$\hat{\Theta} = \hat{\alpha}\mathbbm{1}\mathbbm{1}^T+\hat{L}+\hat{S}$
-is an optimal solution to (\ref{eq:1}), and that the ground truth parameter
-$\Theta^{*} = \alpha^{*}\mathbbm{1}\mathbbm{1}^T+L^{*}+S^{*}$ is feasible. Thus, we have the following basic inequality
+\begin{theorem}
+Under the assumptions (4.1) and (4.2),
+if we solve the convex problem (\ref{eq:1}) with a pair of regularization parameter $(\delta,\gamma)$ satisfying 
+\begin{align}
+\delta \geq 4\|\frac{1}{n}(X-P^{*})\|_{op} \quad and \quad \gamma \geq 4\|\frac{1}{n}(X-P^{*})\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg)
+\end{align}
+There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$ and $s = 1,2,...,n^{2}$, where $k = rank(L^{*}), s= |supp(S^{*})|$, we have following upper bound on $e^{2}(\hat{\alpha}.\hat{L},\hat{S})$
+\begin{align}
+    e^{2}(\hat{\alpha},\hat{L},\hat{S}) \leq
+    c_{1}\frac{\delta^{2}}{\tau^{2}} +
+    c_{2}\frac{\delta^{2}}{\tau^{2}}
+    \bigg\{k + \frac{\tau}{\delta}\sum_{j=k+1}^{n}\sigma_{j}(L^{*})\bigg\} +
+    c_{3}\frac{\gamma^{2}}{\tau^{2}}
+    \bigg\{s + \frac{\tau}{\gamma}\|S^*_{M^\perp}\|_{1}\bigg\}
+\end{align}
+\end{theorem}
 
-\begin{equation}\label{eq:2}
-    h(\hat{\Theta})-h(\Theta^{*}) 
-    + \delta \|\hat{L}\|_\ast + \gamma \|\hat{S}\|_1 
-    - \delta \|L^{*}\|_\ast - \gamma \|S^{*}\|_1 \leq 0
-\end{equation}
-
-We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of likelihood function is bounded away from zero ($\tau > 0$):  
-\[
-\nabla^{2}h(\Theta) = diag\Big(vec\Big(\frac{\exp(\Theta)}{(1+\exp(\Theta))^{2}}
-\Big)\Big) \succcurlyeq \tau I_{\frac{n(n-1)}{2}\times \frac{n(n-1)}{2}}
-\]
-
-For any vector $a$, diag(a) is the diagonal matrix with elements of a on its diagonal. For any square matrix A and B, $ A \succcurlyeq B $ if and only if A-B is positive semi-definite. Through the assumption of strong convexity on $h(\Theta)$, and by the Taylor expansion, we can get a following lower bound on term $h(\hat{\Theta})-h(\Theta^{*})$ :
+\begin{proof}
+Through the assumption of strong convexity on $h(\Theta)$, and by the Taylor expansion, we can get a following lower bound on term $h(\hat{\Theta})-h(\Theta^{*})$ :
 
 \[
 h(\hat{\Theta})-h(\Theta^{*}) \geq 
@@ -619,7 +619,7 @@ Hence, we can rearrange the term in (\ref{eq:2}) as follows:
 
 Here, we introduce another notation, for any pair of positive tuning parameters $(\delta,\gamma)$ which is defined as the weighted combination of the two regularizers : 
 \[
-\mathbb{Q}(L,S) := \|L\|_{*} + \frac{\gamma}{\delta}\|S\|_1
+\mathbb{Q}(L,S)   := \|L\|_{*} + \frac{\gamma}{\delta}\|S\|_1
 \]
 Through the definition of $\mathbb{Q}$, we can rewrite (\ref{eq:3}) as follows:
 \begin{equation}\label{eq:4}
@@ -628,7 +628,7 @@ Through the definition of $\mathbb{Q}$, we can rewrite (\ref{eq:3}) as follows:
     + \delta \mathbb{Q}(L^{*},S^{*}) - \delta \mathbb{Q}(\hat{\Delta}^L + L^{*},\hat{\Delta}^S + S^{*})
 \end{equation}
 
-According to Agarwal et al[2]'s second element of lemma 1, 
+According to Agarwal et al \cite{agarwal2012noisy}'s second element of lemma 1, 
 the difference $\mathbb{Q}(L^*,S^*)- \mathbb{Q}(\hat{\Delta}^L + L^{*},\hat{\Delta}^S + S^{*})$ is upper-bounded by 
 
 \begin{equation}\label{eq:5}
@@ -697,7 +697,7 @@ $ \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\ma
     &= | \langle\,\hat\Delta^{S},\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\rangle\ | \\
     &\leq \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \|_{\infty} \|\hat{\Delta}^{S}\|_1 \\
     &\leq (|\hat{\alpha}|+|\alpha^{*}|)\|\hat{\Delta}^{S}\|_1\\
-    &\leq 2\kappa\|\hat{\Delta}^{S}\|_1
+    &\leq 2C\kappa\|\hat{\Delta}^{S}\|_1
 \end{align}
 
 \begin{align}
@@ -711,7 +711,7 @@ $ \langle\, \hat\Delta^{L} + \hat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\ma
 \begin{align}
     \frac{\tau}{2}\|\hat{\Delta}^{\Theta}\|_{F}^{2} 
     &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} 
-    - 2\kappa\tau(\frac{n+1}{n})\|\hat{\Delta}^{S}\|_{1} \\
+    - 2\kappa\tau(\frac{Cn+1}{n})\|\hat{\Delta}^{S}\|_{1} \\
     &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} - \frac{\gamma}{2}\|\hat{\Delta}^{S}\|_{1}\\
     &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} - \frac{\delta}{2} \mathbb{Q}(\hat{\Delta}^L,\hat{\Delta}^S) \label{eq:26}
 \end{align}
@@ -722,27 +722,40 @@ By combining the relations (\ref{eq:11}) and (\ref{eq:26}), we can get following
     \leq \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\|_{F} + 
     \frac{3\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) +2 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 2\gamma \|S^{*}_{M^\perp}\|_{1}
 \]
-Further, rearrange the terms, apply triangular inequality, $\mathbb{Q}(\hat{\Delta}^L,\hat{\Delta}^S)\leq \mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + \mathbb{Q}(\hat{\Delta}^L_{B},\hat{\Delta}^S_{M^{\perp}})$, and Agarwal et al[2]’s third element of lemma 1, we get 
-\[
+Further, rearrange the terms, apply triangular inequality, $\mathbb{Q}(\hat{\Delta}^L,\hat{\Delta}^S)\leq \mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + \mathbb{Q}(\hat{\Delta}^L_{B},\hat{\Delta}^S_{M^{\perp}})$, and Agarwal et al[\cite{agarwal2012noisy}]’s third element of lemma 1, we get 
+\begin{align}
     \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\hat{\Delta}^{S}\|_{F}^{2} -
     \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\|_{F} 
     \leq 
-    \frac{7\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + 4 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 4\gamma \|S^*_{M^\perp}\|_{1}
-\]
+    \frac{7\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + 4 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 4\gamma \|S^*_{M^\perp}\|_{1}  \label{eq:42}
+\end{align}
 Noting that $\hat{\Delta}^{L}_{A}$ has rank at most 2$k$ and that $\hat{\Delta}^{S}_{M}$ lies in the model space $\mathbb{M}$, we find that
 \begin{align}
     \delta\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) 
     \leq \sqrt{2k}\delta\|\hat{\Delta}^L_{A}\|_{F} + \Psi(\mathbb{M})\gamma\|\hat{\Delta}^S_\mathbb{M}\|_{F}\\
-    \leq \sqrt{2k}\delta\|\hat{\Delta}^L\|_{F} + \Psi(\mathbb{M})\gamma\|\hat{\Delta}^S\|_{F}
+    \leq \sqrt{2k}\delta\|\hat{\Delta}^L\|_{F} + \Psi(\mathbb{M})\gamma\|\hat{\Delta}^S\|_{F} \label{eq:44}
 \end{align}
 
-Our goal is to get the non-asymptotic error bound between optimal estimator and ground truth parameter,
-\[
-    \|\alpha^*-\hat{\alpha}\|_{F}^{2} + 
-    \|M^*-\hat{M}\|_{F}^{2} +
-    \|S^*-\hat{S}\|_{F}^{2} \leq  ?
-\]
-I am stuck at how to reorganize the terms in 
+Plug (\ref{eq:44}) in (\ref{eq:42}) and rearrange the terms,
+\begin{align}
+    \bigg\{\frac{\tau}{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} -
+    \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\|_{F}\bigg\} + 
+    \bigg\{\frac{\tau}{2} \|\hat{\Delta}^{L}\|_{F}^{2}
+    -\frac{7}{2}\sqrt{2k}\delta\|\hat{\Delta}^{L}\|_{F}\bigg\} +
+    \bigg\{\frac{\tau}{2}\|\hat{\Delta}^{S}\|_{F}^{2} - 
+    \frac{7}{2}\Psi(\mathbb{M})\gamma\|\hat{\Delta}^S\|_{F}\bigg\}\\
+    \leq 4 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 4\gamma \|S^*_{M^\perp}\|_{1} \label{eq:46}
+\end{align}
+
+Rearrange the term (\ref{eq:46}) again, and yields the claim,
+\begin{align}
+    \bigg\{\|\hat{\Delta}^{\alpha}\|_{F}-\frac{\delta}{2\tau} \bigg\}^{2} + \bigg\{\|\hat{\Delta}^{L}\|_{F}-\frac{7\delta}{2\tau}\sqrt{2k}\bigg\}^{2} + \bigg\{\|\hat{\Delta}^{S}\|_{F}-\frac{7\delta}{2\tau}\Psi(\mathbb{M})\bigg\}^{2} \\
+    \leq \frac{\delta^{2}}{4\tau^{2}} + \bigg\{\frac{8\delta}{\tau}\sum_{j=r+1}^{n}\sigma_{j}(L^{*}) + 
+    \frac{49\delta^{2}}{4\tau^{2}}(2k)\bigg\} +
+    \bigg\{\frac{8\gamma}{\tau}\|S^*_{M^\perp}\|_{1} + 
+    \frac{49\gamma^{2}}{4\tau^{2}}\Psi^{2}(\mathbb{M})\bigg\}
+\end{align}
+\end{proof}
 
 \begin{landscape}
 \begin{table}[t]

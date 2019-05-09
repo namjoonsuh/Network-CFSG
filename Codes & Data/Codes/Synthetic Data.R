@@ -8,7 +8,7 @@ source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
 #################### data generation N = 30, K = 3, NNZ = 10 ####################
 set.seed(1234)
-par(mfrow=c(1,3))
+par(mfrow=c(1,5))
 N = 30; K = 3; NNZ = 10;
 ### Ingredients for creating network : alpha, F, D, S                      
 ### Generate alpha from random uniform distribution

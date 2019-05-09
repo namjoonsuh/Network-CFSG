@@ -20,6 +20,7 @@ GD <- function(para_v){
   grad <- rep(0,(N^2+1))
   g <- matrix(0,N,N)
   K = (-1/N)*sum(X[upper.tri(X,diag=FALSE)])
+  #K = (-1/N)*sum(X)
   P = Z_a-U_a; Q = Z_M-U_M;
   
   while(TRUE){
@@ -27,17 +28,19 @@ GD <- function(para_v){
     
     # Compute the alpha : gradient/hessian
     grad[1] = ( K + (1/N)*sum(A[upper.tri(A,diag=FALSE)]) + (1/lambda)*(X_a-P) )
+    # grad[1] = ( K + (1/N)*sum(A) + (1/lambda)*(X_a-P) )
     
     # Compute the Gradient of M && Compute the Hessian of M
     g = (-1/(2*N))*X + (1/lambda)*(X_M-Q)
     g[upper.tri(g,diag = FALSE)] = g[upper.tri(g,diag = FALSE)] + (1/N)*A[upper.tri(A,diag=FALSE)]
+    #g = (-1/N)*X + (1/lambda)*(X_M-Q) + (1/N)*A
     grad[2:(N^2+1)] = as.vector(g)
     
     # Update the solution & Calculate the difference between objective function
     old_sol = c(X_a, X_M)
     new_sol = old_sol - 0.1*grad
     CC<-max(abs(grad))
-    #print(CC)      
+    # print(CC)
     # Convergence Criteria
     if(CC < 10^-9){
       X_a <- new_sol[1]
