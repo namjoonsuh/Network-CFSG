@@ -517,11 +517,51 @@ As an alternative, we choose a purely heuristic approach.
 Following the Ji and Jin \cite{ji2016coauthorship}, we plot the largest 20 eigenvalues of adjacency matrix X, which can tell us the numbers of communities embedded in network. 
 Then, we record the rank of L and number of non-zero elements in S for each tuning parameter pair on grid, and choose proper pair of tuning parameters which can give us interesting interpretation of data. \\
 
+One might wonder how traditional model selection methods, such as the Bayes Information Criterion (BIC;\cite{schwarz1978estimating}) or the AIC, where
+\[
+\mbox{BIC}(M) = -2  \mathbb{L}_n( \hat{\beta}(M)) + |M| \log \frac{n(n-1)}{2},
+\]
+and
+\[
+\mbox{AIC}(M) = -2  \mathbb{L}_n( \hat{\beta}(M)) + 2|M|,
+\]
+
+where $M$ is the current model,
+$\mathbb{L}_n( \hat{\beta}(M))$ is the maximal log-likelihood for a given model $M$,
+and $|M|$ is the number of free parameters in $M$, which is determined by the number of non-zeros in $S$ and the low-rank matrix $L$.
+If rank$(L)=K$, we can establish the following
+\[
+|M| = \sum_{i < j}1_{\{S_{ij} > 0\}} + n K - \frac{K(K-1)}{2} + 1
+\]
+Because the number of free parameters in $L$ is $K$ plus $nk - K(K+1)/2$, which is the number of free parameters in determining $K$ orth-normal vectors. 
+Additionally 1 in last is due to $\alpha$.
+We want to find a M which minimizes BIC($M$) or AIC($M$) as a function of M. 
+However these traditional methods seem to entail a serious problem. 
+The assumptions used to derive BIC or AIC are not satisfied here, since each edges in a graph are not identically distributed.
+Our experience shows that both BIC and AIC tend to choose the most parsimonious model with the smallest K and no ad-hoc dependency among all the estimated ($\hat{L}$,$\hat{S}$) with a pair of tuning parameters from given range of grid. 
+We evaluate the model selected  
+with following three evaluation metrics.
+Table \ref{tab:table1}
+
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{Fig1.pdf}
 \caption{\it After fitting the model, result of application of $k$-means algorithm on first $K$ eigenvectors of $\hat{L}$ matrix. (Different color represents different clusters of nodes $k$-means assign for three synthetic settings.) }
 \label{fig:figure1}
 \end{figure}
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|ccc|ccc|ccc}
+   & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\ \cline{2-10} 
+   & SC        & AIC    & BIC    & SC        & AIC    & BIC    & SC        & AIC    & BIC   \\ \hline
+M1 & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0      & 0     \\
+M2 & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
+M3 & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0    
+\end{tabular}
+\caption{}
+\label{tab:table1}
+\end{table}
 
 
 \noindent \textbf{Community memberships of each nodes} Given a network data, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to topic $k$. 
