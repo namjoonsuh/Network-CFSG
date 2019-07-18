@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.1)  24 JUN 2019 12:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.1)  18 JUL 2019 16:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -907,37 +907,37 @@ LaTeX Warning: Unused global option(s):
 (./manuscript.aux)
 \openout1 = `manuscript.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 21.
-LaTeX Font Info:    Try loading font information for LS1+stix on input line 21.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 33.
+LaTeX Font Info:    Try loading font information for LS1+stix on input line 33.
 
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stix.fd
 File: ls1stix.fd 2015/04/17 v1.1.2-latex STIX LS1 font definitions
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 21.
-LaTeX Font Info:    Try loading font information for LS2+stix on input line 21.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 33.
+LaTeX Font Info:    Try loading font information for LS2+stix on input line 33.
 
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stix.fd
 File: ls2stix.fd 2015/04/17 v1.1.2-latex STIX LS2 font definitions
 )
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Try loading font information for T1+stix on input line 21.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Try loading font information for T1+stix on input line 33.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/t1stix.fd
 File: t1stix.fd 2015/04/17 v1.1.2-latex STIX T1 font definitions
@@ -982,7 +982,7 @@ Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box86
-Package hyperref Info: Link coloring OFF on input line 21.
+Package hyperref Info: Link coloring OFF on input line 33.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -993,9 +993,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count353
 )
-LaTeX Info: Redefining \ref on input line 21.
-LaTeX Info: Redefining \pageref on input line 21.
-LaTeX Info: Redefining \nameref on input line 21.
+LaTeX Info: Redefining \ref on input line 33.
+LaTeX Info: Redefining \pageref on input line 33.
+LaTeX Info: Redefining \nameref on input line 33.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1035,69 +1035,69 @@ LaTeX Info: Redefining \nameref on input line 21.
 
 \c@lstlisting=\count354
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <9> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 56.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <18> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 56.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 68.
 LaTeX Font Info:    Try loading font information for LS1+stixscr on input line 
-56.
+68.
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixscr.fd
 File: ls1stixscr.fd 2015/04/17 v1.1.2-latex STIX script LS1 font definitions
 )
-LaTeX Font Info:    Try loading font information for LS2+stixex on input line 5
-6.
+LaTeX Font Info:    Try loading font information for LS2+stixex on input line 6
+8.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stixex.fd
 File: ls2stixex.fd 2015/04/17 v1.1.2-latex STIX extentions LS2 font definitions
 
 )
 LaTeX Font Info:    Try loading font information for LS1+stixfrak on input line
- 56.
+ 68.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixfrak.fd
 File: ls1stixfrak.fd 2015/04/17 v1.1.2-latex STIX fraktur LS1 font definitions
 )
-LaTeX Font Info:    Try loading font information for LS1+stixbb on input line 5
-6.
+LaTeX Font Info:    Try loading font information for LS1+stixbb on input line 6
+8.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixbb.fd
 File: ls1stixbb.fd 2015/04/17 v1.1.2-latex STIX blackboard LS1 font definitions
 
 )
 LaTeX Font Info:    Try loading font information for LS2+stixcal on input line 
-56.
+68.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stixcal.fd
 File: ls2stixcal.fd 2015/04/17 v1.1.2-latex STIX calligraphic LS2 font definiti
 ons
 )
-LaTeX Font Info:    Try loading font information for LS1+stixsf on input line 5
-6.
+LaTeX Font Info:    Try loading font information for LS1+stixsf on input line 6
+8.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixsf.fd
 File: ls1stixsf.fd 2015/04/17 v1.1.2-latex STIX sans-serif LS1 font definitions
 
 )
-LaTeX Font Info:    Try loading font information for LS2+stixtt on input line 5
-6.
+LaTeX Font Info:    Try loading font information for LS2+stixtt on input line 6
+8.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stixtt.fd
 File: ls2stixtt.fd 2015/04/17 v1.1.2-latex STIX typewriter LS2 font definitions
 
 )
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <8> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 56.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <10> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 56.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 68.
 
-Overfull \hbox (346.99213pt too wide) in paragraph at lines 56--56
+Overfull \hbox (346.99213pt too wide) in paragraph at lines 68--68
 [][] | || []|[][] 
  []
 
-LaTeX Font Info:    Calculating math sizes for size <10.03749> on input line 56
+LaTeX Font Info:    Calculating math sizes for size <10.03749> on input line 68
 .
-LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 58.
+LaTeX Font Info:    Calculating math sizes for size <7.5> on input line 70.
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <7.5> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 58.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 70.
 
 Overfull \vbox (6.46347pt too high) has occurred while \output is active []
 
@@ -1109,30 +1109,30 @@ Overfull \vbox (6.46347pt too high) has occurred while \output is active []
 
 ]
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <7> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 140.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 152.
  [2] [3]
-LaTeX Font Info:    Try loading font information for U+bbm on input line 214.
+LaTeX Font Info:    Try loading font information for U+bbm on input line 226.
 
 (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <12> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 285.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 297.
 
 [4]
-LaTeX Font Info:    Try loading font information for OMS+stix on input line 308
+LaTeX Font Info:    Try loading font information for OMS+stix on input line 320
 .
-LaTeX Font Info:    No file OMSstix.fd. on input line 308.
+LaTeX Font Info:    No file OMSstix.fd. on input line 320.
 
 
 LaTeX Font Warning: Font shape `OMS/stix/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 308.
+(Font)              for symbol `textbullet' on input line 320.
 
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <10.03749> not available
-(Font)              Font shape `T1/stix/b/n' tried instead on input line 337.
+(Font)              Font shape `T1/stix/b/n' tried instead on input line 349.
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 488--490
+Underfull \hbox (badness 10000) in paragraph at lines 500--502
 
  []
 
@@ -1140,7 +1140,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 488--490
 <Fig1.pdf, id=120, 547.04375pt x 236.885pt>
 File: Fig1.pdf Graphic file (type pdf)
 <use Fig1.pdf>
-Package pdftex.def Info: Fig1.pdf  used on input line 532.
+Package pdftex.def Info: Fig1.pdf  used on input line 544.
 (pdftex.def)             Requested size: 507.50787pt x 219.76581pt.
  [7]
 
@@ -1149,15 +1149,15 @@ n <1.6>, but at most version <1.5> allowed
 <Fig2.pdf, id=131, 485.72005pt x 173.61562pt>
 File: Fig2.pdf Graphic file (type pdf)
 <use Fig2.pdf>
-Package pdftex.def Info: Fig2.pdf  used on input line 598.
+Package pdftex.def Info: Fig2.pdf  used on input line 610.
 (pdftex.def)             Requested size: 364.28914pt x 130.21138pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 606--609
+Underfull \hbox (badness 10000) in paragraph at lines 618--621
 
  []
 
 [8 <./Fig1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 610--615
+Underfull \hbox (badness 10000) in paragraph at lines 622--627
 
  []
 
@@ -1169,12 +1169,12 @@ Package epstopdf Info: Source file: <Fig4.eps>
 (epstopdf)                    size: 9108 bytes
 (epstopdf)             Command: <repstopdf --outfile=Fig4-eps-converted-to.pdf 
 Fig4.eps>
-(epstopdf)             \includegraphics on input line 642.
+(epstopdf)             \includegraphics on input line 654.
 Package epstopdf Info: Output file is already uptodate.
 <Fig4-eps-converted-to.pdf, id=146, 754.82pt x 264.99pt>
 File: Fig4-eps-converted-to.pdf Graphic file (type pdf)
 <use Fig4-eps-converted-to.pdf>
-Package pdftex.def Info: Fig4-eps-converted-to.pdf  used on input line 642.
+Package pdftex.def Info: Fig4-eps-converted-to.pdf  used on input line 654.
 (pdftex.def)             Requested size: 507.50787pt x 178.16505pt.
 [9 <./Fig2.pdf>]
 Package epstopdf Info: Source file: <Fig3.eps>
@@ -1185,79 +1185,85 @@ Package epstopdf Info: Source file: <Fig3.eps>
 (epstopdf)                    size: 28064 bytes
 (epstopdf)             Command: <repstopdf --outfile=Fig3-eps-converted-to.pdf 
 Fig3.eps>
-(epstopdf)             \includegraphics on input line 676.
+(epstopdf)             \includegraphics on input line 688.
 Package epstopdf Info: Output file is already uptodate.
 <Fig3-eps-converted-to.pdf, id=159, 700.6175pt x 293.095pt>
 File: Fig3-eps-converted-to.pdf Graphic file (type pdf)
 <use Fig3-eps-converted-to.pdf>
-Package pdftex.def Info: Fig3-eps-converted-to.pdf  used on input line 676.
+Package pdftex.def Info: Fig3-eps-converted-to.pdf  used on input line 688.
 (pdftex.def)             Requested size: 507.50787pt x 212.31624pt.
  [10 <./Fig4-eps-converted-to.pdf>]
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 716.
+(amsmath)                 on input line 726.
 
-[11 <./Fig3-eps-converted-to.pdf>] [12] [13] [14]
+[11 <./Fig3-eps-converted-to.pdf>]
+LaTeX Font Info:    Font shape `T1/stix/bx/it' in size <10.03749> not available
+
+(Font)              Font shape `T1/stix/b/it' tried instead on input line 795.
+ [12] [13] [14] [15]
 Overfull \hbox (161.28818pt too wide) has occurred while \output is active
 []
  []
 
-[15] (./manuscript.bbl
+[16] (./manuscript.bbl
 
 LaTeX Font Warning: Font shape `OMS/stix/m/it' undefined
 (Font)              using `OMS/stix/m/n' instead on input line 22.
 
 )
-Overfull \hbox (13.0pt too wide) in paragraph at lines 953--953
+Overfull \hbox (13.0pt too wide) in paragraph at lines 1023--1023
 [] [] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 953.
-[16
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1023.
+[17
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 953.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1023.
  (./manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 953.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 953.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1023.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1023.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 953.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1023.
  ) 
 Here is how much of TeX's memory you used:
- 15311 strings out of 492639
- 220295 string characters out of 6123568
- 334952 words of memory out of 5000000
- 18831 multiletter control sequences out of 15000+600000
- 132109 words of font info for 163 fonts, out of 8000000 for 9000
+ 15327 strings out of 492639
+ 220486 string characters out of 6123568
+ 333702 words of memory out of 5000000
+ 18839 multiletter control sequences out of 15000+600000
+ 134868 words of font info for 164 fonts, out of 8000000 for 9000
  1167 hyphenation exceptions out of 8191
- 43i,12n,40p,992b,413s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,19n,40p,992b,413s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/namjo/.texlive2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm7.600pk
-> <c:/Users/namjo/.texlive2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600pk
 >{c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/enc/dvips/stix/stix-t1.e
-nc}<c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/STIX
+nc} <c:/Users/namjo/.texlive2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600
+pk><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/STIX
 General-Bold.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/pu
-blic/stix/STIXGeneral-Italic.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dis
-t/fonts/type1/public/stix/STIXGeneral-Regular.pfb><c:/Users/namjo/Desktop/texli
-ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/namjo/De
-sktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathbb.pfb><c:/Users
-/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathcal.pfb
-><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-m
-athex.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/st
-ix/stix-mathfrak.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type
-1/public/stix/stix-mathit.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/f
-onts/type1/public/stix/stix-mathrm-bold.pfb><c:/Users/namjo/Desktop/texlive/201
-8/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb><c:/Users/namjo/Desktop/te
-xlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathscr.pfb><c:/Users/namjo/
-Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathsf.pfb>
-Output written on manuscript.pdf (16 pages, 357879 bytes).
+blic/stix/STIXGeneral-BoldItalic.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf
+-dist/fonts/type1/public/stix/STIXGeneral-Italic.pfb><c:/Users/namjo/Desktop/te
+xlive/2018/texmf-dist/fonts/type1/public/stix/STIXGeneral-Regular.pfb><c:/Users
+/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-
+mathbb.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/s
+tix/stix-mathcal.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type
+1/public/stix/stix-mathex.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/f
+onts/type1/public/stix/stix-mathfrak.pfb><c:/Users/namjo/Desktop/texlive/2018/t
+exmf-dist/fonts/type1/public/stix/stix-mathit.pfb><c:/Users/namjo/Desktop/texli
+ve/2018/texmf-dist/fonts/type1/public/stix/stix-mathrm-bold.pfb><c:/Users/namjo
+/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb><c:/Us
+ers/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathscr.
+pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/sti
+x-mathsf.pfb>
+Output written on manuscript.pdf (17 pages, 392762 bytes).
 PDF statistics:
- 366 PDF objects out of 1000 (max. 8388607)
- 319 compressed objects within 4 object streams
- 83 named destinations out of 1000 (max. 500000)
- 125 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 397 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -7,6 +7,18 @@
 \usepackage{lscape}
 %\usepackage[nottoc,notlot,notlof]{tocbibind}
 
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{condition}[theorem]{Condition}
+%\newtheorem{assumption}[theorem]{Assumption}
+%\newtheorem{property}[theorem]{Property}
+%\newtheorem{result}[theorem]{Result}
+%\newtheorem{example}[theorem]{Example}
+
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
@@ -708,10 +720,8 @@ For example, in $Fig 4 (a)$, we can see that bunch of Multiple Testing papers ar
 This is probably because $k$-means does not allow overlapping membership of each nodes.
 It would be interesting to see what happens if we apply some clustering methods which allow the overlapped memberships of nodes in network.
 
-\section{ On non-asymptotic error bound of the estimator }
-In this section, we focus on investigating the behaviour of non-asymptotic error bound of our estimator in the context where the sample size is fixed as 1, and the number of variables in model is explicitly tracked.
-We are interested in solving following optimization problem :
-
+\section{Auxiliary result on non-asymptotic error bound of the estimator}
+In this section, we focus on investigating the behaviour of non-asymptotic error bound of our estimator in the context where the sample size is fixed as 1, and the number of variables in model is explicitly tracked. We are interested in solving following optimization problem :
 \begin{equation}\label{eq:1}
 \min\limits_{\alpha \in R, S = S^T \atop L \succ 0}   
 -\frac{1}{n} \log \prod_{1\le i,j\le n}\frac{exp\left(X_{ij}\left(\alpha+
@@ -746,10 +756,10 @@ To ensure the identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, we assu
 
 With these assumptions we present the behavior of non-asymptotic error bound of our estimator through following theorem. In our result, we measure error using squared Frobenius norm summed across three matrices:
 \[
-    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}):=\|\widehat{\Delta}^{\alpha\mathbbm{1}\mathbbm{1}^T}\|_{F}^{2} + \|\widehat{\Delta}^{L}\|_{F}^{2} + \|\widehat{\Delta}^{S}\|_{F}^{2}
+    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}):=\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \|\widehat{\Delta}^{L}\|_{F}^{2} + \|\widehat{\Delta}^{S}\|_{F}^{2}
 \]
 
-\begin{theorem}
+\begin{theorem} \label{Th:th1}
 Under the assumptions \ref{Ass:1} and \ref{Ass:2},
 if we solve the convex problem (\ref{eq:1}) with a pair of regularization parameter $(\delta,\gamma)$ satisfying 
 \begin{align}
@@ -758,15 +768,38 @@ if we solve the convex problem (\ref{eq:1}) with a pair of regularization parame
 There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$ and $s = 1,2,...,n^{2}$, we have following upper bound on $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$
 \begin{align}
     e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \leq
-    c_{1}\frac{\delta^{2}}{\tau^{2}} +
-    c_{2}\frac{\delta^{2}}{\tau^{2}}
-    \bigg\{k + \frac{\tau}{\delta}\sum_{j=k+1}^{n}\sigma_{j}(L^{*})\bigg\} +
-    c_{3}\frac{\gamma^{2}}{\tau^{2}}
-    \bigg\{s + \frac{\tau}{\gamma}\sum_{(i,j) \notin \mathbb{M}}|S^*_{ij}|\bigg\}
+    \underbrace{c_{1}\frac{\delta^{2}}{\tau^{2}}}
+    _{\mathcal{K}_{\alpha^*}} +
+    \underbrace{c_{2}\frac{\delta^{2}}{\tau^{2}}
+    \bigg\{k + \frac{\tau}{\delta}\sum_{j=k+1}^{n}\sigma_{j}(L^{*})\bigg\}}_{\mathcal{K}_{L^*}} +
+    \underbrace{c_{3}\frac{\gamma^{2}}{\tau^{2}}
+    \bigg\{s + \frac{\tau}{\gamma}\sum_{(i,j) \notin \mathbb{M}}|S^*_{ij}|\bigg\}}_{\mathcal{K}_{S^*}}
 \end{align}
 where $\mathbb{M}$ is an arbitrary subset of matrix indices of cardinality at most s.
 \end{theorem}
 
+Our result provides the upper-bound on non-asymptotic Frobenius norm between estimator $\hat{\alpha}\mathbbm{1}\mathbbm{1}^T$, $\widehat{L}$ and $\widehat{S}$, and ground truth $\alpha^*\mathbbm{1}\mathbbm{1}^T$, $L^*$ and $S^*$, where matrices $L^*$ that can be either approximately or exactly low rank, and matrices $S^*$ that also can be either approximately or exactly sparse. 
+A close observation on terms in upper-bound reveals that error bounds associated with $\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2}$, $\|\widehat{\Delta}^{L}\|_{F}^{2}$, and $\|\widehat{\Delta}^{S}\|_{F}^{2}$ are represented in the form of $\mathcal{K}_{\alpha^*}$, $\mathcal{K}_{L^*}$, and $\mathcal{K}_{S^*}$ respectively.
+More specifically, terms $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ are comprised of two types of errors, \emph{Estimation error} and \emph{Approximation error}. ''\emph{Estimation error}'' represents statistical cost of estimating a parameter belong to the model subspace $\mathbb{M}$  
+
+This result helps us to understand the behavior of our proposed estimator both in practice and in ideal cases.
+In real-world, large scale citation network analysis, it is difficult to expect exactly $k(\ll n)$ number of topics embedded in network. There must be 
+
+
+Specifically, when $L^*$ is an exact low rank matrix with rank $k$ (i.e., $rank(L^*)=k$) and $S^*$ is a sparse matrix, which lies within model subspace $\mathbb{M}$ (i.e., $|supp(S^*)|=s$), then we have Frobenius error bound as follows:
+\[
+    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \lesssim (\delta^2+1)k+\gamma^2s
+\]
+
+
+\emph{\textbf{Comparison to Agarwal et al, \cite{agarwal2012noisy}}}
+We would like to refer readers that result presented in \textbf{Theorem \ref{Th:th1}} is similar with that of Theorem 1 presented in paper \cite{agarwal2012noisy}. 
+However, it should be noted that the convex program we consider is distinct from \cite{agarwal2012noisy}.
+\cite{agarwal2012noisy} considers matrix decomposition problem, where the observations are noisy realization of linear transformation $\Xi$ of the sum of (approximately) low rank and (approximately) sparse matrices. 
+They used the notions of Restricted Strong Convexity of quadratic loss function and decomposable regularizer to prove their claims. In our work, we consider a convex problem, whose logistic loss 
+For the completeness of paper, we provide the proof of theorem in appendix section.
+
+\section{Appendix}
 \begin{proof}
 Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal and feasible (respectively) for the convex program (\ref{eq:1}), we have
 \begin{equation}\label{eq:2}
@@ -783,7 +816,7 @@ h(\widehat{\Theta})-h(\Theta^{*}) \geq
 By rearranging the term in (\ref{eq:2}) and plugging in above inequality relation, we get:
 
 \begin{equation}\label{eq:3}
-    \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2} \leq 
+    \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2} \leq
     -\langle\,\nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\
     + \delta \|L^{*}\|_\ast + \gamma \|S^{*}\|_1 
     - \delta \|\widehat{L}\|_\ast - \gamma \|\widehat{S}\|_1
@@ -795,7 +828,7 @@ Here, we introduce another notation, for any pair of positive tuning parameters 
 \]
 Through the definition of $\mathbb{Q}$, we can rewrite (\ref{eq:3}) as follows:
 \begin{equation}\label{eq:4}
-    \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2} \leq 
+    \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2} \leq
     -\langle\,\nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\
     + \delta \mathbb{Q}(L^{*},S^{*}) - \delta \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})
 \end{equation}
@@ -812,21 +845,20 @@ First, we want to control upper bound of the term $-\langle\,\nabla_{\Theta}h(\T
 in (\ref{eq:4}).
 \begin{align}
 -\langle\,\nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*} \rangle\  \nonumber
-&=\langle\, \frac{1}{n} (X - P), \widehat\Delta^{\alpha\mathbbm{1}\mathbbm{1}^T} + \widehat\Delta^{L} + \widehat\Delta^{S} \rangle\ \\ \nonumber
-&\leq \frac{1}{n} \|X - P\|_{op}(\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \\ \nonumber
-&\leq \frac{1}{n} \|X - P\|_{op}(\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) +
-\frac{1}{n} \|X - P\|_{\infty}(\|\widehat{\Delta}^{S}_{M}\|_{1} + 
-\|\widehat{\Delta}^{S}_{M^{\perp}}\|_{1}) \\ \nonumber
-&\leq \frac{\delta}{2}(n\|\hat{\Delta}^{\alpha}\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) + \frac{\gamma}{2}(\|\widehat{\Delta}^{S}_{M}\|_{1} + 
-\|\hat{\Delta}^{S}_{M^{\perp}}\|_{1}) \\ 
-&= \frac{\delta}{2}n\|\hat{\Delta}^{\alpha}\|_{F} +     \frac{\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + \frac{\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{B},\hat{\Delta}^S_{M^\perp})  \label{eq:10}
+&=\langle\, \frac{1}{n} (X - P^*), \widehat\Delta^{\alpha\mathbbm{1}\mathbbm{1}^T} + \widehat\Delta^{L} + \widehat\Delta^{S} \rangle\ \\ \nonumber
+&\leq \frac{1}{n} \|X - P^*\|_{op}(\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P^*\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \\ \nonumber
+&\leq \frac{1}{n} \|X - P^*\|_{op}(\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) +
+\frac{1}{n} \|X - P^*\|_{\infty}(\|\widehat{\Delta}^{S}_{M}\|_{1} + 
+\|\widehat{\Delta}^{S}_{M^{\perp}}\|_{1}) \\ 
+&\leq \frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) + \frac{\gamma}{2}(\|\widehat{\Delta}^{S}_{M}\|_{1} + 
+\|\hat{\Delta}^{S}_{M^{\perp}}\|_{1})  \label{eq:10}
 \end{align}
 
 Combining the inequalities (\ref{eq:5}) and (\ref{eq:10}), we can obtain the upper bound of RHS in (\ref{eq:4}) as follows:
 
 \begin{equation}
     \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2} \leq
-    \frac{\delta}{2}n\|\hat{\Delta}^{\alpha}\|_{F} + 
+    \frac{\delta}{2}\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + 
     \frac{3\delta}{2}\mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M})
     +2 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\gamma \|S^*_{M^\perp}\|_{1}
     \label{eq:11}
@@ -838,13 +870,10 @@ Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\hat{\D
 &= \|\widehat{\Theta}-\Theta^{*} \|_{F}^{2} \\ \nonumber
 &= \|\widehat\Delta^{\alpha\mathbbm{1}\mathbbm{1}^T} + \widehat\Delta^{L} + \widehat\Delta^{S}\|_{F}^{2} \\ \nonumber
 &= \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \|\widehat{\Delta}^{L}+\widehat{\Delta}^{S}\|_{F}^{2} + 
-2 \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ \\ \nonumber
+2 \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ \\ 
 &=  \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \|\widehat{\Delta}^{L}\|_{F}^{2} + \|\widehat{\Delta}^{S}\|_{F}^{2} + 
 2 \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ +
-2 \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\ \\ 
-&= n^{2}\|\hat{\Delta}^{\alpha}\|_{F}^{2} + \|\widehat{\Delta}^{L}\|_{F}^{2} + \|\widehat{\Delta}^{S}\|_{F}^{2} + 
-2 \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ +
-2 \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\ \label{eq:12}
+2 \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\  \label{eq:12}
 \end{align}
 
 We want to get the further lower bound on trace inner product terms, 
@@ -872,38 +901,79 @@ We can combine the inequality (\ref{eq:12}), (\ref{eq:13}) and (\ref{eq:14}). Th
 
 \begin{align}
     \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2}  \nonumber
-    &\geq \frac{\tau}{2} n^{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} 
+    &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} 
     - 2\kappa\tau(\frac{Cn+1}{n})\|\widehat{\Delta}^{S}\|_{1} \\ \nonumber
-    &\geq \frac{\tau}{2} n^{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} - \frac{\gamma}{2}\|\widehat{\Delta}^{S}\|_{1}\\
-    &\geq \frac{\tau}{2} n^{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} - \frac{\delta}{2} \mathbb{Q}(\widehat{\Delta}^L,\widehat{\Delta}^S) \label{eq:26}
+    &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} - \frac{\gamma}{2}\|\widehat{\Delta}^{S}\|_{1}\\
+    &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} - \frac{\delta}{2} \mathbb{Q}(\widehat{\Delta}^L,\widehat{\Delta}^S) \label{eq:26}
 \end{align}
 
 By combining the relations (\ref{eq:11}) and (\ref{eq:26}), applying triangular inequality, $\mathbb{Q}(\widehat{\Delta}^L,\widehat{\Delta}^S)\leq \mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) + \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^{\perp}})$, and rearranging the term, we can get following inequality, 
 \[
-    \frac{\tau}{2} n^{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} \\
-    \leq \frac{\delta}{2} n \|\hat{\Delta}^{\alpha}\|_{F} + 
+    \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} \\
+    \leq \frac{\delta}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + 
     2\mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) +  \frac{\delta}{2} \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}) + 
     2 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 2\gamma   
     \|S^{*}_{M^\perp}\|_{1}
 \]
 
-Further, by plugging in lemma 1 to get an upper bound on  $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we can rewrite the above inequality as follows: 
+Further, by plugging in Lemma 1 to get an upper bound on  $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we can rewrite the above inequality as follows:
 \begin{align}
-    \frac{\tau}{2} n^{2} \|\hat{\Delta}^{\alpha}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} -
-    \frac{\delta}{2} n \|\hat{\Delta}^{\alpha}\|_{F} 
+    \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} -
+    \frac{\delta}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} 
     \leq 
     \frac{7\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + 4 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 4\gamma \|S^*_{M^\perp}\|_{1}  \label{eq:42}
 \end{align}
 Noting that $\widehat{\Delta}^{L}_{A}$ has rank at most 2$k$ and that $\widehat{\Delta}^{S}_{M}$ lies in the model space $\mathbb{M}$, we find that
-\begin{align*}
+\begin{align}
+    \nonumber 
     \delta\mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) 
     \leq \sqrt{2k}\delta\|\widehat{\Delta}^L_{A}\|_{F} + \Psi(\mathbb{M})\gamma\|\widehat{\Delta}^S_\mathbb{M}\|_{F}\\
-    \leq \sqrt{2k}\delta\|\widehat{\Delta}^L\|_{F} + \Psi(\mathbb{M})\gamma\|\widehat{\Delta}^S\|_{F} 
-\end{align*}
-
-Substituting the above inequality into equation ($\ref{eq:42}$) and rearranging the term relevant with  $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$ yields the claim.
+    \leq \sqrt{2k}\delta\|\widehat{\Delta}^L\|_{F} + \Psi(\mathbb{M})\gamma\|\widehat{\Delta}^S\|_{F}  \label{eq:43}
+\end{align}
+Here $\Psi(\mathbb{M})$ measures the compatibility between Frobenius norm and component-wise $\ell_{1}$ regularizer, where $\mathbb{M}$ is an arbitrary subset of matrix indices of cardinality at most s. 
+\[
+    \Psi(\mathbb{M}):=\sup\limits_{U\in\mathbb{M},U\neq0}\frac{\|U\|_{1}}{\|U\|_{F}}
+\]
+Using Cauchy-Schwarz inequality, we can easily check the quantity $\Psi(\mathbb{M})$ is bounded by at most $\sqrt{s}$. Plugging in the relation ($\ref{eq:43}$) into ($\ref{eq:42}$) and rearranging the term relevant with  $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$ yield the claim.
 \end{proof}
 
+
+\subsection{Proof of Lemma 1}
+\begin{proof}
+Through the application of basic inequality by using optimality of $\widehat{\Theta}$ and feasibility of $\Theta^{*}$ to convex program (\ref{eq:1}), we have
+\begin{equation}
+    h(\widehat{\Theta}) - h(\Theta^{*})
+    \leq \delta \mathbb{Q}(L^{*},S^{*}) - \delta \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})
+\end{equation}
+By using convexity of $h(\Theta)$, we can write
+\begin{align}
+    h(\widehat{\Theta})-h(\Theta^{*}) &\geq 
+    \langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ \nonumber \\
+    &= - \langle\,\frac{1}{n} (X-P^{*}), \hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T + \widehat{\Delta}^{L} + \widehat{\Delta}^{S} \rangle\ \nonumber \\
+    &\geq -\frac{1}{n} \|X - P^*\|_{op}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P^*\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \nonumber \\ 
+    &\geq -\frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_F + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) - \frac{\delta}{2} (\|\widehat{\Delta}^{S}_{\mathbb{M}}\|_{1} + 
+    \|\widehat{\Delta}^{S}_{\mathbb{M^\perp}}\|_{1}) \label{eq:27}
+\end{align}
+
+One more round of application on Agarwal et al \cite{agarwal2012noisy}'s second element of lemma 1, 
+we can get an upper bound of difference $\mathbb{Q}(L^*,S^*)- \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})$ as follows:  
+
+\begin{equation} \label{eq:28}
+    \mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) - \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})
+    +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\|S^*_{M^\perp}\|_{1}
+\end{equation}
+
+By combining relations (\ref{eq:27}) and (\ref{eq:28}), we can get the upper bound of $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$ : 
+\begin{align*}
+    \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}) \leq 
+    \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + 
+    3\mathbb{Q}(\widehat{\Delta}^{L}_{A},\widehat{\Delta}^{S}_{M})+4 \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 4\frac{\gamma}{\delta}   
+    \|S^{*}_{M^\perp}\|_{1}
+\end{align*}
+
+
+
+\end{proof}
 
 \begin{landscape}
 \begin{table}[t]
