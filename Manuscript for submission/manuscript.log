@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.12.3)  19 JUL 2019 00:18
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2018.10.1)  18 JUL 2019 16:48
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -9,9 +13,15 @@ LaTeX2e <2018-04-01> patch level 5
 Document Class: WileyNJD-v2 2017/06/23 v0.2 Standard LaTeX document class for J
 ournal
 \job@temptoken=\toks14
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (c:/texlive/2018/texmf-dist/tex/latex/base/fleqn.clo
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/fleqn.clo
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: fleqn.clo 2016/12/29 v1.2a Standard LaTeX option (flush left equations)
 \mathindent=\dimen102
 Applying: [2015/01/01] Make \[ robust on input line 50.
@@ -21,7 +31,11 @@ Applying: [2015/01/01] Make \] robust on input line 74.
 LaTeX Info: Redefining \] on input line 75.
 Already applied: [0000/00/00] Make \] robust on input line 83.
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/base/size10.clo
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/size10.clo
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count80
@@ -36,6 +50,7 @@ File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen103
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/etex-pkg/etex.sty
 Package: etex 2016/08/01 v2.7 eTeX basic definition package (PEB,DPC)
 \et@xins=\count88
@@ -54,17 +69,45 @@ Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
 (c:/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 2016/08/01 v2.7 eTeX basic definition package (PEB,DPC)
+\et@xins=\count88
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics
+.cfg
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.d
+ef
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/tools/multicol.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/multicol.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: multicol 2018/04/20 v1.8s multicolumn formatting (FMi)
 \c@tracingmulticols=\count89
 \mult@box=\box26
@@ -113,14 +156,22 @@ Package: multicol 2018/04/20 v1.8s multicolumn formatting (FMi)
 \colbreak@box=\box51
 \mc@col@check@num=\count97
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/multirow/multirow.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/multirow/multirow.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: multirow 2018/08/03 v2.3 Span multiple rows of a table
 \multirow@colwidth=\skip45
 \multirow@cntb=\count98
 \multirow@dima=\skip46
 \bigstrutjot=\dimen115
+<<<<<<< HEAD
 )
 (c:/texlive/2018/texmf-dist/tex/latex/sttools/cuted.sty
+=======
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/sttools/cuted.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: cuted 2012/10/04 v1.5 Mixing onecolumn and twocolumn modes
 \At@ViperColsBreak=\toks16
 \v@aaa=\box52
@@ -135,6 +186,7 @@ Package: cuted 2012/10/04 v1.5 Mixing onecolumn and twocolumn modes
 \hold@viper=\box56
 \ht@viper=\dimen116
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
@@ -148,6 +200,20 @@ Package: changepage 2009/10/20 v1.0c check page and change page layout
 \cp@tempcnt=\count101
 )
 (c:/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/changepage/changepage
+.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count100
+\cp@tempcnt=\count101
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/calc.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count102
 \calc@Bcount=\count103
@@ -159,11 +225,19 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count104
 \calc@Cskip=\skip53
+<<<<<<< HEAD
 )
 (c:/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
 
 (c:/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cfg
+=======
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics-cfg/color.cf
+g
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -176,8 +250,12 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+<<<<<<< HEAD
 )
 (c:/texlive/2018/texmf-dist/tex/latex/float/float.sty
+=======
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/float/float.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count105
 \float@exts=\toks17
@@ -185,6 +263,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks18
 \@floatcapt=\box58
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/sttools/floatpag.sty
 Package: floatpag 2012/05/29 v1.1 Different pagestyles on float pages
 Package: floatpag 1999/04/29 FLOAT PAGESTYLE
@@ -193,6 +272,17 @@ Package: floatpag 1999/04/29 FLOAT PAGESTYLE
 Package: dblfloatfix 2012/12/31 v1.0a (JAW)
 
 (c:/texlive/2018/texmf-dist/tex/latex/base/fixltx2e.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/sttools/floatpag.sty
+Package: floatpag 2012/05/29 v1.1 Different pagestyles on float pages
+Package: floatpag 1999/04/29 FLOAT PAGESTYLE
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/dblfloatfix/dblfloatf
+ix.sty
+Package: dblfloatfix 2012/12/31 v1.0a (JAW)
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/fixltx2e.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
 Applying: [2015/01/01] Old fixltx2e package on input line 46.
 
@@ -205,10 +295,17 @@ Already applied: [0000/00/00] Old fixltx2e package on input line 53.
 )
 \@dblbotnum=\count106
 \c@dblbotnumber=\count107
+<<<<<<< HEAD
 ) (c:/texlive/2018/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 
 (c:/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+=======
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \c@r@tfl@t=\count108
@@ -217,7 +314,11 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \rot@float@box=\box59
 \rot@mess@toks=\toks19
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/tools/longtable.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/longtable.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \LTleft=\skip56
 \LTright=\skip57
@@ -235,7 +336,11 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \c@LT@chunks=\count113
 \LT@p@ftn=\toks20
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/generic/ulem/ulem.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/generic/ulem/ulem.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \UL@box=\box64
 \UL@hyphenbox=\box65
 \UL@skip=\skip60
@@ -247,11 +352,19 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 Package: ulem 2012/05/18
 \ULdepth=\dimen122
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks22
 )
 (c:/texlive/2018/texmf-dist/tex/latex/soul/soul.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks22
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/soul/soul.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@word=\toks23
 \SOUL@lasttoken=\toks24
@@ -263,11 +376,19 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@uldp=\dimen124
 \SOUL@ulht=\dimen125
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 
 (c:/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/05/01 v3.3-147 Customizing captions (AR)
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/05/27 v1.8a caption3 kernel (AR)
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package caption3 Info: TeX engine: e-TeX on input line 64.
 \captionmargin=\dimen126
 \captionmargin@=\dimen127
@@ -277,6 +398,7 @@ Package caption3 Info: TeX engine: e-TeX on input line 64.
 \caption@parindent=\dimen131
 \caption@hangindent=\dimen132
 )
+<<<<<<< HEAD
 \c@caption@flags=\count115
 \c@ContinuedFloat=\count116
 Package caption Info: float package is loaded.
@@ -295,6 +417,27 @@ Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 
 
 (c:/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+=======
+\c@ContinuedFloat=\count115
+Package caption Info: float package is loaded.
+Package caption Info: longtable package is loaded.
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
+)
+Package caption Info: rotating package is loaded.
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2018/09/30 v6.88a Hypertext links for LaTeX
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-hyp
+erref.sty
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/generic/oberdiek/hobsub-gen
+eric.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
@@ -334,6 +477,7 @@ Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
@@ -391,6 +535,68 @@ File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
 \c@bookmark@seq@number=\count126
 
 (c:/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/auxhook.sty
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.st
+y
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen133
+\Hy@linkcounter=\count116
+\Hy@pagecounter=\count117
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2018/09/30 v6.88a Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count118
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/latexconfig/hyperref.
+cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4535.
+Package hyperref Info: Link nesting OFF on input line 4540.
+Package hyperref Info: Hyper index ON on input line 4543.
+Package hyperref Info: Plain pages OFF on input line 4550.
+Package hyperref Info: Backreferencing OFF on input line 4555.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4788.
+\c@Hy@tempcnt=\count119
+LaTeX Info: Redefining \url on input line 5141.
+\XeTeXLinkMargin=\dimen134
+\Fld@menulength=\count120
+\Field@Width=\dimen135
+\Fld@charsize=\dimen136
+Package hyperref Info: Hyper figures OFF on input line 6396.
+Package hyperref Info: Link nesting OFF on input line 6401.
+Package hyperref Info: Hyper index ON on input line 6404.
+Package hyperref Info: backreferencing OFF on input line 6411.
+Package hyperref Info: Link coloring OFF on input line 6416.
+Package hyperref Info: Link coloring with OCG OFF on input line 6421.
+Package hyperref Info: PDF/A mode OFF on input line 6426.
+LaTeX Info: Redefining \ref on input line 6466.
+LaTeX Info: Redefining \pageref on input line 6470.
+\Hy@abspage=\count121
+\c@Item=\count122
+\c@Hfootnote=\count123
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2018/09/30 v6.88a Hyperref driver for pdfTeX
+\Fld@listcount=\count124
+\c@bookmark@seq@number=\count125
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/rerunfileche
+ck.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
@@ -399,6 +605,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 Package hyperref Info: Option `bookmarksopen' set `true' on input line 271.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/oberdiek/bookmark.sty
 Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
 
@@ -414,6 +621,24 @@ Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
 \FN@temptoken=\toks28
 \footnotemargin=\dimen137
 \c@pp@next@reset=\count128
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/bookmark.sty
+Package: bookmark 2016/05/17 v1.26 PDF bookmarks (HO)
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/bkm-pdftex.d
+ef
+File: bkm-pdftex.def 2016/05/17 v1.26 bookmark driver for pdfTeX (HO)
+\BKM@id=\count126
+))
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/twoopt.sty
+Package: twoopt 2016/05/16 v1.6 Definitions with two optional arguments (HO)
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/footmisc/footmisc.sty
+Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
+\FN@temptoken=\toks28
+\footnotemargin=\dimen137
+\c@pp@next@reset=\count127
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package footmisc Info: Declaring symbol style bringhurst on input line 855.
 Package footmisc Info: Declaring symbol style chicago on input line 863.
 Package footmisc Info: Declaring symbol style wiley on input line 872.
@@ -422,11 +647,18 @@ Package footmisc Info: Declaring symbol style lamport-robust on input line 883.
 Package footmisc Info: Declaring symbol style lamport* on input line 903.
 Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 .
+<<<<<<< HEAD
 )
 (c:/texlive/2018/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2016/02/03 v2.11b `tabularx' package (DPC)
 
 (c:/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+=======
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2016/02/03 v2.11b `tabularx' package (DPC)
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
 \col@sep=\dimen138
 \ar@mcellbox=\box67
@@ -441,7 +673,11 @@ Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
 \TX@old@col=\dimen142
 \TX@target=\dimen143
 \TX@delta=\dimen144
+<<<<<<< HEAD
 \TX@cols=\count129
+=======
+\TX@cols=\count128
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \TX@ftn=\toks30
 )
 \tfboxrule=\dimen145
@@ -458,6 +694,7 @@ Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
 \BXdim=\dimen152
 \BXgraybox=\box70
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box71
@@ -469,6 +706,18 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
 )
 (c:/texlive/2018/texmf-dist/tex/latex/stix/stix.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box71
+\sift@deathcycles=\count129
+\@vwid@loff=\dimen153
+\@vwid@roff=\dimen154
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/stix.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: stix 2018/04/17 v1.1.3-latex STIX fonts support package
 Now handling font encoding LS1 ...
 ... no UTF-8 mapping file for font encoding LS1
@@ -551,10 +800,17 @@ LaTeX Info: Redefining \vdots on input line 1518.
 LaTeX Info: Redefining \cdots on input line 1522.
 LaTeX Info: Redefining \not on input line 2144.
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
 
 (c:/texlive/2018/texmf-dist/tex/latex/base/t1enc.def
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/t1enc.def
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
@@ -571,11 +827,19 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 \abs@coli@hsize=\skip77
 \abs@colii@hsize=\skip78
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2018/04/16 v5.8 Page Geometry
 \Gm@cnth=\count131
 \Gm@cntv=\count132
 \c@Gm@tempcnt=\count133
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2018/04/16 v5.8 Page Geometry
+\Gm@cnth=\count130
+\Gm@cntv=\count131
+\c@Gm@tempcnt=\count132
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \Gm@bindingoffset=\dimen156
 \Gm@wd@mp=\dimen157
 \Gm@odd@mp=\dimen158
@@ -588,6 +852,7 @@ Package: geometry 2018/04/16 v5.8 Page Geometry
 )
 \parindentvalue=\dimen164
 \pageheight=\dimen165
+<<<<<<< HEAD
 \rulecount=\count134
 \leftcolrulepos=\dimen166
 \rightcolrulepos=\dimen167
@@ -596,12 +861,26 @@ Package: geometry 2018/04/16 v5.8 Page Geometry
 Package: showframe 2011/02/24 v0.1i showframe (new impl., RN)
 
 (c:/texlive/2018/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+=======
+\rulecount=\count133
+\leftcolrulepos=\dimen166
+\rightcolrulepos=\dimen167
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/eso-pic/showframe.sty
+Package: showframe 2011/02/24 v0.1i showframe (new impl., RN)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
 ))
 \artopleftskipdim=\dimen168
 \@xmlpage=\write3
+<<<<<<< HEAD
 \c@spagecounter=\count135
 \c@lpagecounter=\count136
+=======
+\c@spagecounter=\count134
+\c@lpagecounter=\count135
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 LaTeX Info: Redefining \rm on input line 1294.
 LaTeX Info: Redefining \sf on input line 1295.
 LaTeX Info: Redefining \tt on input line 1296.
@@ -611,6 +890,7 @@ LaTeX Info: Redefining \sl on input line 1299.
 LaTeX Info: Redefining \sc on input line 1300.
 LaTeX Info: Redefining \cal on input line 1301.
 LaTeX Info: Redefining \mit on input line 1302.
+<<<<<<< HEAD
 \aucount=\count137
 \corrauthcount=\count138
 \authfncnt=\count139
@@ -631,6 +911,28 @@ LaTeX Info: Redefining \mit on input line 1302.
 \commaJELinfocount=\count151
 \JELinfotempcount=\count152
 \tempJELinfocount=\count153
+=======
+\aucount=\count136
+\corrauthcount=\count137
+\authfncnt=\count138
+\authfnTmpCnt=\count139
+\aufootnotemark=\box72
+\authmarkbox=\box73
+\c@affn=\count140
+\addcount=\count141
+\emailcount=\count142
+\punctcount=\count143
+\foot@titlepage@raise@skip=\skip79
+\lastauthorcnt=\count144
+\fundinginfocount=\count145
+\commafundinginfocount=\count146
+\fundinginfotempcount=\count147
+\tempfundinginfocount=\count148
+\JELinfocount=\count149
+\commaJELinfocount=\count150
+\JELinfotempcount=\count151
+\tempJELinfocount=\count152
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \htftbox=\box74
 \ovsize=\dimen169
 \oovsize=\dimen170
@@ -647,20 +949,35 @@ Normal \dimen register pool exhausted, switching to extended pool.
 \abs@dimb=\dimen258
 \abs@dimc=\dimen259
 \adjtitleskip=\skip83
+<<<<<<< HEAD
 \c@chapter=\count154
 \secruleskip=\skip84
 \rhverticalsep=\skip85
 
 (c:/texlive/2018/texmf-dist/tex/latex/natbib/natbib.sty
+=======
+\c@chapter=\count153
+\secruleskip=\skip84
+\rhverticalsep=\skip85
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/natbib/natbib.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip86
 \bibsep=\skip87
 LaTeX Info: Redefining \cite on input line 694.
+<<<<<<< HEAD
 \c@NAT@ctr=\count155
 )
 \c@scheme=\count156
 
 (c:/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
+=======
+\c@NAT@ctr=\count154
+)
+\c@scheme=\count155
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \heavyrulewidth=\dimen260
 \lightrulewidth=\dimen261
@@ -672,6 +989,7 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \cmidrulesep=\dimen267
 \cmidrulekern=\dimen268
 \defaultaddspace=\dimen269
+<<<<<<< HEAD
 \@cmidla=\count157
 \@cmidlb=\count158
 \@aboverulesep=\dimen270
@@ -689,10 +1007,28 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2000/06/29 v2.01 AMS text
 
 (c:/texlive/2018/texmf-dist/tex/latex/amsmath/amsgen.sty
+=======
+\@cmidla=\count156
+\@cmidlb=\count157
+\@aboverulesep=\dimen270
+\@belowrulesep=\dimen271
+\@thisruleclass=\count158
+\@lastruleclass=\count159
+\@thisrulewidth=\dimen272
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip88
+For additional information on amsmath, use the `?' option.
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/amsmath/amsgen.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks32
 \ex@=\dimen273
 ))
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen274
@@ -707,6 +1043,22 @@ LaTeX Info: Redefining \frac on input line 213.
 LaTeX Info: Redefining \overline on input line 375.
 \classnum@=\count164
 \DOTSCASE@=\count165
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen274
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count160
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count161
+\leftroot@=\count162
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count163
+\DOTSCASE@=\count164
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 LaTeX Info: Redefining \ldots on input line 472.
 LaTeX Info: Redefining \dots on input line 475.
 \Mathstrutbox@=\box78
@@ -714,6 +1066,7 @@ LaTeX Info: Redefining \dots on input line 475.
 \big@size=\dimen275
 LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+<<<<<<< HEAD
 \macc@depth=\count166
 \c@MaxMatrixCols=\count167
 \dotsspace@=\muskip11
@@ -724,6 +1077,17 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \column@=\count171
 Normal \count register pool exhausted, switching to extended pool.
 \maxfields@=\count277
+=======
+\macc@depth=\count165
+\c@MaxMatrixCols=\count166
+\dotsspace@=\muskip11
+\c@parentequation=\count167
+\dspbrk@lvl=\count168
+\tag@help=\toks33
+\row@=\count169
+\column@=\count170
+\maxfields@=\count171
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \andhelp@=\toks34
 \eqnshift@=\dimen276
 \alignsep@=\dimen277
@@ -738,7 +1102,11 @@ Normal \count register pool exhausted, switching to extended pool.
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/amscls/amsthm.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/amscls/amsthm.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: amsthm 2017/10/31 v2.20.4
 \thm@style=\toks37
 \thm@bodyfont=\toks38
@@ -750,6 +1118,7 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@headsep=\skip93
 \dth@everypar=\toks42
 )
+<<<<<<< HEAD
 \c@theorem=\count278
 \c@construction=\count279
 \c@estimate=\count280
@@ -852,42 +1221,177 @@ File: listings.cfg 2018/09/02 1.7 listings configuration
 Package: listings 2018/09/02 1.7 (Carsten Heinz)
 
 (c:/texlive/2018/texmf-dist/tex/latex/base/alltt.sty
+=======
+Normal \count register pool exhausted, switching to extended pool.
+\c@theorem=\count277
+\c@construction=\count278
+\c@estimate=\count279
+\c@lemma=\count280
+\c@corollary=\count281
+\c@result=\count282
+\c@algth=\count283
+\c@proposition=\count284
+\c@hypothesis=\count285
+\c@experiment=\count286
+\c@LWrule=\count287
+\c@procedure=\count288
+\c@assertion=\count289
+\c@axiom=\count290
+\c@conjecture=\count291
+\c@criterion=\count292
+\c@reduction=\count293
+\c@sublemma=\count294
+\c@case=\count295
+\c@remark=\count296
+\c@notation=\count297
+\c@answer=\count298
+\c@base=\count299
+\c@claim=\count300
+\c@ccomment=\count301
+\c@subproof=\count302
+\c@conclusion=\count303
+\c@observation=\count304
+\c@subcase=\count305
+\c@step=\count306
+\c@summary=\count307
+\c@definition=\count308
+\c@condition=\count309
+\c@property=\count310
+\c@problem=\count311
+\c@fact=\count312
+\c@assumption=\count313
+\c@eexample=\count314
+\c@model=\count315
+\c@affirmation=\count316
+\c@application=\count317
+\c@convention=\count318
+\c@discussion=\count319
+\c@exercise=\count320
+\c@question=\count321
+\c@scholium=\count322
+\c@terminology=\count323
+\c@printcitcnt=\count324
+\c@@pps=\count325
+\c@@ppsavesec=\count326
+\c@@ppsaveapp=\count327
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/algorithms/algorithm.
+sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks43
+\c@algorithm=\count328
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/algorithmicx/algorith
+micx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count329
+\c@ALG@rem=\count330
+\c@ALG@nested=\count331
+\ALG@tlm=\skip94
+\ALG@thistlm=\skip95
+\c@ALG@Lnr=\count332
+\c@ALG@blocknr=\count333
+\c@ALG@storecount=\count334
+\c@ALG@tmpcounter=\count335
+\ALG@tmplength=\skip96
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/algorithmicx/algpseud
+ocode.sty
+Package: algpseudocode 
+
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count336
+\lst@gtempboxa=\box80
+\lst@token=\toks44
+\lst@length=\count337
+\lst@currlwidth=\dimen282
+\lst@column=\count338
+\lst@pos=\count339
+\lst@lostspace=\dimen283
+\lst@width=\dimen284
+\lst@newlines=\count340
+\lst@lineno=\count341
+\lst@maxwidth=\dimen285
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
+\c@lstnumber=\count342
+\lst@skipnumbers=\count343
+\lst@framebox=\box81
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2018/09/02 1.7 listings configuration
+))
+Package: listings 2018/09/02 1.7 (Carsten Heinz)
+ (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/base/alltt.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: alltt 1997/06/16 v2.0g defines alltt environment
 )
 \jnlcitationbox=\box82
 \jnlcithsize=\dimen286
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen287
 \WF@size=\dimen288
 \c@WF@wrappedlines=\count345
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen287
+\WF@size=\dimen288
+\c@WF@wrappedlines=\count344
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \WF@box=\box83
 \WF@everypar=\toks45
 Package: wrapfig 2003/01/31  v 3.6
 )
+<<<<<<< HEAD
 \wraplines=\count346
 \@authorfigbox=\box84
 \@authorfigboxdim=\skip97
 \biofigadjskip=\skip98
 )
 (c:/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
+=======
+\wraplines=\count345
+\@authorfigbox=\box84
+\@authorfigboxdim=\skip97
+\biofigadjskip=\skip98
+) (c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
 LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
 (Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
 LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
 (Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/mathtools/mathtools.sty
 Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
 
 (c:/texlive/2018/texmf-dist/tex/latex/mathtools/mhsetup.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/mathtools/mathtools.s
+ty
+Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/mathtools/mhsetup.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
 )
 LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+<<<<<<< HEAD
 \g_MT_multlinerow_int=\count347
+=======
+\g_MT_multlinerow_int=\count346
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \l_MT_multwidth_dim=\dimen289
 \origjot=\skip99
 \l_MT_shortvdotswithinadjustabove_dim=\dimen290
@@ -897,7 +1401,11 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \l_MT_above_shortintertext_sep=\dimen294
 \l_MT_below_shortintertext_sep=\dimen295
 )
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/graphics/lscape.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/graphics/lscape.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 
@@ -924,7 +1432,12 @@ LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 33.
 LaTeX Font Info:    Try loading font information for LS1+stix on input line 33.
 
+<<<<<<< HEAD
  (c:/texlive/2018/texmf-dist/tex/latex/stix/ls1stix.fd
+=======
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stix.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls1stix.fd 2015/04/17 v1.1.2-latex STIX LS1 font definitions
 )
 LaTeX Font Info:    ... okay on input line 33.
@@ -932,12 +1445,17 @@ LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 33.
 LaTeX Font Info:    Try loading font information for LS2+stix on input line 33.
 
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls2stix.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stix.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls2stix.fd 2015/04/17 v1.1.2-latex STIX LS2 font definitions
 )
 LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Try loading font information for T1+stix on input line 33.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/t1stix.fd
 File: t1stix.fd 2015/04/17 v1.1.2-latex STIX T1 font definitions
 )
@@ -958,6 +1476,31 @@ File: t1stix.fd 2015/04/17 v1.1.2-latex STIX T1 font definitions
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
 (c:/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/t1stix.fd
+File: t1stix.fd 2015/04/17 v1.1.2-latex STIX T1 font definitions
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.
+mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count347
+\scratchdimen=\dimen296
+\scratchbox=\box85
+\nofMPsegments=\count348
+\nofMParguments=\count349
+\everyMPshowfont=\toks46
+\MPscratchCnt=\count350
+\MPscratchDim=\dimen297
+\MPnumerator=\count351
+\makeMPintoPDFobject=\count352
+\everyMPtoPDFconversion=\toks47
+)
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-bas
+e.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -967,7 +1510,12 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-
+sys.cfg
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
@@ -979,6 +1527,7 @@ Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box86
 Package hyperref Info: Link coloring OFF on input line 33.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -986,6 +1535,16 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count354
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlest
+ring.sty
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count353
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 )
 LaTeX Info: Redefining \ref on input line 33.
 LaTeX Info: Redefining \pageref on input line 33.
@@ -1027,54 +1586,86 @@ LaTeX Info: Redefining \nameref on input line 33.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+<<<<<<< HEAD
 \c@lstlisting=\count355
+=======
+\c@lstlisting=\count354
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <9> not available
 (Font)              Font shape `T1/stix/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <18> not available
 (Font)              Font shape `T1/stix/b/n' tried instead on input line 68.
 LaTeX Font Info:    Try loading font information for LS1+stixscr on input line 
 68.
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls1stixscr.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixscr.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls1stixscr.fd 2015/04/17 v1.1.2-latex STIX script LS1 font definitions
 )
 LaTeX Font Info:    Try loading font information for LS2+stixex on input line 6
 8.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls2stixex.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stixex.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls2stixex.fd 2015/04/17 v1.1.2-latex STIX extentions LS2 font definitions
 
 )
 LaTeX Font Info:    Try loading font information for LS1+stixfrak on input line
  68.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls1stixfrak.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixfrak.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls1stixfrak.fd 2015/04/17 v1.1.2-latex STIX fraktur LS1 font definitions
 )
 LaTeX Font Info:    Try loading font information for LS1+stixbb on input line 6
 8.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls1stixbb.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixbb.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls1stixbb.fd 2015/04/17 v1.1.2-latex STIX blackboard LS1 font definitions
 
 )
 LaTeX Font Info:    Try loading font information for LS2+stixcal on input line 
 68.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls2stixcal.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stixcal.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls2stixcal.fd 2015/04/17 v1.1.2-latex STIX calligraphic LS2 font definiti
 ons
 )
 LaTeX Font Info:    Try loading font information for LS1+stixsf on input line 6
 8.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls1stixsf.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls1stixsf.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls1stixsf.fd 2015/04/17 v1.1.2-latex STIX sans-serif LS1 font definitions
 
 )
 LaTeX Font Info:    Try loading font information for LS2+stixtt on input line 6
 8.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/stix/ls2stixtt.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/stix/ls2stixtt.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ls2stixtt.fd 2015/04/17 v1.1.2-latex STIX typewriter LS2 font definitions
 
 )
@@ -1096,7 +1687,12 @@ LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <7.5> not available
 Overfull \vbox (6.46347pt too high) has occurred while \output is active []
 
 
+<<<<<<< HEAD
 [1{c:/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+=======
+[1{c:/Users/namjo/Desktop/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex
+.map}
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 
 \openout3 = `manuscript.pag'.
 
@@ -1106,12 +1702,21 @@ LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <7> not available
  [2] [3]
 LaTeX Font Info:    Try loading font information for U+bbm on input line 226.
 
+<<<<<<< HEAD
 (c:/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+=======
+(c:/Users/namjo/Desktop/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
 LaTeX Font Info:    Font shape `T1/stix/bx/n' in size <12> not available
 (Font)              Font shape `T1/stix/b/n' tried instead on input line 297.
+<<<<<<< HEAD
  [4]
+=======
+
+[4]
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 LaTeX Font Info:    Try loading font information for OMS+stix on input line 320
 .
 LaTeX Font Info:    No file OMSstix.fd. on input line 320.
@@ -1154,10 +1759,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 622--627
  []
 
 Package epstopdf Info: Source file: <Fig4.eps>
+<<<<<<< HEAD
 (epstopdf)                    date: 2019-07-19 00:06:11
 (epstopdf)                    size: 8719 bytes
 (epstopdf)             Output file: <Fig4-eps-converted-to.pdf>
 (epstopdf)                    date: 2019-07-19 00:06:11
+=======
+(epstopdf)                    date: 2019-06-22 12:59:27
+(epstopdf)                    size: 9109 bytes
+(epstopdf)             Output file: <Fig4-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-06-22 12:59:27
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 (epstopdf)                    size: 9108 bytes
 (epstopdf)             Command: <repstopdf --outfile=Fig4-eps-converted-to.pdf 
 Fig4.eps>
@@ -1170,10 +1782,17 @@ Package pdftex.def Info: Fig4-eps-converted-to.pdf  used on input line 654.
 (pdftex.def)             Requested size: 507.50787pt x 178.16505pt.
 [9 <./Fig2.pdf>]
 Package epstopdf Info: Source file: <Fig3.eps>
+<<<<<<< HEAD
 (epstopdf)                    date: 2019-07-19 00:06:11
 (epstopdf)                    size: 65780 bytes
 (epstopdf)             Output file: <Fig3-eps-converted-to.pdf>
 (epstopdf)                    date: 2019-07-19 00:06:11
+=======
+(epstopdf)                    date: 2019-06-22 12:59:27
+(epstopdf)                    size: 72188 bytes
+(epstopdf)             Output file: <Fig3-eps-converted-to.pdf>
+(epstopdf)                    date: 2019-06-22 12:59:27
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 (epstopdf)                    size: 28064 bytes
 (epstopdf)             Command: <repstopdf --outfile=Fig3-eps-converted-to.pdf 
 Fig3.eps>
@@ -1190,7 +1809,15 @@ Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 726.
 
+<<<<<<< HEAD
 [11 <./Fig3-eps-converted-to.pdf>] [12] [13] [14] [15]
+=======
+[11 <./Fig3-eps-converted-to.pdf>]
+LaTeX Font Info:    Font shape `T1/stix/bx/it' in size <10.03749> not available
+
+(Font)              Font shape `T1/stix/b/it' tried instead on input line 795.
+ [12] [13] [14] [15]
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 Overfull \hbox (161.28818pt too wide) has occurred while \output is active
 []
  []
@@ -1201,23 +1828,39 @@ LaTeX Font Warning: Font shape `OMS/stix/m/it' undefined
 (Font)              using `OMS/stix/m/n' instead on input line 22.
 
 )
+<<<<<<< HEAD
 Overfull \hbox (13.0pt too wide) in paragraph at lines 1032--1032
 [] [] 
  []
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1032.
+=======
+Overfull \hbox (13.0pt too wide) in paragraph at lines 1023--1023
+[] [] 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1023.
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 [17
 
 
 ]
+<<<<<<< HEAD
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 1032.
  (./manuscript.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1032.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1032.
+=======
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1023.
+ (./manuscript.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1023.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1023.
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+<<<<<<< HEAD
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1032.
  ) 
 Here is how much of TeX's memory you used:
@@ -1249,4 +1892,42 @@ PDF statistics:
  356 compressed objects within 4 object streams
  93 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
+=======
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1023.
+ ) 
+Here is how much of TeX's memory you used:
+ 15327 strings out of 492639
+ 220486 string characters out of 6123568
+ 333702 words of memory out of 5000000
+ 18839 multiletter control sequences out of 15000+600000
+ 134868 words of font info for 164 fonts, out of 8000000 for 9000
+ 1167 hyphenation exceptions out of 8191
+ 43i,19n,40p,992b,413s stack positions out of 5000i,500n,10000p,200000b,80000s
+ <c:/Users/namjo/.texlive2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm7.600pk
+>{c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/enc/dvips/stix/stix-t1.e
+nc} <c:/Users/namjo/.texlive2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.600
+pk><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/STIX
+General-Bold.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/pu
+blic/stix/STIXGeneral-BoldItalic.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf
+-dist/fonts/type1/public/stix/STIXGeneral-Italic.pfb><c:/Users/namjo/Desktop/te
+xlive/2018/texmf-dist/fonts/type1/public/stix/STIXGeneral-Regular.pfb><c:/Users
+/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-
+mathbb.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/s
+tix/stix-mathcal.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type
+1/public/stix/stix-mathex.pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/f
+onts/type1/public/stix/stix-mathfrak.pfb><c:/Users/namjo/Desktop/texlive/2018/t
+exmf-dist/fonts/type1/public/stix/stix-mathit.pfb><c:/Users/namjo/Desktop/texli
+ve/2018/texmf-dist/fonts/type1/public/stix/stix-mathrm-bold.pfb><c:/Users/namjo
+/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb><c:/Us
+ers/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/stix-mathscr.
+pfb><c:/Users/namjo/Desktop/texlive/2018/texmf-dist/fonts/type1/public/stix/sti
+x-mathsf.pfb>
+Output written on manuscript.pdf (17 pages, 392762 bytes).
+PDF statistics:
+ 397 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 

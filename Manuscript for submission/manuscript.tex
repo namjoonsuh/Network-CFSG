@@ -553,6 +553,7 @@ However these traditional methods seem to entail a serious problem.
 The assumptions used to derive BIC or AIC are not satisfied here, since each edges in a graph are not identically distributed.
 Our experience shows that both BIC and AIC choose the most parsimonious model with the smallest K and smallest cardinality of ad-hoc dependency among all the estimated ($\widehat{L}$,$\widehat{S}$) from a pair of tuning parameters over the given range of grid.
 We evaluate the models selected via our heuristic approach, BIC, and AIC by using following three evaluation metrics.
+<<<<<<< HEAD
 
 \begin{eqnarray*}
 M1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\} \\
@@ -566,6 +567,21 @@ and lastly $M3$ evaluates the false discovery rate.
 With properly selected tuning parameter, $M1$ will be 1, $M2$ will be close to 1, and $M3$ will get close to 0.
 Evaluated results of models selected via three criteria are presented in Table 1.
 
+=======
+
+\begin{eqnarray*}
+M1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\} \\
+M2 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}|} \\
+M3 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}|}
+\end{eqnarray*}
+
+$M1$ is a metric on whether selected model recovers true low rank structure of network,
+$M2$ evaluates the positive selection rate of sparse network structure,
+and lastly $M3$ evaluates the false discovery rate.
+With properly selected tuning parameter, $M1$ will be 1, $M2$ will be close to 1, and $M3$ will get close to 0.
+Evaluated results of models selected via three criteria are presented in Table 1.
+
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \begin{table}[htbp]
 \centering
 \begin{tabular}{c|ccc|ccc|ccc}
@@ -762,7 +778,11 @@ With these assumptions we present the behavior of non-asymptotic error bound of 
 \begin{theorem} \label{Th:th1}
 Under the assumptions \ref{Ass:1} and \ref{Ass:2},
 if we solve the convex problem (\ref{eq:1}) with a pair of regularization parameter $(\delta,\gamma)$ satisfying 
+<<<<<<< HEAD
 \begin{align} \label{eq:49}
+=======
+\begin{align}
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \delta \geq 2\|\frac{1}{n}(X-P^{*})\|_{op} \quad and \quad \gamma \geq 2\|\frac{1}{n}(X-P^{*})\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg)
 \end{align}
 There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$ and $s = 1,2,...,n^{2}$, we have following upper bound on $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$
@@ -778,6 +798,7 @@ There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,.
 where $\mathbb{M}$ is an arbitrary subset of matrix indices of cardinality at most s.
 \end{theorem}
 
+<<<<<<< HEAD
 We would first like to note readers that the result presented in \textbf{Theorem \ref{Th:th1}} can be thought of as an extension of Theorem 1 presented in paper \cite{agarwal2012noisy} to generalized linear model. 
 Our work considers a logistic loss function whose parameters are characterized by sparse plus low rank matrices, whereas \cite{agarwal2012noisy} works on quadratic loss of noisy realization of linear transformation of sum of low rank and sparse matrices. 
 We show that similar proof techniques can be applied in our case, giving us similar results.
@@ -807,6 +828,30 @@ If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\r
 \end{lemma}
 
 \noindent\textbf{proof of Theorem \ref{Th:th1}}
+=======
+Our result provides the upper-bound on non-asymptotic Frobenius norm between estimator $\hat{\alpha}\mathbbm{1}\mathbbm{1}^T$, $\widehat{L}$ and $\widehat{S}$, and ground truth $\alpha^*\mathbbm{1}\mathbbm{1}^T$, $L^*$ and $S^*$, where matrices $L^*$ that can be either approximately or exactly low rank, and matrices $S^*$ that also can be either approximately or exactly sparse. 
+A close observation on terms in upper-bound reveals that error bounds associated with $\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2}$, $\|\widehat{\Delta}^{L}\|_{F}^{2}$, and $\|\widehat{\Delta}^{S}\|_{F}^{2}$ are represented in the form of $\mathcal{K}_{\alpha^*}$, $\mathcal{K}_{L^*}$, and $\mathcal{K}_{S^*}$ respectively.
+More specifically, terms $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ are comprised of two types of errors, \emph{Estimation error} and \emph{Approximation error}. ''\emph{Estimation error}'' represents statistical cost of estimating a parameter belong to the model subspace $\mathbb{M}$  
+
+This result helps us to understand the behavior of our proposed estimator both in practice and in ideal cases.
+In real-world, large scale citation network analysis, it is difficult to expect exactly $k(\ll n)$ number of topics embedded in network. There must be 
+
+
+Specifically, when $L^*$ is an exact low rank matrix with rank $k$ (i.e., $rank(L^*)=k$) and $S^*$ is a sparse matrix, which lies within model subspace $\mathbb{M}$ (i.e., $|supp(S^*)|=s$), then we have Frobenius error bound as follows:
+\[
+    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \lesssim (\delta^2+1)k+\gamma^2s
+\]
+
+
+\emph{\textbf{Comparison to Agarwal et al, \cite{agarwal2012noisy}}}
+We would like to refer readers that result presented in \textbf{Theorem \ref{Th:th1}} is similar with that of Theorem 1 presented in paper \cite{agarwal2012noisy}. 
+However, it should be noted that the convex program we consider is distinct from \cite{agarwal2012noisy}.
+\cite{agarwal2012noisy} considers matrix decomposition problem, where the observations are noisy realization of linear transformation $\Xi$ of the sum of (approximately) low rank and (approximately) sparse matrices. 
+They used the notions of Restricted Strong Convexity of quadratic loss function and decomposable regularizer to prove their claims. In our work, we consider a convex problem, whose logistic loss 
+For the completeness of paper, we provide the proof of theorem in appendix section.
+
+\section{Appendix}
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \begin{proof}
 Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal and feasible (respectively) for the convex program (\ref{eq:1}), we have
 \begin{equation}\label{eq:2}
@@ -923,7 +968,11 @@ By combining the relations (\ref{eq:11}) and (\ref{eq:26}), applying triangular 
     \|S^{*}_{M^\perp}\|_{1}
 \]
 
+<<<<<<< HEAD
 Further, by plugging in Lemma \ref{le:le1} to get an upper bound on  $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we can rewrite the above inequality as follows:
+=======
+Further, by plugging in Lemma 1 to get an upper bound on  $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we can rewrite the above inequality as follows:
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \begin{align}
     \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} -
     \frac{\delta}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} 
@@ -945,8 +994,12 @@ Using Cauchy-Schwarz inequality, we can easily check the quantity $\Psi(\mathbb{
 \end{proof}
 
 
+<<<<<<< HEAD
 \subsection{Proof of Lemma \ref{le:le1}}
 
+=======
+\subsection{Proof of Lemma 1}
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \begin{proof}
 Through the application of basic inequality by using optimality of $\widehat{\Theta}$ and feasibility of $\Theta^{*}$ to convex program (\ref{eq:1}), we have
 \begin{equation}

@@ -3,6 +3,7 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: manuscript.aux
 The style file: WileyNJD-AMS.bst
 Database file #1: References.bib
+<<<<<<< HEAD
 You've used 20 entries,
             2770 wiz_defined-function locations,
             1120 strings with 12221 characters,
@@ -44,3 +45,46 @@ warning$ -- 0
 while$ -- 89
 width$ -- 0
 write$ -- 234
+=======
+You've used 19 entries,
+            2770 wiz_defined-function locations,
+            1114 strings with 11984 characters,
+and the built_in function-call counts, 9841 in all, are:
+= -- 907
+> -- 505
+< -- 12
++ -- 176
+- -- 147
+* -- 828
+:= -- 1666
+add.period$ -- 38
+call.type$ -- 19
+change.case$ -- 135
+chr.to.int$ -- 19
+cite$ -- 19
+duplicate$ -- 463
+empty$ -- 775
+format.name$ -- 201
+if$ -- 2046
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 23
+newline$ -- 65
+num.names$ -- 76
+pop$ -- 160
+preamble$ -- 1
+purify$ -- 120
+quote$ -- 0
+skip$ -- 331
+stack$ -- 0
+substring$ -- 555
+swap$ -- 86
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 159
+warning$ -- 0
+while$ -- 84
+width$ -- 0
+write$ -- 222
+>>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
