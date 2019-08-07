@@ -32,10 +32,10 @@
 
 \begin{document}
 
-\title{Factor Analysis on Report Citations, using a Combined Latent and logistic Model}
+\title{Factor Analysis on Citations, using a Combined Latent and Logistic Regression Model}
 
-\author[1]{Namjoon Suh*}
-\author[1]{Xiaoming Huo}
+\author[1]{Namjoon Suh}
+\author[1]{Xiaoming Huo*}
 \author[2]{Eric Heim}
 \author[2]{Timothy Van Slyke}
 \author[2]{Lee Seversky}
@@ -43,19 +43,26 @@
 \authormark{AUTHOR ONE \textsc{et al}}
 
 
-\address[1]{\orgdiv{Org Division}, \orgname{Org Name}, \orgaddress{\state{State name}, \country{Country name}}}
+\address[1]{\orgdiv{School of Industrial and Systems Engineering}, \orgname{Georgia Institute of Technology}, \orgaddress{755 Ferst Dr, Atlanta, \state{GA}, \country{USA}}}
 
-\address[2]{\orgdiv{Org Division}, \orgname{Org Name}, \orgaddress{\state{State name}, \country{Country name}}}
+\address[2]{\orgdiv{Information System Division (AFRL/RIS)}, \orgname{the Air Force Research Laboratory}, \orgaddress{Department of the Air Force, Air Force Materiel Command, AFRL/RIK - Rome, 26 Electronic Parkway, Rome,  \state{New York}, \country{USA}}}
 
 
-\corres{*Corresponding author name, This is sample corresponding address. \email{authorone@gmail.com}}
+\corres{*Xiaoming Huo, Georgia Institute of Technology, \email{huo@gatech.edu}}
 
-\presentaddress{This is sample for present address text this is sample for present address text}
+\presentaddress{755 Ferst Dr, Atlanta, GA, USA.}
 
-\abstract[Summary]{We propose a combined latent and logistic model for the citation network, where either a latent model or a logistic model alone is often insufficient to capture the structure of the data. The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (aka factors), and adds a sparse logistic component that captures the remaining ad hoc dependence. Parameter estimation are carried out through construction of a joint-likelihood function of edges and properly chosen penalty terms. The convexity of the likelihood function allows us to develop an efficient algorithm, while the penalty terms generate a low-dimensional latent component and a sparse graphical structure. Simulation results are reported that show the new method works well in practical situations. The proposed method has been applied to a real application in citation network of statistician data set (Ji and Jin, 2016 \cite{ji2016coauthorship}).
+\abstract[Summary]{We propose a combined model, which integrates the latent factor model and the logistic regression model, for the citation network.
+It is noticed that neither a latent factor model nor a logistic regression model alone is sufficient to capture the structure of the data. 
+The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (a.k.a., factors), and adds a sparse component that captures the remaining ad-hoc dependence. 
+Parameter estimation are carried out through the construction of a joint-likelihood function of edges and properly chosen penalty terms. 
+The convexity of the objective function allows us to develop an efficient algorithm, while the penalty terms push towards a low-dimensional latent component and a sparse graphical structure. 
+Simulation results show that the proposed method works well in practical situations. 
+The proposed method has been applied to a real application, which contains a citation network of statisticians (Ji and Jin, 2016 \cite{ji2016coauthorship}).
+Some interesting findings are reported. 
 }
 
-\keywords{citation network, matrix decomposition, latent variable model,  logistic model, convex optimization}
+\keywords{citation network, matrix decomposition, latent variable model, logistic regression model, convex optimization, ADMM}
 
 \jnlcitation{\cname{%
 \author{Suh Namjoon.},
@@ -63,7 +70,7 @@
 \author{Eric Heim},
 \author{Timothy Van Slyke}, and
 \author{Lee Seversky}} (\cyear{2019}),
-\ctitle{xxx}, \cjournal{journal.}, \cvol{2019;00:1--6}.}
+\ctitle{Citation network}, \cjournal{journal.}, \cvol{2019;00:1--6}.}
 
 \maketitle
 
@@ -119,24 +126,33 @@ They assume that majority of variation of responses can be accounted by low dime
 Thus, the resulting model contains a low-dimensional latent vector and a sparse conditional graph.
 Their key idea is to separate these two dependent structures so that they can facilitate the statistical inference.
 Our model also assumes that there exist two dependent structures among citation edges in network.
-A low-dimensional version of the aforementioned latent vector model is largely correct and majority of the citations among the nodes are induced by these common latent vectors $f_{i}$'s (with weigh coefficients $d_{i}$'s).
+A low-dimensional version of the aforementioned latent vector model is largely correct and majority of the citations among the nodes are induced by these common latent vectors $f_{i}$'s (with weight coefficients $d_{i}$'s).
 There is still a small remainder due to the graphical component.
 
 Though it may seem similar to Chen et al \cite{chen2016fused}, we work on a different model formulation in several aspects.
-First, FLaG is built to analyze the Eysenck’s Personality Questionnaire that consists of items designed to measure Psychoticism, Extraversion, and Neuroticism.
+We summarize the differences as follows. 
+\begin{enumerate}
+\item FLaG is built to analyze the Eysenck's Personality Questionnaire that consists of items designed to measure Psychoticism, Extraversion, and Neuroticism.
 So there are $p$ questions that need to be answered, and each questions fall into above three categories.
-If there are n respondents to questions, we have n independent data generated from same distribution.
+If there are n respondents to questions, we have $n$ independent data generated from same distribution.
 In our case, the observed citation network can be thought of as one realization of random graph.
-Second, FLaG set a collection of binary responses for each individual questions follow a joint distribution which is a combination of Item Response Theory (IRT) model and Ising model, whereas we model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of Latent Factor Analysis model and logistic model.
-Last but not least, FLaG approximate the original likelihood through constructing pseudo-likelihood function by taking advantage of conditional independence among the nodes, but our model’s likelihood function is directly accessible due to the conditional independence among edges given parameters.
+
+\item FLaG sets a collection of binary responses for each individual questions follow a joint distribution which is a combination of Item Response Theory (IRT) model and the Ising model, whereas we model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of Latent Factor Analysis model and the logistic regression model.
+
+\item FLaG approximates the original likelihood through constructing pseudo-likelihood function by taking advantage of conditional independence among the nodes, but our model's likelihood function is directly accessible due to the conditional independence among edges given parameters.
+
+\end{enumerate}
+
 
 The proposed modeling framework is also related with the analysis of decomposing a matrix into low-rank and sparse components and the statistical inference of a multivariate Gaussian model whose precision matrix admits the form of a low-rank matrix plus a sparse matrix (\cite{chandrasekaran2010latent, candes2011robust, zhou2010stable}).
-However, the inference and optimization of the current model are different from those cases.
+The inference and optimization of the current model are different from the aforementioned cases.
 We will construct a regularized-likelihood function, based on which estimator will be proposed for simultaneous model selection and parameter estimation.
-The optimization for the regularized estimator will be convex, for which we will develop an efficient algorithm through the alternating direction method of multiplier (ADMM : \cite{boyd2011distributed, gabay1975dual, glowinski1975solution}).
+The optimization for the regularized estimator will be convex, for which we will develop an efficient algorithm through the alternating direction method of multiplier (ADMM, \cite{boyd2011distributed, gabay1975dual, glowinski1975solution}).
+
+xxxx 
 
 The rest of the paper is organized as follows.
-In section 2 we will give a presentation on how to build a model which can encode both latent dependent structure due to the common topics and remaining ad-hoc dependent structure.
+In Section \ref{sec:model-form} we will give a presentation on how to build a model which can encode both latent dependent structure due to the common topics and remaining ad-hoc dependent structure.
 In section 3, we will talk about assumptions in our model and penalization on likelihood function constructed in section 2.
 Section 4 gives the detailed procedure on how to compute the estimator of the optimization problem in Section 3.
 In Section 5, we will present simple numerical experiments on synthetic data, and application of our model on real citation network of statisticians.
@@ -153,11 +169,11 @@ $$
 where
 $X_{ij}, 1\le i,j \le n$, are binary random variables indicating either node $i$ cites node $j$ or vice versa,
 matrix $X = \{X_{ij}\} \in \mathbb{R}^{n \times n}$ is symmetric with diagonal entries all being equal to zero,
-factor loading matrix $F = [f_1,f_2,\ldots,f_n]\in \mathbb{R}^{K\times n}$ records the relation between nodes and underlying topics, $F^T$ is the transpose of $F$,
+factor loading matrix $F = [f_1,f_2,\ldots,f_n]\in \mathbb{R}^{K\times n}$ records the relation between nodes and the underlying topics, $F^T$ is the transpose of $F$,
 and matrix $D \in \mathbb{R}^{K \times K}$  is diagonal with entries being the weight coefficients of factors.
 
 The above specifies a latent model (or equivalently a factor model).
-We now describe a graphical model in the following.
+We now describe a graphical model as follows.
 The graphical model will complement the latent model by characterizing links that are not interpretable via common factors.
 For the aforementioned binary random variable $X_{ij}$, $1\le i,j \le n$, we define
 \begin{equation}
@@ -165,6 +181,7 @@ For the aforementioned binary random variable $X_{ij}$, $1\le i,j \le n$, we def
 \mathbb{P}(X_{ij}=1) = \frac{e^{\alpha' + S_{ij} }}{1 + e^{\alpha' + S_{ij} }},
 \end{equation}
 where $S_{ij} \in \mathbb{R}$, for $1\le i,j \le n$, denotes the relation between nodes $i$ and $j$.
+The matrix $S$ is introduced to capture the ad-hoc links in the graph. 
 If we have $S_{ij}=0$, then it is less likely to have a citational relationship between nodes $i$ and $j$.
 On the other hand, if $S_{ij}>0$, then it is more likely to have a citation link between nodes $i$ and $j$.
 Here parameter $\alpha' \in \mathbb{R}$ plays the same role as parameter $\alpha$ does in model \eqref{eq:logistic01}.
@@ -204,7 +221,7 @@ Note that in the model \eqref{eq:logistic07}, the log-likelihood function has th
 \end{eqnarray}
 
 If we consider maximizing the above log-likelihood function,
-we will encounter several technical issues which are described below.
+we will encounter several technical issues that are described below.
 \begin{enumerate}
 \item We would like the matrix $S \in \mathbb{R}^{n \times n}$ to have as many zero entries as possible; i.e., matrix $S$ is {\it sparse.}
 
@@ -556,18 +573,16 @@ We evaluate the models selected via our heuristic approach, BIC, and AIC by usin
 <<<<<<< HEAD
 
 \begin{eqnarray*}
-M1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\} \\
-M2 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}|} \\
-M3 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}|}
+M_1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\}, \\
+M_2 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}\right|}, \\
+M_3 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}|},
 \end{eqnarray*}
-
-$M1$ is a metric on whether selected model recovers true low rank structure of network,
-$M2$ evaluates the positive selection rate of sparse network structure,
-and lastly $M3$ evaluates the false discovery rate.
+where $M_1$ is a metric on whether selected model recovers true low rank structure of network,
+$M_2$ evaluates the positive selection rate of sparse network structure,
+and $M_3$ evaluates the false discovery rate.
 With properly selected tuning parameter, $M1$ will be 1, $M2$ will be close to 1, and $M3$ will get close to 0.
 Evaluated results of models selected via three criteria are presented in Table 1.
 
-=======
 
 \begin{eqnarray*}
 M1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\} \\
@@ -581,7 +596,6 @@ and lastly $M3$ evaluates the false discovery rate.
 With properly selected tuning parameter, $M1$ will be 1, $M2$ will be close to 1, and $M3$ will get close to 0.
 Evaluated results of models selected via three criteria are presented in Table 1.
 
->>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \begin{table}[htbp]
 \centering
 \begin{tabular}{c|ccc|ccc|ccc}
@@ -591,7 +605,7 @@ $M1$ & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0
 $M2$ & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
 $M3$ & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0
 \end{tabular}
-\caption{ Both AIC and BIC choose the model $\widehat{S}=0$ with no ad-hoc structure, and $\widehat{L}$ with the lowest rank among all estimators via a pair of tuning parameter over the grid of search region. Our heuristic method correctly choose the model with $\widehat{L}$ with true rank and $\widehat{S}=0$ catching all the ''across edges'' of network. Note that }
+\caption{ Both AIC and BIC choose the model $\widehat{S}=0$ with no ad-hoc structure, and $\widehat{L}$ with the lowest rank among all estimators via a pair of tuning parameter over the grid of search region. Our heuristic method correctly choose the model with $\widehat{L}$ with true rank and $\widehat{S}=0$ catching all the ``across edges'' of network. Note that xxxx}
 \label{tab:table1}
 \end{table}
 
@@ -641,7 +655,7 @@ We have 543 papers in our hands.
 The elbow points of the scree plot may be at the 3rd, 7th, or 9th largest eigenvalue, suggesting that there might be from 2 to 8 topics in network.
 In light of this, we performed our analysis under the assumption that there might exist 2 distinct topics and one giant component in which 3 or 4 topics mixed up. \\
 
-\noindent $(\gamma,\delta) = (0.000912,0.0097)$ gives us $\widehat{L}$ with rank 3, and $\widehat{S}$ with $|supp(\widehat{S})|=197$.
+The pair of parameters, $(\gamma,\delta) = (0.000912,0.0097)$, gives us $\widehat{L}$ with rank 3, and $\widehat{S}$ with $|supp(\widehat{S})|=197$.
 We apply $k$-means algorithm on 3 eigenvectors of estimated $\widehat{L}$ matrix, and visualize the result of clustering by plotting the rows of first two eigenvectors of $\widehat{L}$ on plane in $Fig 4$.
 404 papers colored in green are densely clustered nearby the origin with a short tail, $(Fig 4)$, and $k$-means classifies these papers as third topic.
 We list the first two topics discovered through our analysis.
@@ -691,7 +705,7 @@ We consider the citation network of papers whose node degree is greater than or 
 \textbf{Ad-hoc links}.
 Non-zero components of $\widehat{S}$ capture the citation relationships among papers that are not attributable to the common topics.
 The model we select has 197 sparse edges (9\% of total edges), and all of them are positive edges.
-In Table 1, we provide 15 pairs of papers that have the most positive edges.
+In Table 1 xxxx, we provide 15 pairs of papers that have the most positive edges.
 All the 15 edges come from pairs of papers from different communities.
 For instance, the first pair of papers comes from the Functional Analysis community (denoted by \emph{FuncAn}) and Variable selection $(\emph{VarSel})$ community.
 $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
@@ -822,11 +836,10 @@ If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\r
 \]
 \end{lemma}
 
-\noindent\textbf{proof of Theorem \ref{Th:th1}}
-=======
+\noindent\textbf{proof of Theorem \ref{Th:th1}}. 
 Our result provides the upper-bound on non-asymptotic Frobenius norm between estimator $\hat{\alpha}\mathbbm{1}\mathbbm{1}^T$, $\widehat{L}$ and $\widehat{S}$, and ground truth $\alpha^*\mathbbm{1}\mathbbm{1}^T$, $L^*$ and $S^*$, where matrices $L^*$ that can be either approximately or exactly low rank, and matrices $S^*$ that also can be either approximately or exactly sparse.
 A close observation on terms in upper-bound reveals that error bounds associated with $\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2}$, $\|\widehat{\Delta}^{L}\|_{F}^{2}$, and $\|\widehat{\Delta}^{S}\|_{F}^{2}$ are represented in the form of $\mathcal{K}_{\alpha^*}$, $\mathcal{K}_{L^*}$, and $\mathcal{K}_{S^*}$ respectively.
-More specifically, terms $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ are comprised of two types of errors, \emph{Estimation error} and \emph{Approximation error}. ''\emph{Estimation error}'' represents statistical cost of estimating a parameter belong to the model subspace $\mathbb{M}$
+More specifically, terms $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ are comprised of two types of errors, \emph{Estimation error} and \emph{Approximation error}. ''\emph{Estimation error}'' represents statistical cost of estimating a parameter belong to the model subspace $\mathbb{M}$.
 
 This result helps us to understand the behavior of our proposed estimator both in practice and in ideal cases.
 In real-world, large scale citation network analysis, it is difficult to expect exactly $k(\ll n)$ number of topics embedded in network. There must be
