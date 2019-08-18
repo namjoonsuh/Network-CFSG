@@ -40,8 +40,7 @@
 \author[2]{Timothy Van Slyke}
 \author[2]{Lee Seversky}
 
-\authormark{AUTHOR ONE \textsc{et al}}
-
+\authormark{Namjoon Suh \textsc{et al}}
 
 \address[1]{\orgdiv{School of Industrial and Systems Engineering}, \orgname{Georgia Institute of Technology}, \orgaddress{755 Ferst Dr, Atlanta, \state{GA}, \country{USA}}}
 
@@ -53,13 +52,13 @@
 \presentaddress{755 Ferst Dr, Atlanta, GA, USA.}
 
 \abstract[Summary]{We propose a combined model, which integrates the latent factor model and the logistic regression model, for the citation network.
-It is noticed that neither a latent factor model nor a logistic regression model alone is sufficient to capture the structure of the data. 
-The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (a.k.a., factors), and adds a sparse component that captures the remaining ad-hoc dependence. 
-Parameter estimation are carried out through the construction of a joint-likelihood function of edges and properly chosen penalty terms. 
-The convexity of the objective function allows us to develop an efficient algorithm, while the penalty terms push towards a low-dimensional latent component and a sparse graphical structure. 
-Simulation results show that the proposed method works well in practical situations. 
+It is noticed that neither a latent factor model nor a logistic regression model alone is sufficient to capture the structure of the data.
+The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (a.k.a., factors), and adds a sparse component that captures the remaining ad-hoc dependence.
+Parameter estimation are carried out through the construction of a joint-likelihood function of edges and properly chosen penalty terms.
+The convexity of the objective function allows us to develop an efficient algorithm, while the penalty terms push towards a low-dimensional latent component and a sparse graphical structure.
+Simulation results show that the proposed method works well in practical situations.
 The proposed method has been applied to a real application, which contains a citation network of statisticians (Ji and Jin, 2016 \cite{ji2016coauthorship}).
-Some interesting findings are reported. 
+Some interesting findings are reported.
 }
 
 \keywords{citation network, matrix decomposition, latent variable model, logistic regression model, convex optimization, ADMM}
@@ -71,9 +70,7 @@ Some interesting findings are reported.
 \author{Timothy Van Slyke}, and
 \author{Lee Seversky}} (\cyear{2019}),
 \ctitle{Citation network}, \cjournal{journal.}, \cvol{2019;00:1--6}.}
-
 \maketitle
-
 \footnotetext{\textbf{Abbreviations:} fused factor analysis and logistic graphical models, ADMM, network model}
 
 \section{Introduction}
@@ -130,12 +127,12 @@ A low-dimensional version of the aforementioned latent vector model is largely c
 There is still a small remainder due to the graphical component.
 
 Though it may seem similar to Chen et al \cite{chen2016fused}, we work on a different model formulation in several aspects.
-We summarize the differences as follows. 
+We summarize the differences as follows.
 \begin{enumerate}
 \item FLaG is built to analyze the Eysenck's Personality Questionnaire that consists of items designed to measure Psychoticism, Extraversion, and Neuroticism.
 So there are $p$ questions that need to be answered, and each questions fall into above three categories.
-If there are n respondents to questions, we have $n$ independent data generated from same distribution.
-In our case, the observed citation network can be thought of as one realization of random graph.
+If there are $n$ respondents to questions, we have $n$ independent data generated from same distribution.
+In our case, the observed citation network can be thought of as one realization of a random graph.
 
 \item FLaG sets a collection of binary responses for each individual questions follow a joint distribution which is a combination of Item Response Theory (IRT) model and the Ising model, whereas we model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of Latent Factor Analysis model and the logistic regression model.
 
@@ -149,14 +146,12 @@ The inference and optimization of the current model are different from the afore
 We will construct a regularized-likelihood function, based on which estimator will be proposed for simultaneous model selection and parameter estimation.
 The optimization for the regularized estimator will be convex, for which we will develop an efficient algorithm through the alternating direction method of multiplier (ADMM, \cite{boyd2011distributed, gabay1975dual, glowinski1975solution}).
 
-xxxx 
-
 The rest of the paper is organized as follows.
 In Section \ref{sec:model-form} we will give a presentation on how to build a model which can encode both latent dependent structure due to the common topics and remaining ad-hoc dependent structure.
-In section 3, we will talk about assumptions in our model and penalization on likelihood function constructed in section 2.
-Section 4 gives the detailed procedure on how to compute the estimator of the optimization problem in Section 3.
-In Section 5, we will present simple numerical experiments on synthetic data, and application of our model on real citation network of statisticians.
-We finally conclude this work in section 6 with several open questions remain to be solved and some directions for future research.
+In section \ref{sec:estimate}, we will discuss about the assumptions in our model and penalization on likelihood function constructed in section \ref{sec:model-form}.
+Section \ref{sec:compute} gives the detailed procedure on how to compute the estimator of the optimization problem formulated in Section \ref{sec:estimate}.
+In Section \ref{sec:Num-anal}, we will present simple numerical experiments on synthetic data, and application of our model on real citation network of statisticians.
+We finally conclude this work in section \ref{sec:Con} with several open questions remain to be solved and some directions for future research.
 
 \section{Model Formulation}
 \label{sec:model-form}
@@ -181,8 +176,8 @@ For the aforementioned binary random variable $X_{ij}$, $1\le i,j \le n$, we def
 \mathbb{P}(X_{ij}=1) = \frac{e^{\alpha' + S_{ij} }}{1 + e^{\alpha' + S_{ij} }},
 \end{equation}
 where $S_{ij} \in \mathbb{R}$, for $1\le i,j \le n$, denotes the relation between nodes $i$ and $j$.
-The matrix $S$ is introduced to capture the ad-hoc links in the graph. 
-If we have $S_{ij}=0$, then it is less likely to have a citational relationship between nodes $i$ and $j$.
+Note that the matrix $S$ is introduced to capture the ad-hoc links in the graph.
+If we have $S_{ij}\leq0$, then it is less likely to have a citational relationship between nodes $i$ and $j$.
 On the other hand, if $S_{ij}>0$, then it is more likely to have a citation link between nodes $i$ and $j$.
 Here parameter $\alpha' \in \mathbb{R}$ plays the same role as parameter $\alpha$ does in model \eqref{eq:logistic01}.
 Denote the matrix $S = \{S_{ij}, 1\le i,j \le n \} \in \mathbb{R}^{n \times n}$.
@@ -243,9 +238,9 @@ With the application that we have in mind, in this paper, we assume that $K$ is 
 \item To ensure the separation of matrices $\alpha\mathbbm{1}\mathbbm{1}^T$ and $L$, we assume that the eigen-vector of $L$ is centered, that is,
 \[
     JLJ = L \quad \mbox{where} \quad
-    J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T.
+    J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T,
 \]
-This condition uniquely identifies F up to a common orthogonal transformation of its columns.
+where $\mathbbm{1}$ denotes a $n$-dimensional vector whose entries are all $1$s. This condition uniquely identifies $F$ up to a common orthogonal transformation of its columns.
 
 \end{enumerate}
 
@@ -261,7 +256,7 @@ Consequently, the log-likelihood function in \eqref{eq:logistic08} can be rewrit
 \end{eqnarray}
 
 
-We propose a penalize likelihood estimation approach as follows:
+We propose a penalized likelihood estimation approach as follows:
 \begin{eqnarray}
 \label{eq:logistic10}
 (\hat{\alpha}, \widehat{L}, \widehat{S})
@@ -284,7 +279,7 @@ After we have obtained $\widehat{S}$ in \eqref{eq:logistic10}, we can uncover th
 On the other hand when we have calculated $\widehat{L}$, we may not be able to find binary matrix $F$ and nonnegative diagonal matrix $D$ such that $\widehat{L} = F^T D F.$
 This is the price we have to pay for an amenable computational problem.
 The rank of estimated $\widehat{L}$ will be our estimate of the number of factors (i.e., underlying common topics).
-For the issue on assigning the community membership of each node $i$, we will discuss this later in Section 6.
+For the issue on assigning the community membership of each node $i$, we will discuss this later in Section \ref{sec:Num-anal}.
 
 
 
@@ -450,13 +445,13 @@ x^{m+1}_S &=& \mbox{arg min}_{ S} \quad  \gamma \|S\|_1
 where $\|\cdot\|_F$ is the matrix Frobenius norm, defined as
 $\|M\|^2_F = \sum_{i,j} m^2_{ij}$ for a matrix $M = (m_{ij})$.
 The problem in \eqref{eq:admm02} may not have a closed-form solution.
-We use a simple gradient descent to solve this step, setting the step size, $\alpha=0.1$ and stopping criteria, $\max(|x_{\alpha,m}^{(t+1)}-x_{\alpha,m}^{(t)}|,\|x_{M,m}^{(t+1)}-x_{M,m}^{(t)}\|_{\infty}) \leq 10^{-9}$.
+We use a simple gradient descent to solve this step, setting the step size equal to $0.1$ and stopping criteria as $\max(|x_{\alpha,m}^{(t+1)}-x_{\alpha,m}^{(t)}|,\|x_{M,m}^{(t+1)}-x_{M,m}^{(t)}\|_{\infty}) \leq 10^{-9}$.
 Note that there are close-form solutions to \eqref{eq:admm03} and \eqref{eq:admm04}, while \eqref{eq:admm02} is a unconstrained convex optimization problem.
 More specifically, in \eqref{eq:admm03}, suppose the eigenvalue decomposition of the symmetric matrix $(z^m_L - u^m_L)$ can be written as
 $$
 z^m_L - u^m_L = T \Lambda T^T,
 $$
-where $T$ is orthogonal ($T T^T = I_n$), then, for $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, we have
+where $T$ is orthogonal ($T T^T = I_n$). Then, for $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, we have
 $$
 x^{m+1}_L = J (T \mbox{diag}(\Lambda-\lambda \delta)_+ T^T)J^{T},
 $$
@@ -465,7 +460,7 @@ diagonal entry being
 $$
 (\Lambda_{jj}-\lambda \delta)_+ = \left\{
 \begin{array}{ll}
-0, & \mbox{ if } \Lambda_{jj} < \lambda \delta \\
+0, & \mbox{ if } \Lambda_{jj} < \lambda \delta, \\
 \Lambda_{jj}-\lambda \delta, & \mbox{ if } \Lambda_{jj} \ge \lambda \delta .
 \end{array}
 \right.
@@ -474,11 +469,11 @@ In \eqref{eq:admm04}, we have, for $i \neq j$,
 \[
 S_{ij} = \left\{
 \begin{array}{ll}
-0, & \mbox{ if } |(z^m_S - u^m_S)_{ij}| < \lambda \gamma  \\
+0, & \mbox{ if } |(z^m_S - u^m_S)_{ij}| < \lambda \gamma,  \\
 (z^m_S - u^m_S)_{ij}-\lambda\gamma , &
-\mbox{ if } (z^m_S - u^m_S)_{ij} > \lambda \gamma \\
+\mbox{ if } (z^m_S - u^m_S)_{ij} > \lambda \gamma, \\
 (z^m_S - u^m_S)_{ij}+\lambda\gamma , &
-\mbox{ if } (z^m_S - u^m_S)_{ij} <- \lambda \gamma
+\mbox{ if } (z^m_S - u^m_S)_{ij} <- \lambda \gamma.
 \end{array}
 \right.
 \]
@@ -507,9 +502,10 @@ The above optimization problem has a close-form solution, which is as follows:
 \begin{eqnarray*}
 z^{m+1}_\alpha &=& \bar{\alpha}, \\
 z^{m+1}_M &=&
-\frac{1}{3} \bar{M} + \frac{1}{3} \bar{M}^T + \frac{1}{3} \bar{L} + \frac{1}{3} \bar{S} \\
+\frac{1}{3} \bar{M} + \frac{1}{3} \bar{M}^T + \frac{1}{3} \bar{L} + \frac{1}{3} \bar{S}, \\
 z^{m+1}_L &=&
-\frac{1}{6} \bar{M} + \frac{1}{6} \bar{M}^T + \frac{2}{3} \bar{L} - \frac{1}{3} \bar{S} \\
+\frac{1}{6} \bar{M} + \frac{1}{6} \bar{M}^T + \frac{2}{3} \bar{L} - \frac{1}{3} \bar{S},
+\quad \text{and} \\
 z^{m+1}_S &=&
 \frac{1}{6} \bar{M} + \frac{1}{6} \bar{M}^T - \frac{1}{3} \bar{L} + \frac{2}{3} \bar{S}.
 \end{eqnarray*}
@@ -519,29 +515,39 @@ Step 3. We solve $u^{m+1} = u^m + x^{m+1} - z^{m+1}$, which is a simple arithmet
 
 The most important implementation details of this algorithm are the choice of $\lambda$ and stopping criterion.
 In this work, we simply choose $\lambda = 0.5$.
-We terminate the algorithm  when in $mth$ iteration, $\|x^{m}_M - x^{m}_L - x^{m}_S\|_F \leq \delta$, with $\delta=10^{-7}$.
+We terminate the algorithm  when in $m$th iteration, $\|x^{m}_M - x^{m}_L - x^{m}_S\|_F \leq \delta$, with $\delta=10^{-7}$.
 
 \section{ Numerical analysis and Applications}
-In this section, we have conducted a small empirical study of measuring the performance of our proposed method with artificially specified graphical structures.
-Also we perform a real data analysis with citation network for statisticians.
-
+\label{sec:Num-anal}
+In this section, we have conducted a small empirical study of measuring the performance of our proposed method with artificially specified graphical structures,\ref{sec:Syn-dat}.
+Also we perform a real data analysis with citation network for statisticians,\ref{sec:citation_network}.
 \subsection{Synthetic data}
+\label{sec:Syn-dat}
 \textbf{Data Generation}.
-Following the notation of our paper, each edge $X_{ij}$ follows Bernoulli distribution, whose parameter is parameterized by the probability, $P_{ij}=\frac{\exp (
-\alpha+F_{i}^{T}DF_{j} +  S_{ij})}{1+\exp(\alpha+F_{i}^{T}DF_{j}+S_{ij})}$.
-For sparse component $S$, we generate random numbers uniformly distributed over the indices of upper triangular part (off diagonal) of matrix $S$, and make it symmetry.
-$F^{T}$ binary matrix has $\floor{\frac{n}{K}}$ ones in each columns, and has exactly one 1 in each rows.
-We randomly choose one of rows, fill that row with ones, and project the column space of $F$ onto the orthogonal complement subspace of $\mathbbm{1}$ vector by multiplying the aforementioned $J = I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$ to $F$.
-Diagonal elements of $D$ are generated from Unif$[7,8]$ (uniform distribution on $[7,8]$), and alpha is generated from Unif$[-3,-2]$.
-We set $K=3,4,5$, $n=30,80,120$, and $nnz = 10, 20, 40$, where $nnz$ denotes number of non-zero component of the upper-triangular part of S.
+Following the notation of our paper, each edge $X_{ij}$ follows Bernoulli distribution, whose parameter is parameterized by the probability, $P^{*}_{ij}=\frac{\exp (
+\alpha^{*}+F^{*T}_{i}D^{*}F^{*}_{j} +  S^{*}_{ij})}{1+\exp(\alpha^{*}+F^{*T}_{i}D^{*}F^{*}_{j} +  S^{*}_{ij})}$.
+We set the model parameters randomly following these steps:
+\begin{enumerate}
+    \item Generate $\alpha^*$ from Unif$[-3,-2]$ (i.e., $\alpha^*\sim \text{Unif}[-3,-2]$).
+    \item For the binary factor loading matrix $F^*(\in \mathbb{R}^{n \times K})$, first fill in each row of the matrix with $\floor{\frac{n}{K}}$ ones,
+     and make sure that each column of $F^{*}$ has only one $1$.
+     In last row of $F^*$, fill in the last remaining $n-K\floor{\frac{n}{K}}$ entries with $1$s.
+     Then, we randomly choose one of columns, and fill that column with ones.
+     Lastly, set $F^*=F^*J$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$.
+     %and project the column space of $F$ onto the orthogonal complement subspace of $\mathbbm{1}$ vector by multiplying the aforementioned $J = I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$ to $F$.
+    \item Each element of diagonal matrix $D^{*}$ are generated from Unif$[7,8]$.
+    \item For the sparse component $S^*$, first draw $nnz$ distinct random pairs of indices that are uniformly distributed over the indices of upper triangular part (off diagonal) of matrix $S^*$. For each drawn pair of indices $(i,j)$, draw random number from Unif$[7,8]$ (i.e., $S^*_{ij}\sim\text{Unif}[7,8]$). $nnz$ denotes the number of non-zero component of the upper-triangular part of $S^{*}$.
+\end{enumerate}
+
+We consider following three scenarios: $\{(n^{(i)},K^{(i)},nnz^{(i)})\}_{i=1}^{3}=\{(30,3,10),(80,4,20),(120,5,40)\}$.
 
 \textbf{Choosing the tuning parameters and evaluation criteria}.
-We have to admit the fact that choosing a good pair of tuning parameter is an important but challenging issue in our problem.
-We here present a purely heuristic approach.
+We have to admit the fact that choosing a good pair of tuning parameters is an important but challenging issue in our problem.
+Here we present a purely heuristic approach.
 Following the Ji and Jin \cite{ji2016coauthorship}, we plot the largest 20 eigenvalues of adjacency matrix $X$, which can tell us the numbers of communities embedded in network.
-Then, we record the rank of L and number of non-zero elements in S for each tuning parameter pair on grid, and choose a proper pair which can give us interesting interpretation of data.
+Then, we record the rank of $\widehat{L}$ and number of non-zero elements in $\widehat{S}$ for each tuning parameter pair on grid, and choose a proper pair that give us interesting interpretations of data.
 
-One might wonder how traditional model selection methods, such as the Bayes Information Criterion (BIC;\cite{schwarz1978estimating}) or the AIC, work where
+One might wonder how traditional model selection methods, such as the Bayes Information Criterion (BIC;\cite{schwarz1978estimating}) or the AIC, work where we define BIC and AIC as follows:
 \[
 \mbox{BIC}(M) = -2  \mathbb{L}_n( \hat{\beta}(M)) + |M| \log \bigg(\frac{n(n-1)}{2}\bigg),
 \]
@@ -554,183 +560,215 @@ $\mathbb{L}_n( \hat{\beta}(M))$ is the maximal log-likelihood for a given model 
 and $|M|$ is the number of free parameters in $M$, which is determined by the number of non-zeros in $S$ and the low-rank matrix $L$.
 If rank$(L)=K$, we can establish the following
 \[
-|M| = \sum_{i < j}1_{\{S_{ij} > 0\}} + n K - \frac{K(K-1)}{2} + 1
+|M| = \sum_{i < j}1_{\{S_{ij} > 0\}} + n K - \frac{K(K-1)}{2} + 1,
 \]
-
-\begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig1.pdf}
-\caption{After fitting the model, result of application of $k$-means algorithm on first $K$ eigenvectors of $\widehat{L}$ matrix. (Different color represents different clusters of nodes $k$-means assign for three synthetic settings.) }
-\label{fig:figure1}
-\end{figure}
-
-Because the number of free parameters in $L$ is $K$ plus $nk - K(K+1)/2$, which is the number of free parameters in determining $K$ orth-normal vectors.
+since the number of free parameters in $L$ is $K$ plus $nk - K(K+1)/2$, which is the number of free parameters in determining $K$ orth-normal vectors.
 Additionally $1$ in the last is due to $\alpha$.
 We want to find an $M$ which minimizes BIC($M$) or AIC($M$) as a function of $M$.
 However these traditional methods seem to entail a serious problem.
 The assumptions used to derive BIC or AIC are not satisfied here, since each edges in a graph are not identically distributed.
 Our experience shows that both BIC and AIC choose the most parsimonious model with the smallest K and smallest cardinality of ad-hoc dependency among all the estimated ($\widehat{L}$,$\widehat{S}$) from a pair of tuning parameters over the given range of grid.
-We evaluate the models selected via our heuristic approach, BIC, and AIC by using following three evaluation metrics.
-<<<<<<< HEAD
+For clarification on this argument, we evaluate the models selected via our heuristic approach, BIC, and AIC by using following three evaluation metrics.
 
 \begin{eqnarray*}
 M_1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\}, \\
 M_2 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}\right|}, \\
-M_3 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}|},
+M_3 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}\right|},
 \end{eqnarray*}
-where $M_1$ is a metric on whether selected model recovers true low rank structure of network,
-$M_2$ evaluates the positive selection rate of sparse network structure,
-and $M_3$ evaluates the false discovery rate.
-With properly selected tuning parameter, $M1$ will be 1, $M2$ will be close to 1, and $M3$ will get close to 0.
-Evaluated results of models selected via three criteria are presented in Table 1.
-
-
-\begin{eqnarray*}
-M1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\} \\
-M2 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}|} \\
-M3 &=& \frac{|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}|}{|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}|}
-\end{eqnarray*}
-
-$M1$ is a metric on whether selected model recovers true low rank structure of network,
-$M2$ evaluates the positive selection rate of sparse network structure,
-and lastly $M3$ evaluates the false discovery rate.
-With properly selected tuning parameter, $M1$ will be 1, $M2$ will be close to 1, and $M3$ will get close to 0.
-Evaluated results of models selected via three criteria are presented in Table 1.
+where $M_1$ is a metric on whether the selected model recovers true low rank structure of network,
+$M_2$ evaluates the positive selection rate of the sparse ad-hoc structure in network,
+and $M_3$ evaluates the false discovery rate of ad-hoc edges.
+With properly selected tuning parameter, $M_1$ will be 1, $M_2$ will be close to 1, and $M_3$ will get close to 0.
+We present the evaluation results of three scenarios via these three criteria in Table \ref{tab:table1}.
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{c|ccc|ccc|ccc}
    & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\ \cline{2-10}
    & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC   \\ \hline
-$M1$ & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0      & 0     \\
-$M2$ & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
-$M3$ & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0
+$M_1$ & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0      & 0     \\
+$M_2$ & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
+$M_3$ & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0
 \end{tabular}
-\caption{ Both AIC and BIC choose the model $\widehat{S}=0$ with no ad-hoc structure, and $\widehat{L}$ with the lowest rank among all estimators via a pair of tuning parameter over the grid of search region. Our heuristic method correctly choose the model with $\widehat{L}$ with true rank and $\widehat{S}=0$ catching all the ``across edges'' of network. Note that xxxx}
+\caption{ For three scenarios, our heuristic method chooses the model with $\widehat{L}$ with true rank, $\widehat{S}$ whose $M_2$ value is close to $1$, and $M_3$ value is close to $0$.
+Note that both AIC and BIC choose the model with no ad-hoc structure (i.e., $\widehat{S}=0$),
+and $\widehat{L}$ with the lowest rank among all estimators via a pair of tuning parameter over the grid of search region.}
 \label{tab:table1}
 \end{table}
 
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{Fig1.pdf}
+\caption{Illustrations of assignment results via $k$-means algorithm on $K$ eigenvectors of the estimated $\widehat{L}$ matrix.}
+\label{fig:figure1}
+\end{figure}
 
 \textbf{Community memberships of each nodes}.
 Given a network data $X$, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to topic $k$.
-We applied a simple $k$-means clustering on the fitted $L$ matrix's first $K$ eigenvectors.
-Furthermore, we find one interesting phenomenon.
-Coordinates of each rows from first two eigenvectors of estimated $\widehat{L}$ matrix in our model characterize the clustering behavior of embedded topics reasonably well.
-Our experience shows that with only first two eigenvectors of $\widehat{L}$, we can also cluster the nodes comparably well.
+We applied a simple $k$-means clustering on the fitted $L$ matrix's $K$ eigenvectors.
+For the illustration of performance of our fitted model after applying $k$-means algorithm on three synthetic scenarios, in Fig \ref{fig:figure1}, we plot the coordinates of each rows of first two eigen-vectors on $2D$ plane.
+%Furthermore, we find one interesting phenomenon.
+%Coordinates of each rows from first two eigenvectors of estimated $\widehat{L}$ matrix in our model characterize the clustering behavior of embedded topics reasonably well.
+%Our experience shows that with only first two eigenvectors of $\widehat{L}$, we can also cluster the nodes comparably well.
 
 \textbf{Ad-hoc links}.
 Ad-hoc links of synthetic network data can be thought of as ``across edges'' between clusters of nodes.
-Since indices of non-zero entries of $S$ are randomly chosen, there might be some indices of non-zero $S_{ij}$ entries where $L_{ij}$ is also non-zero.
-In this case, this makes the edges indistinguishable if they come from $S_{ij}$ or $L_{ij}$.
-Some of ``across edges" are also attributed to $\alpha$, and unfortunately, our algorithm cannot make a difference whether the edge comes from $\alpha$ or $S_{ij}$.
-So the total number of across edges might not be exactly same as we set in our data generation setting.
+Since indices of non-zero entries of $S^{*}$ are randomly chosen, there might be some indices of positive $S^{*}_{ij}$ entries where $L^{*}_{ij}$ is also positive.
+In this case, this makes the edges indistinguishable if they come from $S^{*}_{ij}$ or $L^{*}_{ij}$.
+%Some of ``across edges" are also attributed to $\alpha^{*}$, and unfortunately, our algorithm cannot make a difference whether the edge comes from $\alpha^{*}$ or $S^{*}_{ij}$.
+So the total number of ``across edges'' might not be exactly same as ``$nnz$'' as we set in our data generation setting.
 
 \textbf{Simulation Results}.
 Our goal in this simulation experiment is to check if our model can cluster each nodes into correct communities.
 Also to see if it can separate the ad-hoc links from edges which come from common topics.
-Tuning parameter pairs, $(\gamma,\delta) = (0.01,0.03),(0.004,0.014),(0.003,0.013)$, respectively, give us the desirable results for the three cases.
-Note that different dynamics of network requires different choices of tuning parameters even the synthetic setting is same, since we are generating the random graph.
-However, we set the seeds in our simulation so that the results are reproducible.
-Fig. \ref{fig:figure1} shows us the result of clustered nodes using the $k$-means algorithm on the first $K(=\mbox{rank}(\widehat{L}))$ eigenvectors.
+Tuning parameter pairs, $(\gamma,\delta) = (0.01,0.03),(0.004,0.014),(0.003,0.013)$, respectively, give us the desirable results for the three scenarios.
+For first scenario, both $\gamma$ and $\delta$ are searched over $\{0.01,0.02,\dots,0.1\}$.
+For second and third scenarios, parameters are searched over $100$ points, equidistant, from the interval $[0.001,0.01]$ for $\gamma$, and $[0.01,0.02]$ for $\delta$.
+%Note that different dynamics of network requires different choices of tuning parameters even the synthetic setting is same, since we are generating the random graph.
+%In order to avoid this problem, we set the seeds in our simulation so that the results are reproducible. (Code is provided in $\emph{https://sites.google.com/site/namjoonsuh/publications}$.)
+Fig. \ref{fig:figure1} shows us the result of clustered nodes using $k$-means algorithm on the first $K(=\mbox{rank}(\widehat{L}))$ eigenvectors.
 We plot the rows of first two eigenvectors on the cartesian plane since it visualizes well the clustering behavior of the nodes.
 Our model chooses well the ad-hoc links between clusters of nodes as can be verified in Fig. \ref{fig:figure2}.
-We color the edges in blue whose corresponding elements of estimated $\widehat{S}$ are non-zero, and black whose corresponding entries of $\widehat{S}$ are zero.
+We color the edges in blue whose corresponding elements of estimated $\widehat{S}$ are non-zero, and color the edges in black whose corresponding entries of $\widehat{S}$ are zero.
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[scale=0.75]{Fig2.pdf}
+%\includegraphics[scale=1,bb=0 0 30 30]{Fig2.pdf}
 \caption{Edges colored with blue correspond to non-zero entries of estimated $\widehat{S}$ matrix.
-For all three cases, our algorithm correctly separates the "across edges" from edges coming from low-rank matrix structure.}
+For all three cases, our algorithm correctly separates the ``across edges'' from edges coming from low-rank matrix structure.}
 \label{fig:figure2}
 \end{center}
 \end{figure}
 
-\subsection{Citation networks for statisticians }
+\subsection{Citation networks for statisticians}
+\label{sec:citation_network}
 Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set on citation  and co-authorship networks of statisticians.
-Citation relationship over 3000 papers from 4 statistical journals, published between 2003 and 2012, were collected, and collaborative network between authors of papers is given as well.
-In this section, we analyze the citation network. \\
+Citational relationships over $3000$ papers from $4$ statistical journals were collected, and collaborative network among authors of the papers is also given.
+In our work, we only analyze the citation network of papers.
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{Fig3.eps}
+\caption{\it Scree plots. From left to right: 543-Citation network, Mixed Topics-Citation network.}
+\label{fig:figure3}
+\end{figure}
+This dataset is based on all papers published from $2003$ to first half of $2012$, in $4$ of the top statistical journals: ``Annals of Statistics'', ``Biometrika'', ``Journal of American Statistical Association'' and ``Journal of Royal Statistical Society (Series B)''.
+Among  $3248$ papers in total, we restrict our attention on papers which have greater than or equal to $7$ citations from the collected papers in original dataset.
+We have $543$ papers in our hands.
+The elbow points of the scree plot may be at the $3$rd, $7$th, or $9$th largest eigenvalue, suggesting that there might be from $2$ to $8$ topics in network (See $Fig \ref{fig:figure3}, left$).
+In light of this, we performed our analysis under the assumption that there might exist $2$ distinct topics and one giant component in which $3$ or $4$ topics are mixed up.
 
-\noindent\textbf{Citation Network} This dataset is based on all published papers from 2003 to first half of 2012, in 4 of the top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association and Journal of Royal Statistical Society (Series B).
-Among  3248 papers, we restrict our attention on papers which have greater than or equal to 7 citations from collected papers in original dataset.
-We have 543 papers in our hands.
-The elbow points of the scree plot may be at the 3rd, 7th, or 9th largest eigenvalue, suggesting that there might be from 2 to 8 topics in network.
-In light of this, we performed our analysis under the assumption that there might exist 2 distinct topics and one giant component in which 3 or 4 topics mixed up. \\
-
-The pair of parameters, $(\gamma,\delta) = (0.000912,0.0097)$, gives us $\widehat{L}$ with rank 3, and $\widehat{S}$ with $|supp(\widehat{S})|=197$.
-We apply $k$-means algorithm on 3 eigenvectors of estimated $\widehat{L}$ matrix, and visualize the result of clustering by plotting the rows of first two eigenvectors of $\widehat{L}$ on plane in $Fig 4$.
-404 papers colored in green are densely clustered nearby the origin with a short tail, $(Fig 4)$, and $k$-means classifies these papers as third topic.
+A pair of parameters, $(\gamma,\delta) = (0.000912,0.0097)$, gives us $\widehat{L}$ with rank $3$, and $\widehat{S}$ with $|supp(\widehat{S})|/2=197$.
+We apply $k$-means algorithm on $3$ eigenvectors of estimated $\widehat{L}$ matrix, and visualize the result of clustering by plotting the rows of first two eigenvectors of $\widehat{L}$ on plane in $Fig \ref{fig:figure4}$.
+$404$ papers colored in green are densely clustered nearby the origin with a short tail, $(Fig \ref{fig:figure4})$, and $k$-means classifies these papers as third topic.
 We list the first two topics discovered through our analysis.
-(Full lists of papers for each communities are provided in ($\emph{https://sites.google.com/site/namjoonsuh/publications}$)
+Full lists of papers for each communities are provided in $\emph{https://sites.google.com/site/namjoonsuh/publications}$.
 
 \begin{itemize}
-  \item Variable selection (85 papers)
-  \item Multiple Hypothesis Testing (54 papers)
+  \item Variable selection ($85$ papers)
+  \item Multiple Hypothesis Testing ($54$ papers)
 \end{itemize}
 
 \noindent These two topics are classical research topics in field of statistics.
-First group talks about "Variable selection" in high-dimensional data.
-Majority of papers in second community study about "Controlling False Discovery Rate" in various statistical settings.
+First group talks about ``Variable selection'' in high-dimensional data.
+Majority of papers in second community study about ``Controlling False Discovery Rate'' in various statistical settings.
 As expected, third group is quite hard to interpret and seems to have substructures.
-For further investigation on this group, after obtaining the sub-network which is comprised only with papers in third group, we performed same analysis once again under the assumption that $K=4$.
+For further investigation on this group, after obtaining the sub-network which is comprised only with papers in third group, we performed same analysis once again under the assumption that $K=4$ (See $Fig \ref{fig:figure3},right$).
 We obtain four sub-communities as follows:
 
 \begin{itemize}
-  \item Non-parametric Bayesian Statistics (17 papers)
-  \item Functional Data analysis (35 papers)
-  \item Dimension Reduction (23 papers)
-  \item Mixed topics (329 papers)
+  \item Non-parametric Bayesian Statistics ($17$ papers)
+  \item Functional Data analysis ($35$ papers)
+  \item Dimension Reduction ($23$ papers)
+  \item Mixed topics ($329$ papers)
 \end{itemize}
 
-\begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig4.eps}
-\caption{\it Scree plots. From left to right: 543-Citation network, Mixed Topics-Citation network.}
-\label{fig:figure4}
-\end{figure}
+Out of this one big chunk, we got three small, but meaningful topics: ``Bayesian Statistics'', ``Functional/longitudinal data analysis'', ``Dimension Reduction''.
+Due to small volume of each communities, we could manually check that false discoveries for each community are all zero.
 
-Out of this one big chunk, we got three small, but meaningful topics: "Bayesian Statistics", "Functional/longitudinal data analysis", "Dimension Reduction".
-Due to small volume of each communities, we could check that false discoveries for each community are all zero.
-
-Sub-network structure has also a big chunk of papers which we refer to as "Mixed Topics".
-Not only could we see the papers with topics on "Learning Theory", "Non-parametric/semi-parametric statistics", "Spatial Statistics", "Theoretical Machine Learning", which does not seem to belong to any of five communities listed above, but also we could identify the papers with combinations of two or three topics.
-Papers like "The Bayesian Lasso (T. Park, et al. 2008)", "Coordinate-independent sparse sufficient dimension reduction and variable selection (X. Chen, et al. 2010)" are the examples of these papers.
+Sub-network structure has also a big chunk of papers which we refer to as ``Mixed Topics''.
+Not only could we see the papers with topics on ``Learning Theory'', ``Non-parametric/semi-parametric statistics'', ``Spatial Statistics'', ``Theoretical Machine Learning'', which does not seem to belong to any of the five communities listed above, but also we could identify the papers with combinations of two or three topics.
+Papers like ``The Bayesian Lasso (T. Park, et al. 2008)'', ``Coordinate-independent sparse sufficient dimension reduction and variable selection (X. Chen, et al. 2010)'' are the examples of these papers.
 It is also interesting to think about a reason on papers which seem to have obvious membership in one of $5$ communities other than Mixed topic classified as Mixed topic.
-For instance, "On the "degrees of freedom" on the LASSO (H. Zou, et al. 2007)" is classified as Mixed Topic paper.
+For instance, ``On the "degrees of freedom" on the LASSO (H. Zou, et al. 2007)'' is classified as Mixed Topic paper.
 We can simply guess model selection has lots of applications in other topics, so it might cite or have been cited by many papers in other communities.
 Actually, out of 19 citation relationships it has with other papers, 12 of them came from the relationships with papers from Mixed topics.
 
-It is worth to note that our result is consistent with that from Ji and Jin in a sense that they also recover "Multiple Testing", "Variable selection" and "non-parametric Bayesian statistics".
-This is interesting since even though the dataset we consider is different from theirs, result is consistent.
+Furthermore, it is worth to note that our result is consistent with that from Ji and Jin \cite{ji2016coauthorship} in a sense that they also recover ``Multiple Testing'', ``Variable selection'' and ``non-parametric Bayesian statistics''.
+This is interesting since even though the dataset we consider is different from theirs, the results are consistent.
 They focus their attentions on analyzing \emph{"weakly connected giant component"} for a citation network of each paper's authors ({i.e., each node is an author}).
 We consider the citation network of papers whose node degree is greater than or equal to 7.
 
-\textbf{Ad-hoc links}.
 Non-zero components of $\widehat{S}$ capture the citation relationships among papers that are not attributable to the common topics.
-The model we select has 197 sparse edges (9\% of total edges), and all of them are positive edges.
-In Table 1 xxxx, we provide 15 pairs of papers that have the most positive edges.
+The model we select has 197 sparse edges ($9\%$ of total edges), and all of them are positive edges.
+In Table \ref{tab:table2}, we provide 15 pairs of papers that have the largest estimated $\widehat{S}_{ij}$.
 All the 15 edges come from pairs of papers from different communities.
-For instance, the first pair of papers comes from the Functional Analysis community (denoted by \emph{FuncAn}) and Variable selection $(\emph{VarSel})$ community.
+For instance, the first pair of papers comes from the ``Functional Analysis'' community (denoted by \emph{FuncAn}) and ``Variable selection'' $(\emph{VarSel})$ community.
 $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
 Though it might seem to be a crucial step for building a theorem in their paper, we cannot say that two papers are closely related in terms of topic.
-Second pair comes from $\emph{MulT}$  and $\emph{VarSel}$ community.
-$\emph{MulT}$ paper briefly mention about $\emph{VarSel}$ paper in future work section, suggesting a possible way of combining their work and work in $\emph{VarSel}$ paper.
-And we also observe that as the weight of edges decreases, increasing number of pairs of papers both come from "Mixed topics" community.
+Second pair comes from ``Multiple Testing'' (denoted as $\emph{MulT}$) and ``Variable Selection'' ($\emph{VarSel}$) community.
+$\emph{MulT}$ paper briefly mentions about $\emph{VarSel}$ paper in future work section, suggesting a possible way of combining their work and work in $\emph{VarSel}$ paper.
+And we also observe that as the estimated weight of sparse edges (i.e., $\widehat{S}_{ij}$) decreases, the number of pairs of papers that come from "Mixed topics" community increases.
 
 \begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig3.eps}
+\includegraphics[width=1\textwidth]{Fig4.eps}
 \caption{Illustration of first two eigenvectors of estimated $\widehat{L}$ matrix for original
-citation network with 543 papers(left) and sub-network graph(right). Presentation
-on clustering results of k-means algorithm with different colors.}
-\label{fig:figure3}
+citation network with 543 papers (left) and sub-network graph (right). We present
+the results of assignment of each paper to each topic via $k$-means algorithm with different colors.}
+\label{fig:figure4}
 \end{figure}
 
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lclclclcl}\hline
+
+Pair & Weight & Community & Title                                                                                  & \\\hline
+1    & 6.03                      & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis       & \\
+     &                           & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters                         & \\
+2    & 3.08                      & MulT      & Innovated higher criticism for detecting sparse signals in correlated noise                   & \\
+     &                           & VarSel    & Regularized estimation of large covariance matrices & \\
+3    & 2.47                      & DimRed    & Contour projected dimension reduction & \\
+     &                           & VarSel    & Factor profiled sure independence screening & \\
+4    & 2.15                      & VarSel    & Factor profiled sure independence screening & \\
+     &                           & DimRed    & Sliced regression for dimension reduction & \\
+5    & 1.86                      & VarSel    & Covariance regularization by thresholding & \\
+     &                           & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
+6    & 1.77                      & VarSel    & Asymptotic properties of bridge estimators in sparse high-dimensional regression models       & \\
+     &                           & Mixed     & Marginal asymptotics for the $''$large p small n$''$ paradigm: with applications to microarray data &  \\
+7    & 1.71                      & VarSel    & A majorization-minimization approach to Variable Selection using spike and slab priors        & \\
+     &                           & Mixed     & Empirical Bayes selection of wavelet thresholds & \\
+8    & 1.66                      & VarSel    & Spades and mixture models & \\
+     &                           & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
+9    & 1.61                      & DimRed    & A constructive approach to the estimation of dimension reduction directions                   & \\
+     &                           & VarSel    & Factor profiled sure independence screening & \\
+10   & 1.54                      & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors        & \\
+     &                           & Mixed     & Spike and slab variable selection: frequentist and Bayesian strategies                        & \\
+11   & 1.53                      & VarSel    & variable selection in nonparametric additive models & \\
+     &                           & Mixed     & Nonparametric estimation of an additive model with a link function                            & \\
+12   & 1.39                      & Mixed     & Nonparametric inferences for additive models & \\
+     &                           & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models         & \\
+13   & 1.29                      & Mixed     & Bayesian variable selection in structured high-dimensional covariate spaces with applications in genomics & \\
+     &                           & VarSel    & Model selection and estimation in regression with grouped variables                           & \\
+14   & 1.20                      & VarSel    & The sparsity and bias of the LASSO selection in high-dimensional linear regression            & \\
+     &                           & Mixed     & Tests for high-dimensional covariance matrices & \\
+15   & 1.19                      & FuncAn    & Empirical dynamics for longitudinal data & \\
+     &                           & Mixed     & Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements   &       \\\hline
+\end{tabular}
+\caption{15 pairs of papers that have the largest estimated $\widehat{S}_{ij}$.
+Note that all the 15 edges come from pairs of papers from different communities. }
+\end{table}
+\label{tab:table2}
+\end{landscape}
 
 \section{Conclusion}
-We propose a new combined latent factor analysis and logistic model.
-We consider the regularized likelihood by means of $\ell 1$ and nuclear norm penalties.
+\label{sec:Con}
+
+We propose a new combined latent factor and logistic regression model.
+We consider the regularized likelihood by means of $L_1$ and nuclear norm penalties.
 The computation of the regularized estimator is facilitated by developing an algorithm based on the alternating direction method of multiplier to optimize a non-smooth and convex objective function.
-The proposed method is applied to citation and co-authorship network of statisticians, and the estimated model renders good interpretative power.
+The proposed method is applied to citation network of statisticians, and the estimated model renders good interpretative power.
 Specifically, our analysis on statistician's citation network sheds the new light on the interpretation of dataset.
 
-However, there are still several open problems which require us to do more careful analysis.
+Nonetheless, there are still several open questions remaining to be answered.
 First of all, it remains unclear on how to choose the proper tuning parameters.
 Classical methods for choosing tuning parameters such as BIC or AIC did not work in our case, since they tend to choose the most parsimonious models.
 We also do not have systematic ways to do cross validation in network data.
@@ -740,20 +778,20 @@ In lieu of using BIC or AIC, our analysis is heavily relying on heuristic approa
 Screeplot approach works usually well, but it does not necessarily always guarantee the correct estimate of number of communities.
 We need a more reliable and theoretically well understood way to determine $K$.
 
-Secondly, we only consider the undirected case which is somewhat unrealistic assumption in real citation network, in a sense that it is not usual for two papers to cite each other at the same time.
-Since in our research, we were interested in separating the low rank structure of edges and ad-hoc links in network, we did not take into account the directionalities of edges in our model.
-However, it would be interesting to think about the way to incorporate the directed network into our matrix decomposition framework.
+Secondly, we only consider the undirected case which is somewhat unrealistic assumption for citation network in real world, in a sense that it is not usual for two papers to cite each other at the same time.
+Since, in our research, we were interested in separating the low rank structure of edges and ad-hoc links in network, we did not take into account the directions of edges in our model.
+However, it would be interesting to consider incorporating the directed network into our matrix decomposition framework.
 
 Last but not least, when we assign the memberships of each nodes, we use $k$-means clustering algorithm.
 However, $k$-means algorithm turns out that it tends to assign nodes conservatively to each communities.
-For example, in $Fig 4 (a)$, we can see that bunch of Multiple Testing papers are assigned as Mixed cluster, and in $Fig 4 (b)$ also, many papers which should have been classified to among three communities other than mixed topic, have been assigned as Mixed topic community.
+For example, in $Fig \ref{fig:figure4}(left)$, we can see that bunch of Multiple Testing papers are assigned as Mixed cluster, and in $Fig \ref{fig:figure4}(right)$ also, many papers which should have been classified to among three communities other than mixed topic, have been assigned as Mixed topic community.
 This is probably because $k$-means does not allow overlapping membership of each nodes.
 It would be interesting to see what happens if we apply some clustering methods which allow the overlapped memberships of nodes in network.
 
 \section{Auxiliary result on non-asymptotic error bound of the estimator}
 In this section, we focus on investigating the behaviour of non-asymptotic error bound of our estimator in the context where the sample size is fixed as 1, and the number of variables in model is explicitly tracked. We are interested in solving following optimization problem :
 \begin{equation}\label{eq:1}
-\min\limits_{\alpha \in R, S = S^T \atop L \succ 0}
+\min\limits_{\alpha \in R, S = S^T \atop L \succcurlyeq 0}
 -\frac{1}{n} \log \prod_{1\le i,j\le n}\frac{exp\left(X_{ij}\left(\alpha+
 L_{ij}+S_{ij}\right)\right)}{1+exp\left(\alpha+
 L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1
@@ -769,7 +807,7 @@ Throughout the discussion, let $P^{*}=\big\{\frac{\exp(\Theta_{ij}^{*})}{1+\exp(
 Astute readers might notice the slight difference of first term in objective function between (\ref{eq:logistic10})
 and (\ref{eq:1}).
 Justification of this modification is well explained in \emph{remark 3.1} of the paper \cite{ma2017exploration}.
-We further impose several assumptions for theoretical guarantees of our estimator.
+We then impose several assumptions for theoretical guarantees of our estimator.
 
 \begin{assumption}(\textbf{Strong convexity})  \label{Ass:1}
 For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:1}), $h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}$.We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of likelihood function is bounded away from zero ($\tau > 0$):
@@ -777,7 +815,7 @@ For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{
 \nabla^{2}h(\Theta) = diag\Big(vec\Big(\frac{\exp(\Theta)}{n(1+\exp(\Theta))^{2}}
 \Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}
 \]
-For any vector $a$, diag(a) is the diagonal matrix with elements of a on its diagonal. For any square matrix A and B, $ A \succcurlyeq B $ if and only if A-B is positive semi-definite.
+For any vector $a$, $diag(a)$ is the diagonal matrix with elements of $a$ on its diagonal. For any square matrix $A$ and $B$, $ A \succcurlyeq B $ if and only if $A-B$ is positive semi-definite.
 \end{assumption}
 
 \begin{assumption} (\textbf{Identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, Spikiness of L}) \label{Ass:2}
@@ -803,19 +841,19 @@ There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,.
     \underbrace{c_{2}\frac{\delta^{2}}{\tau^{2}}
     \bigg\{k + \frac{\tau}{\delta}\sum_{j=k+1}^{n}\sigma_{j}(L^{*})\bigg\}}_{\mathcal{K}_{L^*}} +
     \underbrace{c_{3}\frac{\gamma^{2}}{\tau^{2}}
-    \bigg\{s + \frac{\tau}{\gamma}\sum_{(i,j) \notin \mathbb{M}}|S^*_{ij}|\bigg\}}_{\mathcal{K}_{S^*}}
+    \bigg\{s + \frac{\tau}{\gamma}\sum_{(i,j) \notin M}|S^*_{ij}|\bigg\}}_{\mathcal{K}_{S^*}}
 \end{align}
-where $\mathbb{M}$ is an arbitrary subset of matrix indices of cardinality at most s.
+where $M$ is an arbitrary subset of matrix indices of cardinality at most s.
 \end{theorem}
 
-We would first like to note readers that the result presented in \textbf{Theorem \ref{Th:th1}} can be thought of as an extension of Theorem 1 presented in paper \cite{agarwal2012noisy} to generalized linear model.
-Our work considers a logistic loss function whose parameters are characterized by sparse plus low rank matrices, whereas \cite{agarwal2012noisy} works on quadratic loss of noisy realization of linear transformation of sum of low rank and sparse matrices.
+We would first like to note readers that the result presented in Theorem \ref{Th:th1} can be thought of as an extension to Theorem $1$ presented in paper \cite{agarwal2012noisy} to generalized linear model.
+Our work considers a logistic loss function whose parameters are characterized by sparse matrix plus low rank matrix, whereas \cite{agarwal2012noisy} works on quadratic loss of noisy realization of linear transformation of sum of low rank and sparse matrices.
 We show that similar proof techniques can be applied in our case, giving us similar results.
 %Detailed descriptions of each terms in bound are elaborated in paper \cite{agarwal2012noisy}.
 
-Result of Theorem provides a family of upper-bounds, one for each indexed by a specific choice of model subspace $\mathbb{M}$, and rank parameter $k$. This family of upper-bounds helps us to understand the behavior of our proposed estimator both in practice and in ideal cases. In real-world, large scale citation network analysis, it is difficult to expect network with $L^*$ matrix with exactly $k(\ll n)$ non-zero eigenvalues, but with a matrix $L^*$ with approximately low rank.
+Result of the Theorem \ref{Th:th1} provides a family of upper-bounds, one for each indexed by a specific choice of model subspace $M$, and rank parameter $k$, helping us to understand the behavior of our proposed estimator both in practice and in ideal cases. In real-world, large scale citation network analysis, it is difficult to expect network with $L^*$ matrix with exactly $k(\ll n)$ non-zero eigenvalues, but with a matrix $L^*$ with approximately low rank.
 In this case, our theorem provides the intuition on the rate on how fast the error bound $\mathcal{K}_{L^*}$ will grow.
-In ideal cases where $L^*$ is an exact low rank matrix with rank $k$ (i.e., $rank(L^*)=k$) and $S^*$ is a sparse matrix, which lies within model subspace $\mathbb{M}$ (i.e., $|supp(S^*)|=s$), we can easily verify ``\emph{approximation error}'' terms in $\mathcal{K}_{L^*}$ (i.e., $\tau\sum_{j=k+1}^{n}\sigma_j(L^*)$) and in $\mathcal{K}_{S^*}$ (i.e., $\tau\sum_{(i,j)\notin \mathbb{M}}|S_{ij}^*|$) disappear, giving us Frobenius error bound as follows:
+In ideal cases where $L^*$ is an exact low rank matrix with rank $k$ (i.e., $rank(L^*)=k$) and $S^*$ is a sparse matrix, which lies within model subspace $M$ (i.e., $|supp(S^*)|=s$), we can easily verify ``\emph{approximation error}'' terms in $\mathcal{K}_{L^*}$ (i.e., $\tau\sum_{j=k+1}^{n}\sigma_j(L^*)$) and in $\mathcal{K}_{S^*}$ (i.e., $\tau\sum_{(i,j)\notin M}|S_{ij}^*|$) disappear, giving us Frobenius error bound as follows:
 \[
     e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \lesssim \delta^2(k+1)+\gamma^2s
 \]
@@ -824,7 +862,7 @@ where $\lesssim$ denotes that we ignore constant factors.
 \section{Appendix}
 \subsection{Proof of Theorem \ref{Th:th1}}
 
-In proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(\mathbb{M},\mathbb{M}^{\perp})$ denote arbitrary subspace pair for which component-wise $\ell_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $\mathbb{M}$ as $P_{\mathbb{M}}$. And also note that proof relies on following lemma:
+In proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(M,M^{\perp})$ denote arbitrary subspace pair for which component-wise $L_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$. And also note that proof relies on following lemma:
 
 \begin{lemma} \label{le:le1}
 If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\ref{eq:49}), then for $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we have
@@ -836,29 +874,7 @@ If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\r
 \]
 \end{lemma}
 
-\noindent\textbf{proof of Theorem \ref{Th:th1}}. 
-Our result provides the upper-bound on non-asymptotic Frobenius norm between estimator $\hat{\alpha}\mathbbm{1}\mathbbm{1}^T$, $\widehat{L}$ and $\widehat{S}$, and ground truth $\alpha^*\mathbbm{1}\mathbbm{1}^T$, $L^*$ and $S^*$, where matrices $L^*$ that can be either approximately or exactly low rank, and matrices $S^*$ that also can be either approximately or exactly sparse.
-A close observation on terms in upper-bound reveals that error bounds associated with $\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2}$, $\|\widehat{\Delta}^{L}\|_{F}^{2}$, and $\|\widehat{\Delta}^{S}\|_{F}^{2}$ are represented in the form of $\mathcal{K}_{\alpha^*}$, $\mathcal{K}_{L^*}$, and $\mathcal{K}_{S^*}$ respectively.
-More specifically, terms $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ are comprised of two types of errors, \emph{Estimation error} and \emph{Approximation error}. ''\emph{Estimation error}'' represents statistical cost of estimating a parameter belong to the model subspace $\mathbb{M}$.
-
-This result helps us to understand the behavior of our proposed estimator both in practice and in ideal cases.
-In real-world, large scale citation network analysis, it is difficult to expect exactly $k(\ll n)$ number of topics embedded in network. There must be
-
-
-Specifically, when $L^*$ is an exact low rank matrix with rank $k$ (i.e., $rank(L^*)=k$) and $S^*$ is a sparse matrix, which lies within model subspace $\mathbb{M}$ (i.e., $|supp(S^*)|=s$), then we have Frobenius error bound as follows:
-\[
-    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \lesssim (\delta^2+1)k+\gamma^2s
-\]
-
-
-\emph{\textbf{Comparison to Agarwal et al, \cite{agarwal2012noisy}}}
-We would like to refer readers that result presented in \textbf{Theorem \ref{Th:th1}} is similar with that of Theorem 1 presented in paper \cite{agarwal2012noisy}.
-However, it should be noted that the convex program we consider is distinct from \cite{agarwal2012noisy}.
-\cite{agarwal2012noisy} considers matrix decomposition problem, where the observations are noisy realization of linear transformation $\Xi$ of the sum of (approximately) low rank and (approximately) sparse matrices.
-They used the notions of Restricted Strong Convexity of quadratic loss function and decomposable regularizer to prove their claims. In our work, we consider a convex problem, whose logistic loss
-For the completeness of paper, we provide the proof of theorem in appendix section.
-
-\section{Appendix}
+\noindent\textbf{proof of Theorem \ref{Th:th1}}.
 \begin{proof}
 Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal and feasible (respectively) for the convex program (\ref{eq:1}), we have
 \begin{equation}\label{eq:2}
@@ -866,7 +882,7 @@ Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal and feasible (respectively
      h(\Theta^{*}) + \delta\|{L^{*}}\|_{*} + \gamma\|{S}^{*}\|_{1}
 \end{equation}
 
-Through the assumption of strong convexity on $h(\Theta)$, and by the Taylor expansion, we can get a following lower bound on term $h(\widehat{\Theta})-h(\Theta^{*})$ :
+Through the assumption of strong convexity on $h(\Theta)$, and by the Taylor expansion, we can get a following lower bound on the term $h(\widehat{\Theta})-h(\Theta^{*})$ :
 \[
 h(\widehat{\Theta})-h(\Theta^{*}) \geq
 \langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ + \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2}
@@ -910,7 +926,7 @@ in (\ref{eq:4}).
 \frac{1}{n} \|X - P^*\|_{\infty}(\|\widehat{\Delta}^{S}_{M}\|_{1} +
 \|\widehat{\Delta}^{S}_{M^{\perp}}\|_{1}) \\
 &\leq \frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) + \frac{\gamma}{2}(\|\widehat{\Delta}^{S}_{M}\|_{1} +
-\|\hat{\Delta}^{S}_{M^{\perp}}\|_{1})  \label{eq:10}
+\|\widehat{\Delta}^{S}_{M^{\perp}}\|_{1})  \label{eq:10}
 \end{align}
 
 Combining the inequalities (\ref{eq:5}) and (\ref{eq:10}), we can obtain the upper bound of RHS in (\ref{eq:4}) as follows:
@@ -923,7 +939,7 @@ Combining the inequalities (\ref{eq:5}) and (\ref{eq:10}), we can obtain the upp
     \label{eq:11}
 \end{equation}
 
-Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\hat{\Delta}^{\Theta}\|_{F}^{2}$ with respect to $\hat{\Delta}^{\alpha},\hat{\Delta}^{L},\hat{\Delta}^{S}$.
+Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2}$ with respect to $\hat{\Delta}^{\alpha},\widehat{\Delta}^{L},\widehat{\Delta}^{S}$.
 \begin{align}
 \|\widehat{\Delta}^{\Theta}\|_{F}^{2}  \nonumber
 &= \|\widehat{\Theta}-\Theta^{*} \|_{F}^{2} \\ \nonumber
@@ -936,7 +952,7 @@ Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\hat{\D
 \end{align}
 
 We want to get the further lower bound on trace inner product terms,
-$ \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ $, $ \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\ $. To control the first trace inner product term, we use the relation $\widehat{\Delta}^{L}\mathbbm{1}=0$, apply the definition of dual norm on inner product term, triangular inequality on $\hat{\Delta}^\alpha$, and lastly we apply the constraint imposed on $|\alpha|$ stated in Assumption \ref{Ass:2}.
+$ \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ $, $ \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\ $. To control the first trace inner product term, we use the relation $\widehat{\Delta}^{L}\mathbbm{1}=0$, apply the definition of dual norm on inner product term, apply triangular inequality on $\hat{\Delta}^\alpha$, and lastly we apply the constraint imposed on $|\alpha|$ stated in Assumption \ref{Ass:2}.
 
 \begin{align}
     | \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\rangle\ | \nonumber
@@ -975,33 +991,29 @@ By combining the relations (\ref{eq:11}) and (\ref{eq:26}), applying triangular 
     \|S^{*}_{M^\perp}\|_{1}
 \]
 
-Further, by plugging in Lemma \ref{le:le1} to get an upper bound on  $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we can rewrite the above inequality as follows:
-
 Further, by plugging in Lemma 1 to get an upper bound on  $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we can rewrite the above inequality as follows:
->>>>>>> 095ff5740396ce242cbf04c83b35a1975bbcc870
 \begin{align}
     \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} -
     \frac{\delta}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}
     \leq
     \frac{7\delta}{2}\mathbb{Q}(\hat{\Delta}^L_{A},\hat{\Delta}^S_{M}) + 4 \delta \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 4\gamma \|S^*_{M^\perp}\|_{1}  \label{eq:42}
 \end{align}
-Noting that $\widehat{\Delta}^{L}_{A}$ has rank at most 2$k$ and that $\widehat{\Delta}^{S}_{M}$ lies in the model space $\mathbb{M}$, we find that
+Noting that $\widehat{\Delta}^{L}_{A}$ has rank at most 2$k$ and that $\widehat{\Delta}^{S}_{M}$ lies in the model space $M$, we find that
 \begin{align}
     \nonumber
     \delta\mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M})
-    \leq \sqrt{2k}\delta\|\widehat{\Delta}^L_{A}\|_{F} + \Psi(\mathbb{M})\gamma\|\widehat{\Delta}^S_\mathbb{M}\|_{F}\\
-    \leq \sqrt{2k}\delta\|\widehat{\Delta}^L\|_{F} + \Psi(\mathbb{M})\gamma\|\widehat{\Delta}^S\|_{F}  \label{eq:43}
+    \leq \sqrt{2k}\delta\|\widehat{\Delta}^L_{A}\|_{F} + \Psi(M)\gamma\|\widehat{\Delta}^S_M\|_{F}\\
+    \leq \sqrt{2k}\delta\|\widehat{\Delta}^L\|_{F} + \Psi(M)\gamma\|\widehat{\Delta}^S\|_{F}  \label{eq:43}
 \end{align}
-Here $\Psi(\mathbb{M})$ measures the compatibility between Frobenius norm and component-wise $\ell_{1}$ regularizer, where $\mathbb{M}$ is an arbitrary subset of matrix indices of cardinality at most s.
+Here $\Psi(M)$ measures the compatibility between Frobenius norm and component-wise $L_{1}$ regularizer, where $M$ is an arbitrary subset of matrix indices of cardinality at most s.
 \[
-    \Psi(\mathbb{M}):=\sup\limits_{U\in\mathbb{M},U\neq0}\frac{\|U\|_{1}}{\|U\|_{F}}
+    \Psi(M):=\sup\limits_{U\in M,U\neq0}\frac{\|U\|_{1}}{\|U\|_{F}}
 \]
-Using Cauchy-Schwarz inequality, we can easily check the quantity $\Psi(\mathbb{M})$ is bounded by at most $\sqrt{s}$. Plugging in the relation ($\ref{eq:43}$) into ($\ref{eq:42}$) and rearranging the term relevant with  $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$ yield the claim.
+Using Cauchy-Schwarz inequality, we can easily check the quantity $\Psi(M)$ is bounded by at most $\sqrt{s}$. Plugging in the relation ($\ref{eq:43}$) into ($\ref{eq:42}$) and rearranging the term relevant with  $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$ yield the claim.
 \end{proof}
 
 
 \subsection{Proof of Lemma \ref{le:le1}}
-\subsection{Proof of Lemma 1}
 
 \begin{proof}
 Through the application of basic inequality by using optimality of $\widehat{\Theta}$ and feasibility of $\Theta^{*}$ to convex program (\ref{eq:1}), we have
@@ -1015,8 +1027,8 @@ By using convexity of $h(\Theta)$, we can write
     \langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ \nonumber \\
     &= - \langle\,\frac{1}{n} (X-P^{*}), \hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T + \widehat{\Delta}^{L} + \widehat{\Delta}^{S} \rangle\ \nonumber \\
     &\geq -\frac{1}{n} \|X - P^*\|_{op}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P^*\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \nonumber \\
-    &\geq -\frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_F + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) - \frac{\delta}{2} (\|\widehat{\Delta}^{S}_{\mathbb{M}}\|_{1} +
-    \|\widehat{\Delta}^{S}_{\mathbb{M^\perp}}\|_{1}) \label{eq:27}
+    &\geq -\frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_F + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) - \frac{\delta}{2} (\|\widehat{\Delta}^{S}_{M}\|_{1} +
+    \|\widehat{\Delta}^{S}_{M^\perp}\|_{1}) \label{eq:27}
 \end{align}
 
 One more round of application on Agarwal et al \cite{agarwal2012noisy}'s second element of lemma 1,
@@ -1038,46 +1050,6 @@ By combining relations (\ref{eq:27}) and (\ref{eq:28}), we can get the upper bou
 
 
 \end{proof}
-
-
-\begin{landscape}
-\begin{table}[t]
-\begin{tabular}{lclclclcl}\hline
-
-Pair & Weight & Community & Title                                                                                  & \\\hline
-1    & 6.03                      & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis       & \\
-     &                           & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters                         & \\
-2    & 3.08                      & MulT      & Innovated higher criticism for detecting sparse signals in correlated noise                   & \\
-     &                           & VarSel    & Regularized estimation of large covariance matrices & \\
-3    & 2.47                      & DimRed    & Contour projected dimension reduction & \\
-     &                           & VarSel    & Factor profiled sure independence screening & \\
-4    & 2.15                      & VarSel    & Factor profiled sure independence screening & \\
-     &                           & DimRed    & Sliced regression for dimension reduction & \\
-5    & 1.86                      & VarSel    & Covariance regularization by thresholding & \\
-     &                           & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
-6    & 1.77                      & VarSel    & Asymptotic properties of bridge estimators in sparse high-dimensional regression models       & \\
-     &                           & Mixed     & Marginal asymptotics for the $''$large p small n$''$ paradigm: with applications to microarray data &  \\
-7    & 1.71                      & VarSel    & A majorization-minimization approach to Variable Selection using spike and slab priors        & \\
-     &                           & Mixed     & Empirical Bayes selection of wavelet thresholds & \\
-8    & 1.66                      & VarSel    & Spades and mixture models & \\
-     &                           & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
-9    & 1.61                      & DimRed    & A constructive approach to the estimation of dimension reduction directions                   & \\
-     &                           & VarSel    & Factor profiled sure independence screening & \\
-10   & 1.54                      & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors        & \\
-     &                           & Mixed     & Spike and slab variable selection: frequentist and Bayesian strategies                        & \\
-11   & 1.53                      & VarSel    & variable selection in nonparametric additive models & \\
-     &                           & Mixed     & Nonparametric estimation of an additive model with a link function                            & \\
-12   & 1.39                      & Mixed     & Nonparametric inferences for additive models & \\
-     &                           & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models         & \\
-13   & 1.29                      & Mixed     & Bayesian variable selection in structured high-dimensional covariate spaces with applications in genomics & \\
-     &                           & VarSel    & Model selection and estimation in regression with grouped variables                           & \\
-14   & 1.20                      & VarSel    & The sparsity and bias of the LASSO selection in high-dimensional linear regression            & \\
-     &                           & Mixed     & Tests for high-dimensional covariance matrices & \\
-15   & 1.19                      & FuncAn    & Empirical dynamics for longitudinal data & \\
-     &                           & Mixed     & Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements   &       \\\hline
-\end{tabular}
-\end{table}
-\end{landscape}
 
 %\nocite{*}
 \bibliography{References}

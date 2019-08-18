@@ -138,8 +138,6 @@ par(mfrow=c(1,3))
 plot(X_draw,main="N=30,K=3,NNZ=10")
 
 
-
-
 #################### data generation N = 80, K = 4, NNZ = 20 ####################
 N = 80; K = 4; NNZ = 20;
 ### Ingredients for creating network : alpha, F, D, S                      
@@ -268,9 +266,6 @@ for(i in 1:length(B[,1])){
 E(X_draw2)$color <- "black"
 E(X_draw2)[list]$color <- "blue"
 plot(X_draw2,main="N=80,K=4,NNZ=20")
-
-
-
 
 
 #################### data generation N = 120, K = 5, NNZ = 40 ###########################
