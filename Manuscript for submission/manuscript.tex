@@ -1,5 +1,7 @@
 \documentclass[AMS,STIX1COL]{WileyNJD-v2}
-\usepackage{graphicx,times,verbatim,amsmath,amssymb,amsthm}
+%\documentclass[AMS]{WileyNJD-v2}
+\usepackage{graphicx,times,verbatim,amsmath,amsthm}
+%\usepackage{graphicx,times,verbatim,amsmath,amssymb,amsthm}
 \usepackage{amsmath,amsfonts}
 \usepackage{bbm}
 \usepackage{mathtools}
@@ -32,7 +34,7 @@
 
 \begin{document}
 
-\title{Factor Analysis on Citations, using a Combined Latent and Logistic Regression Model}
+\title{Factor Analysis on Citations, Using a Combined Latent and Logistic Regression Model}
 
 \author[1]{Namjoon Suh}
 \author[1]{Xiaoming Huo*}
@@ -531,7 +533,7 @@ We set the model parameters randomly following these steps:
     \item Generate $\alpha^*$ from Unif$[-3,-2]$ (i.e., $\alpha^*\sim \text{Unif}[-3,-2]$).
     \item For the binary factor loading matrix $F^*(\in \mathbb{R}^{n \times K})$, first fill in each row of the matrix with $\floor{\frac{n}{K}}$ ones,
      and make sure that each column of $F^{*}$ has only one $1$.
-     In last row of $F^*$, fill in the last remaining $n-K\floor{\frac{n}{K}}$ entries with $1$s.
+     In last row of $F^*$, fill in the last remaining $n-K\floor{\frac{n}{K}}$ entries with $1$'s.
      Then, we randomly choose one of columns, and fill that column with ones.
      Lastly, set $F^*=F^*J$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$.
      %and project the column space of $F$ onto the orthogonal complement subspace of $\mathbbm{1}$ vector by multiplying the aforementioned $J = I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$ to $F$.
