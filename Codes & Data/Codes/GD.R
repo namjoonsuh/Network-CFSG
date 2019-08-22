@@ -38,7 +38,7 @@ GD <- function(para_v){
     
     # Update the solution & Calculate the difference between objective function
     old_sol = c(X_a, X_M)
-    new_sol = old_sol - 0.1*grad
+    new_sol = old_sol - 0.05*grad
     CC<-max(abs(grad))
     # print(CC)
     # Convergence Criteria
