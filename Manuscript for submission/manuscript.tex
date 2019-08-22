@@ -599,9 +599,10 @@ In subsection \ref{sec:citation_network}, we perform a real data analysis with c
 Throughout the Section, we add $*$ to the superscript of parameters when they govern a data-generating process.
 $\alpha^*$ is an intercept term in logistic regression model.
 $f^*_j$ is the $j$th column of factor loading matrix $F^* \in \mathbb{R}^{K \times n}$, where $K$ refers to the number of topics embedded in network, and $n$ denotes the number of papers in a network.
-Matrix $D^* \in \mathbb{R}^{K \times K}$ is a diagonal matrix whose entries denote weight coefficient of factors. 
+Here, we introduce another notation, $n_{l}$, denoting the number of papers, which share $l$ common topics.
+Matrix $D^* \in \mathbb{R}^{K \times K}$ is a diagonal matrix whose entries denote weight coefficient of factors.
 $S_{ij}^*$ denotes an ad-hoc citational relation between $i$th and $j$th paper.
-We use the notation $|S^*|$ to denote the cardinality of non-zero components of upper-triangular part of $S^*$ matrix 
+We use the notation $|S^*|$ to denote the cardinality of non-zero components of upper-triangular part of $S^*$ matrix
 (i.e., $|S^*|=|\{(i,j) : S_{ij}^{*}\neq 0, 1 \leq i<j \leq n\}|$).
 We will use $X \sim \text{Unif}[a,b]$ to denote
 $X$ is drawn from uniform distribution supported on the interval $[a,b]$.
@@ -614,7 +615,16 @@ Then, three model selection criteria and related evaluation metrics for the sele
 Lastly, several interesting findings from the experiments will be presented.
 
 \subsubsection{Synthetic Setting}
-We consider following three scenarios: $\{(n^{(i)},K^{(i)},nnz^{(i)})\}_{i=1}^{3}=\{(30,3,10),(80,4,20),(120,5,40)\}$.
+In first scenario, we consider following three cases: $\{(n_{1}^{(i)},K^{(i)},|S^*|^{(i)})\}_{i=1}^{3}$ $=\{(30,3,10),
+(80,4,20),(120,5,40)\}$.
+For example,  $(n_{1}^{(3)},K^{(3)},|S^*|^{(3)})$ means that we generate a network with $120$ papers, $5$ topics embedded, and $40$ arbitrary indexed ad-hoc links. Note $n_{1}^{(3)}=120$ means that each paper in the network has only one topic.
+In second scenario, we consider a case where we have 
+$(n,n_{2},n_{3},K,|S^{*}|)=(200,70,7,3,20)$.
+Here, we generate a network with $200$ papers in total, which is comprised of $70$ papers with $2$ topics, $7$ papers with $3$ topics. The network has $3$ topics, and $20$ arbitrary indexed ad-hoc links. 
+In third scenario, we consider a case:
+$(n,n_{3},K,|S^{*}|)=(200,20,3,20)$.
+In this scenario, we have a network with $200$ papers with $3$ topics. Among $200$ papers, there are $20$ papers, which are related with all the $3$ topics.
+These $20$ papers have citational relationships with three clusters of papers via $20$ ad-hoc links, where papers in each cluster deals with only $1$ topic. 
 
 \subsubsection{Data Generation}
 Following the notation of our paper, each edge $X_{ij}$ follows Bernoulli distribution, whose parameter is parameterized by the probability, $P^{*}_{ij}=\frac{\exp (
@@ -659,7 +669,7 @@ Additionally $1$ in the last is due to $\alpha$.
 We want to find an $M$, which minimizes BIC($M$) or AIC($M$) as a function of $M$.
 However these traditional methods seem to entail a serious problem.
 %The assumptions used to derive BIC or AIC are not satisfied here, since each edges in a graph are not identically distributed.
-Our experience shows that both BIC and AIC choose the most parsimonious model with the smallest $K(=\text{rank}(\widehat{L}))$ and the smallest cardinality$(=|\text{supp}(\widehat{S})|/2)$ of ad-hoc dependency among all the estimated ($\widehat{L}$,$\widehat{S}$)s'.
+Our experience shows that both BIC and AIC choose the most parsimonious model with the smallest $K(=\text{rank}(\widehat{L}))$ and the smallest cardinality$(=|\widehat{S}|)$ of ad-hoc dependency among all the estimated ($\widehat{L}$,$\widehat{S}$)s'.
 We evaluate the models that are selected via our heuristic approach, BIC, and AIC by using following three evaluation metrics.
 
 \begin{eqnarray*}
