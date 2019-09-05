@@ -596,58 +596,107 @@ In subsection \ref{sec:Syn-dat}, we conduct an empirical study of measuring the 
 In subsection \ref{sec:citation_network}, we perform a real data analysis with citation network for statisticians.
 
 \begin{remark}
-Throughout the Section, we add $*$ to the superscript of parameters when they govern a data-generating process.
-$\alpha^*$ is an intercept term in logistic regression model.
-$f^*_j$ is the $j$th column of factor loading matrix $F^* \in \mathbb{R}^{K \times n}$, where $K$ refers to the number of topics embedded in network, and $n$ denotes the number of papers in a network.
+Throughout the Section, we add $*$ to the superscript of parameters to denote that they are ground truth parameters.
+We use $\alpha^*$ as an intercept term in logistic regression model, and
+$f^*_j$ as $j$th column of factor loading matrix $F^* \in \mathbb{R}^{K \times n}$, where $K$ refers to the number of topics embedded in network, and $n$ denotes the number of papers in the network.
 Here, we introduce another notation, $n_{l}$, denoting the number of papers, which share $l$ common topics.
-Matrix $D^* \in \mathbb{R}^{K \times K}$ is a diagonal matrix whose entries denote weight coefficient of factors.
+Matrix $D^* \in \mathbb{R}^{K \times K}$ is a diagonal matrix whose entries denote weight coefficient of factors, and
 $S_{ij}^*$ denotes an ad-hoc citational relation between $i$th and $j$th paper.
 We use the notation $|S^*|$ to denote the cardinality of non-zero components of upper-triangular part of $S^*$ matrix
 (i.e., $|S^*|=|\{(i,j) : S_{ij}^{*}\neq 0, 1 \leq i<j \leq n\}|$).
-We will use $X \sim \text{Unif}[a,b]$ to denote
-$X$ is drawn from uniform distribution supported on the interval $[a,b]$.
+%We will use $X \sim \text{Unif}[a,b]$ to denote
+%the random variable $X$ is drawn from uniform distribution supported on the interval $[a,b]$.
 \end{remark}
 
 \subsection{Numerical experiments with synthetic data}
 \label{sec:Syn-dat}
-In this subsection, after a brief introduction on several synthetic scenarios that we want to explore, we will discuss how to set ground truth parameters for generating synthetic networks from pre-specified scenarios.
-Then, three model selection criteria and related evaluation metrics for the selected model will be introduced.
-Lastly, several interesting findings from the experiments will be presented.
+After a brief introduction on several synthetic scenarios that we want to explore, we will discuss how to set ground truth parameters for generating synthetic networks from pre-specified scenarios.
+Subsequently, three model selection criteria and three evaluation metrics for the selected model will be introduced.
+Lastly, several interesting observations from the experiments will be presented.
+
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{Fig1.pdf}
+\caption{Illustrations of assignment results via $k$-means algorithm on $K$ eigenvectors of the estimated $\widehat{L}$ matrix.}
+\label{fig:figure1}
+\end{figure}
 
 \subsubsection{Synthetic Setting}
-In first scenario, we consider following three cases: $\{(n_{1}^{(i)},K^{(i)},|S^*|^{(i)})\}_{i=1}^{3}$ $=\{(30,3,10),
-(80,4,20),(120,5,40)\}$.
-For example,  $(n_{1}^{(3)},K^{(3)},|S^*|^{(3)})$ means that we generate a network with $120$ papers, $5$ topics embedded, and $40$ arbitrary indexed ad-hoc links. Note $n_{1}^{(3)}=120$ means that each paper in the network has only one topic.
-In second scenario, we consider a case where we have 
-$(n,n_{2},n_{3},K,|S^{*}|)=(200,70,7,3,20)$.
-Here, we generate a network with $200$ papers in total, which is comprised of $70$ papers with $2$ topics, $7$ papers with $3$ topics. The network has $3$ topics, and $20$ arbitrary indexed ad-hoc links. 
-In third scenario, we consider a case:
-$(n,n_{3},K,|S^{*}|)=(200,20,3,20)$.
-In this scenario, we have a network with $200$ papers with $3$ topics. Among $200$ papers, there are $20$ papers, which are related with all the $3$ topics.
-These $20$ papers have citational relationships with three clusters of papers via $20$ ad-hoc links, where papers in each cluster deals with only $1$ topic. 
+In this subsection, we consider $3$ scenarios.
+In first scenario, we examine a simple setting, in which every paper in the network has only one topic.
+In second scenario, we study a slightly more complicated situation than the first one where each paper in the network can possibly have more than one topic.
+%It is worth noting that different clusters of papers, where each cluster is comprised of papers with same topic, are connected via ad-hoc links.
 
-\subsubsection{Data Generation}
-Following the notation of our paper, each edge $X_{ij}$ follows Bernoulli distribution, whose parameter is parameterized by the probability, $P^{*}_{ij}=\frac{\exp (
-\alpha^{*}+F^{*T}_{i}D^{*}F^{*}_{j} +  S^{*}_{ij})}{1+\exp(\alpha^{*}+F^{*T}_{i}D^{*}F^{*}_{j} +  S^{*}_{ij})}$.
-We set the model parameters randomly following these steps:
+More concretely, in first scenario, when there is a network of $n$ papers with $K$ topics, there are $K$ clusters of papers, where each of which deals with $1$ specific topic out of $K$ topics.
+And each cluster is comprised of $\frac{n}{K}$ non-overlapping papers.
+Moreover, these $K$ clusters are connected with each other via $|S^*|$ random ad-hoc links.
+Specifically, we assume $|S^*|/\binom{K}{2}$ ad-hoc links connect $2$ different clusters of papers.
+For example, suppose that we have a network of $120$ papers with $5$ topics and with $30$ random ad-hoc links. Then, there are $5$ clusters, each of which has $24$ papers, and each of $10(=\binom{5}{2})$ pairs of clusters is connected through $3(=30/\binom{5}{2})$ random ad-hoc links.
+%(See Fig$\ref{fig:figure1}$
+
+Based upon the settings mentioned in the first scenario, additionally in second scenario, we suppose that there are $n_{l}$ papers, which share $l(\leq K)$ common topics in the network.
+For instance, if we have a network of $210$ papers with $3$ topics, and
+$n_2=50$, then $n_2=50$ means that there are $50$ papers out of $210$ papers, which have $2$ shared topics out of $3$ topics.
+Here, we want to note the readers that ad-hoc links are not used either to connect the clusters of papers that share $l$ common topics, or to connect a cluster of $1$ topic and a cluster that share $l$ common topics.
+In order to represent this notion in a generated network,
+first, we randomly pick $n_{l}$ indices from the set $\Omega_{n_{l}} = \{1,2,\dots,n\} \setminus \Omega_{S^*}$, where $\Omega_{S^*}$ denotes a set of indices of papers for formulating $|S^*|$ ad-hoc links.
+Next, $\forall j \in \Omega_{n_{l}}$, fill in arbitrary $l$ positions of $f_j^*$ with $1$s.
+
+With these settings in mind, we construct $3$ cases of networks for scenarios $1$, $2$, and $3$ respectively. Specifically;
+
 \begin{enumerate}
-    \item Generate $\alpha^*$ from Unif$[-3,-2]$ (i.e., $\alpha^*\sim \text{Unif}[-3,-2]$).
-    \item For the binary factor loading matrix $F^*(\in \mathbb{R}^{n \times K})$, first fill in each row of the matrix with $\floor{\frac{n}{K}}$ ones,
-     and make sure that each column of $F^{*}$ has only one $1$.
-     In last row of $F^*$, fill in the last remaining $n-K\floor{\frac{n}{K}}$ entries with $1$'s.
-     Then, we randomly choose one of columns, and fill that column with ones.
-     Lastly, set $F^*=F^*J$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$.
-     %and project the column space of $F$ onto the orthogonal complement subspace of $\mathbbm{1}$ vector by multiplying the aforementioned $J = I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$ to $F$.
-    \item Each element of diagonal matrix $D^{*}$ is generated from uniform distribution supported on $[7,8]$.
-    \item For the sparse component $S^*$, first draw $|S^*|$ sparsity pattern
-    first draw $nnz$ distinct random pairs of indices that are uniformly distributed over the indices of upper triangular part (off diagonal) of matrix $S^*$. For each drawn pair of indices $(i,j)$, draw random number from Unif$[7,8]$ (i.e., $S^*_{ij}\sim\text{Unif}[7,8]$).
+    \item In the first scenario, we consider following three cases: $\{(n^{(i)},n_{1}^{(i)},K^{(i)},|S^*|^{(i)})\}_{i=1}^{3}$ $=\{(30,30,3,9), (80,80,4,18),$ $(120,120,5,30)\}$.
+        If we take an example, the notation  $(n^{(1)},n_{1}^{(1)},K^{(1)},|S^*|^{(1)})=(30,30,3,9)$ means that we generate a network with $30$ papers. There are $3$ topics embedded in the network, and $9$ random ad-hoc links connect $3$ clusters of papers, where each cluster represents a collection of papers with same topic.
+        Note that every paper in three networks, which are considered in this scenario, studies only about $1$ topic among $K$ topics.
+    \item In the second scenario, we consider three cases where we have
+        $\{(n^{(i)},n_{2}^{(i)},n_{3}^{(i)},K^{(i)},|S^{*}|^{(i)})\}_{i=1}^{3}=
+        \{(120,0,10,3,18),$ $(210,50,0,3,18),(210,10,10,3,18)\}$.
+        For instance, in the third case, we have a network with $210$ papers in total. There are $3$ topics commonly shared across the network.
+        Among $210$ papers, $10$ papers randomly share $2$ topics out of $3$, other $10$ papers have $3$ mixed topics, whereas remaining $190$ papers only discuss $1$ topic.
+        Note that $3$ clusters from these $190$ papers are connected through $18$ random ad-hoc links.
+        % For all $3$ cases, networks considered in this scenario have $3$ topics, and $3$ clusters of papers are connected via $18$ random ad-hoc links.
+        % In the first case, we generate a network with $120$ papers in total, which is comprised of $110$ papers with $1$ topic, and $10$ papers with $3$ mixed topics.
+        % In the second case, we have a network with $210$ papers in total.
+        % Among them, $50$ papers randomly share $2$ topics out of $3$ topics.
+        % And remaining $160$ papers talk about only $1$ topic.
+        % Lastly, in the third case, the network to be considered has $210$ papers in total.
+        % Among them, $10$ papers randomly share $2$ topics out of $3$, other $10$ papers have $3$ mixed topics, whereas remaining $190$ papers only discuss $1$ topic.
+    \item adsfasdf
 \end{enumerate}
 
+All $9$ networks that are elaborated in scenarios $1$, $2$ and $3$ are visualized in Fig\ref{fig:figure1}.
+Note that ad-hoc links, which connect clusters of papers with $1$ topic, are colored in green.
+For more detailed descriptions on parametric settings for generating networks in Fig\ref{fig:figure1}, readers can refer the R code provided in $\dots$.
+%In next subsection, we provide detailed ground truth parameters settings for generating the networks in Fig\ref{fig:figure1}.
+
+%\subsubsection{Data Generation}
+%Following the notation of our paper, each edge $X_{ij}$ follows Bernoulli distribution, whose parameter is parameterized by the probability, $P^{*}_{ij}=\frac{\exp (
+%\alpha^{*}+F^{*T}_{i}D^{*}F^{*}_{j} +  S^{*}_{ij})}{1+\exp(\alpha^{*}+F^{*T}_{i}D^{*}F^{*}_{j} +  S^{*}_{ij})}$.
+%Here, we describe a procedure on how to set the model parameters, $\alpha^*, S^*, D^*, F^*$, to define the probability $P^*_{ij}$ for generating the random networks in Fig\ref{fig:figure1}.
+
+%\begin{enumerate}
+%    \item Generate $\alpha^*$ from uniform distribution supported on $[-11,-10]$. Only for the case $4$, we draw $\alpha^* \sim \text{Unif}[-4,-3]$.
+
+%    \item We assume that the ad-hoc links, induced from non-zero entries of $S^*$ matrix, can complement the latent model
+%        the link structure that cannot be explained by common topics.
+%        Based on this assumption, we make the ad-hoc links connect the clusters with $K$ distinct topics.
+
+%    \item Each element of diagonal matrix $D^{*}$ is generated from uniform distribution supported on $[19,20]$. (i.e., $D_{ii} \sim \text{Unif}[19,20], \forall 1\leq i \leq K$)
+
+%    \item For factor loading matrix $F^*(\in \mathbb{R}^{K \times n})$, first fill in each row of the matrix with $\floor{\frac{n}{K}}$ ones,
+%        and make sure that each column of $F^{*}$ has only one $1$.
+%        In last row of $F^*$, fill in the last remaining $n-K\floor{\frac{n}{K}}$ entries with $1$'s.
+%        Then, we randomly choose one of columns, and fill that column with ones.
+%        Lastly, set $F^*=F^*J$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$.
+        %and project the column space of $F$ onto the orthogonal complement subspace of $\mathbbm{1}$ vector by multiplying the aforementioned $J = I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$ to $F$.
+%\end{enumerate}
+
 \subsubsection{Choosing the tuning parameters and evaluation criteria}
+
 We observe that choosing a good pair of tuning parameters is an important yet challenging issue in our setting.
 Here we present a heuristic approach.
-Following the approach in Ji and Jin \cite{ji2016coauthorship}, we plot the largest $20$ eigenvalues of adjacency matrix $X$, which can tell us the number of communities embedded in network.
-Then, we record the rank of $\widehat{L}$ and number of non-zero elements in $\widehat{S}$ for each tuning parameter pair on a given grid, and choose a proper pair that give us interesting interpretations of data.
+Following the approach in Ji and Jin \cite{ji2016coauthorship}, we plot the largest $20$ eigenvalues of adjacency matrix $X$, which can tell us the number of communities embedded in the network
+(See Fig\ref{fig:figure2} to check for the cases of $6$ aforementioned synthetic networks).
+Then, we record the rank of $\widehat{L}$ and number of non-zero elements in $\widehat{S}$ for each tuning parameter pair on a given grid, and choose a proper pair that gives us interesting interpretations of data.
 
 One might wonder how traditional model selection methods, such as the Bayes Information Criterion (BIC;\cite{schwarz1978estimating}) and the AIC, work where we recall that BIC and AIC are defined as follows:
 \[
@@ -669,11 +718,17 @@ Additionally $1$ in the last is due to $\alpha$.
 We want to find an $M$, which minimizes BIC($M$) or AIC($M$) as a function of $M$.
 However these traditional methods seem to entail a serious problem.
 %The assumptions used to derive BIC or AIC are not satisfied here, since each edges in a graph are not identically distributed.
-Our experience shows that both BIC and AIC choose the most parsimonious model with the smallest $K(=\text{rank}(\widehat{L}))$ and the smallest cardinality$(=|\widehat{S}|)$ of ad-hoc dependency among all the estimated ($\widehat{L}$,$\widehat{S}$)s'.
+Our experience shows that both BIC and AIC choose the most parsimonious model with the smallest $K(=\text{rank}(\widehat{L}))$ and the smallest cardinality$(=|\widehat{S}|)$ of ad-hoc links among all the estimated ($\widehat{L}$,$\widehat{S}$)s' over the given grid.
 We evaluate the models that are selected via our heuristic approach, BIC, and AIC by using following three evaluation metrics.
 
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{Fig2.pdf}
+\caption{\it Scree plots. From left to right: 543-Citation network, Mixed Topics-Citation network.}
+\label{fig:figure2}
+\end{figure}
+
 \begin{eqnarray*}
-M_1 &=& \mathbbm{1}\big\{rank(\widehat{L}) = rank(L^{*})\big\}, \\
+M_1 &=& \mathbbm{1}\big\{\text{rank}(\widehat{L}) = \text{rank}(L^{*})\big\}, \\
 M_2 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}\right|}, \\
 M_3 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}\right|},
 \end{eqnarray*}
@@ -681,30 +736,10 @@ where $M_1$ is a metric on whether the selected model recovers true low rank str
 $M_2$ evaluates the positive selection rate of the sparse ad-hoc structure in network,
 and $M_3$ evaluates the false discovery rate of ad-hoc edges.
 With properly selected tuning parameter, $M_1$ will be 1, $M_2$ will be close to 1, and $M_3$ will get close to 0.
-We present the evaluation results of three scenarios via these three criteria in Table \ref{tab:table1}.
+We present the evaluation results of $9$ cases via these $3$ criteria in Table \ref{tab:table1}.
 
-\begin{table}[htbp]
-\centering
-\begin{tabular}{c|ccc|ccc|ccc}
-   & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\ \cline{2-10}
-   & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC   \\ \hline
-$M_1$ & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0      & 0     \\
-$M_2$ & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
-$M_3$ & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0
-\end{tabular}
-\caption{ For three scenarios, our heuristic method chooses the model with $\widehat{L}$ with true rank, $\widehat{S}$ whose $M_2$ value is close to $1$, and $M_3$ value is close to $0$.
-Note that, for all three scenarios, both AIC and BIC choose the model with no ad-hoc structure (i.e., $\widehat{S}=0$), and $\widehat{L}$ with rank $1$ (i.e.,$\text{rank}(\widehat{L})=1$).}
-\label{tab:table1}
-\end{table}
-
-\begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig1.pdf}
-\caption{Illustrations of assignment results via $k$-means algorithm on $K$ eigenvectors of the estimated $\widehat{L}$ matrix.}
-\label{fig:figure1}
-\end{figure}
-
-\subsubsection{Findings}
-Given a network data $X$, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to topic $k$.
+\subsubsection{Several Observations}
+Given a network data $X$, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to $k$th topic or not.
 We applied a simple $k$-means clustering on the fitted $L$ matrix's $K$ eigenvectors.
 For the illustration of performance of our fitted model after applying $k$-means algorithm on three synthetic scenarios, in Fig\ref{fig:figure1}, we plot the coordinates of each rows of first two eigen-vectors on $2$D plane.
 %Furthermore, we find one interesting phenomenon.
@@ -716,7 +751,71 @@ Ad-hoc links of synthetic network data can be thought of as ``across edges'' bet
 Since indices of non-zero entries of $S^{*}$ are randomly chosen, there might be some indices of positive $S^{*}_{ij}$ entries where $L^{*}_{ij}$ is also positive.
 In this case, this makes the edges indistinguishable if they come from $S^{*}_{ij}$ or $L^{*}_{ij}$.
 %Some of ``across edges" are also attributed to $\alpha^{*}$, and unfortunately, our algorithm cannot make a difference whether the edge comes from $\alpha^{*}$ or $S^{*}_{ij}$.
-So the total number of ``across edges'' might not be exactly same as ``$nnz$'' as we set in our data generation setting.
+So the total number of ``across edges'' might not be exactly same as $|S^*|$ as we set in our data generation setting.
+
+\begin{table}[htbp]
+%\centering
+%\begin{tabular}{c|ccc|ccc|ccc}
+%   & \multicolumn{9}{c|}{Scenario 1}
+%   & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\ %\cline{2-10}
+%   & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC   \\ \hline
+%$M_1$ & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0      & 0     \\
+%$M_2$ & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
+%$M_3$ & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0
+%\end{tabular}
+%\begin{table}[htbp]
+
+\centering
+\begin{tabular}{c|ccc|ccc|ccc}
+            & \multicolumn{9}{c}{\textbf{Scenario 1}}                                              \\
+            \cline{2-10}
+            & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\
+            \cline{2-10}
+            & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
+            \hline
+$M_{1}$          &             &       &      &             &       &      &             &       &      \\
+$M_{2}$          &             &       &      &             &       &      &             &       &      \\
+$M_{3}$          &             &       &      &             &       &      &             &       &      \\
+Grid Region &    &       &      &             &       &      &             &       &      \\
+            \hline
+\end{tabular}
+
+\begin{tabular}{c|ccc|ccc|ccc}
+            & \multicolumn{9}{c}{\textbf{Scenario 2}}                                              \\
+            \cline{2-10}
+            & \multicolumn{3}{c|}{Case 4} & \multicolumn{3}{c|}{Case 5} & \multicolumn{3}{c}{Case 6} \\
+            \cline{2-10}
+            & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
+            \hline
+$M_{1}$          &             &       &      &             &       &      &             &       &      \\
+$M_{2}$        &             &       &      &             &       &      &             &       &      \\
+$M_{3}$       &             &       &      &             &       &      &             &       &  \\
+Grid Region &             &       &      &             &       &      &             &       &      \\
+\end{tabular}
+
+\begin{tabular}{c|ccc|ccc|ccc}
+            & \multicolumn{9}{c}{\textbf{Scenario 3}}                                              \\
+            \cline{2-10}
+            & \multicolumn{3}{c|}{Case 7} & \multicolumn{3}{c|}{Case 8} & \multicolumn{3}{c}{Case 9} \\
+            \cline{2-10}
+            & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
+            \hline
+$M_{1}$          &             &       &      &             &       &      &             &       &      \\
+$M_{2}$        &             &       &      &             &       &      &             &       &      \\
+$M_{3}$       &             &       &      &             &       &      &             &       &  \\
+Grid Region &             &       &      &             &       &      &             &       &      \\
+\end{tabular}
+
+\caption{ For three scenarios, our heuristic method chooses the model with $\widehat{L}$ with true rank, $\widehat{S}$ whose $M_2$ value is close to $1$, and $M_3$ value is close to $0$.
+Note that, for all three scenarios, both AIC and BIC choose the model with no ad-hoc structure (i.e., $\widehat{S}=0$), and $\widehat{L}$ with rank $1$ (i.e.,$\text{rank}(\widehat{L})=1$).}
+\label{tab:table1}
+\end{table}
+
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{Fig3.pdf}
+\caption{\it Scree plots. From left to right: 543-Citation network, Mixed Topics-Citation network.}
+\label{fig:figure3}
+\end{figure}
 
 %\textbf{Simulation Results}.
 %Our goal in this simulation experiment is to check if our model can cluster each nodes into correct communities.
@@ -731,15 +830,15 @@ So the total number of ``across edges'' might not be exactly same as ``$nnz$'' a
 %Our model chooses well the ad-hoc links between clusters of nodes as can be verified in Fig. \ref{fig:figure2}.
 %We color the edges in blue whose corresponding elements of estimated $\widehat{S}$ are non-zero, and color the edges in black whose corresponding entries of $\widehat{S}$ are zero.
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[scale=0.75]{Fig2.pdf}
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[scale=0.75]{Fig2.pdf}
 %\includegraphics[scale=1,bb=0 0 30 30]{Fig2.pdf}
-\caption{Edges colored with blue correspond to non-zero entries of estimated $\widehat{S}$ matrix.
-For all three cases, our algorithm correctly separates the ``across edges'' from edges coming from low-rank matrix structure.}
-\label{fig:figure2}
-\end{center}
-\end{figure}
+%\caption{Edges colored with blue correspond to non-zero entries of estimated $\widehat{S}$ matrix.
+%For all three cases, our algorithm correctly separates the ``across edges'' from edges coming from low-rank matrix structure.}
+%\label{fig:figure2}
+%\end{center}
+%\end{figure}
 
 \subsection{Citation networks for statisticians}
 \label{sec:citation_network}
@@ -785,7 +884,7 @@ We obtain four sub-communities as follows:
 Out of this one big chunk, we got three small, but meaningful topics: Bayesian Statistics, Functional / Longitudinal Data Analysis, Dimension Reduction.
 Due to small volume of each communities, we could manually check that false discoveries for each community are all zero.
 
-Sub-network structure has also a big chunk of papers which we refer to as Mixed Topics.
+Sub-network structure has also a big chunk of papers which we refer it as Mixed Topics cluster.
 Not only could we see the papers with topics on Learning Theory, Non-parametric/Semi-parametric Statistics, Spatial Statistics, Theoretical Machine Learning, which does not seem to belong to any of the five communities listed above, but also we could identify the papers with combinations of two or three topics.
 Papers, such as The Bayesian Lasso (T. Park, et al. $2008$), Coordinate-independent sparse sufficient dimension reduction and variable selection (X. Chen, et al. $2010$), are the examples of these papers.
 It is also interesting to think about a reason on papers which seem to have obvious membership in one of $5$ communities other than Mixed topic classified as Mixed topic.
@@ -817,48 +916,47 @@ the results of assignment of each paper to each topic via $k$-means algorithm wi
 \label{fig:figure4}
 \end{figure}
 
-\begin{landscape}
+%\begin{landscape}
 \begin{table}[htbp]
 \centering
-\begin{tabular}{lclclclcl}\hline
-
-Pair & Weight & Community & Title                                                                                  & \\\hline
-1    & 6.03                      & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis       & \\
-     &                           & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters                         & \\
-2    & 3.08                      & MulT      & Innovated higher criticism for detecting sparse signals in correlated noise                   & \\
-     &                           & VarSel    & Regularized estimation of large covariance matrices & \\
-3    & 2.47                      & DimRed    & Contour projected dimension reduction & \\
-     &                           & VarSel    & Factor profiled sure independence screening & \\
-4    & 2.15                      & VarSel    & Factor profiled sure independence screening & \\
-     &                           & DimRed    & Sliced regression for dimension reduction & \\
-5    & 1.86                      & VarSel    & Covariance regularization by thresholding & \\
-     &                           & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
-6    & 1.77                      & VarSel    & Asymptotic properties of bridge estimators in sparse high-dimensional regression models       & \\
-     &                           & Mixed     & Marginal asymptotics for the $''$large p small n$''$ paradigm: with applications to microarray data &  \\
-7    & 1.71                      & VarSel    & A majorization-minimization approach to Variable Selection using spike and slab priors        & \\
-     &                           & Mixed     & Empirical Bayes selection of wavelet thresholds & \\
-8    & 1.66                      & VarSel    & Spades and mixture models & \\
-     &                           & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
-9    & 1.61                      & DimRed    & A constructive approach to the estimation of dimension reduction directions                   & \\
-     &                           & VarSel    & Factor profiled sure independence screening & \\
-10   & 1.54                      & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors        & \\
-     &                           & Mixed     & Spike and slab variable selection: frequentist and Bayesian strategies                        & \\
-11   & 1.53                      & VarSel    & variable selection in nonparametric additive models & \\
-     &                           & Mixed     & Nonparametric estimation of an additive model with a link function                            & \\
-12   & 1.39                      & Mixed     & Nonparametric inferences for additive models & \\
-     &                           & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models         & \\
-13   & 1.29                      & Mixed     & Bayesian variable selection in structured high-dimensional covariate spaces with applications in genomics & \\
-     &                           & VarSel    & Model selection and estimation in regression with grouped variables                           & \\
-14   & 1.20                      & VarSel    & The sparsity and bias of the LASSO selection in high-dimensional linear regression            & \\
-     &                           & Mixed     & Tests for high-dimensional covariance matrices & \\
-15   & 1.19                      & FuncAn    & Empirical dynamics for longitudinal data & \\
-     &                           & Mixed     & Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements   &       \\\hline
+\begin{tabular}{lclclcl}\hline
+Pair & Community & Title & \\\hline
+1    & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis       & \\
+     & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters                         & \\
+2    & MulT      & Innovated higher criticism for detecting sparse signals in correlated noise                   & \\
+     & VarSel    & Regularized estimation of large covariance matrices & \\
+3    & DimRed    & Contour projected dimension reduction & \\
+     & VarSel    & Factor profiled sure independence screening & \\
+4    & VarSel    & Factor profiled sure independence screening & \\
+     & DimRed    & Sliced regression for dimension reduction & \\
+5    & VarSel    & Covariance regularization by thresholding & \\
+     & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
+6    & VarSel    & Asymptotic properties of bridge estimators in sparse high-dimensional regression models       & \\
+     & Mixed     & Marginal asymptotics for the $''$large p small n$''$ paradigm: with applications to microarray data &  \\
+7    & VarSel    & A majorization-minimization approach to Variable Selection using spike and slab priors        & \\
+     & Mixed     & Empirical Bayes selection of wavelet thresholds & \\
+8    & VarSel    & Spades and mixture models & \\
+     & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
+9    & DimRed    & A constructive approach to the estimation of dimension reduction directions                   & \\
+     & VarSel    & Factor profiled sure independence screening & \\
+10   & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors        & \\
+     & Mixed     & Spike and slab variable selection: frequentist and Bayesian strategies                        & \\
+11   & VarSel    & variable selection in nonparametric additive models & \\
+     & Mixed     & Nonparametric estimation of an additive model with a link function                            & \\
+12   & Mixed     & Nonparametric inferences for additive models & \\
+     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models         & \\
+13   & Mixed     & Bayesian variable selection in structured high-dimensional covariate spaces with applications in genomics & \\
+     & VarSel    & Model selection and estimation in regression with grouped variables                           & \\
+14   & VarSel    & The sparsity and bias of the LASSO selection in high-dimensional linear regression            & \\
+     & Mixed     & Tests for high-dimensional covariance matrices & \\
+15   & FuncAn    & Empirical dynamics for longitudinal data & \\
+     & Mixed     & Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements   &       \\\hline
 \end{tabular}
 \caption{15 pairs of papers that have the largest $\widehat{S}_{ij}$ among the 197 non-zero component of $\widehat{S}$.
 Note that all the 15 edges come from pairs of papers from different communities. }
 \end{table}
 \label{tab:table2}
-\end{landscape}
+%\end{landscape}
 
 \section{Conclusion}
 \label{sec:Con}

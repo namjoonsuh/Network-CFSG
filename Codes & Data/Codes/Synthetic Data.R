@@ -8,11 +8,10 @@ source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
 #################### data generation N = 30, K = 3, NNZ = 10 ####################
 set.seed(1234)
-par(mfrow=c(1,5))
 N = 30; K = 3; NNZ = 10;
 ### Ingredients for creating network : alpha, F, D, S                      
 ### Generate alpha from random uniform distribution
-alpha = runif(1,-3,-2)
+alpha = runif(1,-6,-5)
 ### Create diagonal matrix D with non-negative weights
 D = diag(runif(1,7,8),K)
 ### Create binary matrix F(0,1) whose columns are orthogonal with each other.
@@ -142,7 +141,7 @@ plot(X_draw,main="N=30,K=3,NNZ=10")
 N = 80; K = 4; NNZ = 20;
 ### Ingredients for creating network : alpha, F, D, S                      
 ### Generate alpha from random uniform distribution
-alpha = runif(1,-3,-2)
+alpha = runif(1,-6,-5)
 ### Create diagonal matrix D with non-negative weights
 D = diag(runif(1,7,8),K)
 ### Create binary matrix F(0,1) whose columns are orthogonal with each other.
@@ -159,9 +158,15 @@ if(K>0){
 if(K==0){
   F <- matrix(0,N,K)
 }
-RR = sample(1:N, 1, replace = FALSE) 
+RR = sample(1:N, 7, replace = FALSE) 
 F[RR,] = 1
+TT = sample(setdiff(1:N, RR),10,replace=FALSE)
+F[TT,] = 0 
+for(i in 1:length(TT)){
+  F[TT[i],][c(sample(1:K,K-1,replace=FALSE))] = 1
+}
 F = (diag(N)-1/N*matrix(1,N,N))%*%F
+
 ### Create random symmetric sparse matrix S, whose entries are greater than or equal to zero.
 S = matrix(0,N,N)
 S = rsparsematrix(N, N, nnz = NNZ, symmetric = TRUE, rand.x = runif)
@@ -235,6 +240,7 @@ S2<-result2[[4]]
 
 K = qr(L2)$rank
 
+K = 5
 N = ncol(X2)
 First_eigen1 = eigen(L2)$vectors[,1]
 Second_eigen1 = eigen(L2)$vectors[,2]
@@ -271,6 +277,7 @@ plot(X_draw2,main="N=80,K=4,NNZ=20")
 #################### data generation N = 120, K = 5, NNZ = 40 ###########################
 set.seed(1234)
 N = 120; K = 5; NNZ = 40;
+
 ### Ingredients for creating network : alpha, F, D, S                      
 ### Generate alpha from random uniform distribution
 alpha = runif(1,-3,-2)
@@ -290,9 +297,15 @@ if(K>0){
 if(K==0){
   F <- matrix(0,N,K)
 }
-RR = sample(1:N, 1, replace = FALSE) 
+RR = sample(1:N, 10, replace = FALSE) 
 F[RR,] = 1
+TT = sample(setdiff(1:N, RR),25,replace=FALSE)
+F[TT,] = 0 
+for(i in 1:length(TT)){
+  F[TT[i],][c(sample(1:K,K-1,replace=FALSE))] = 1
+}
 F = (diag(N)-1/N*matrix(1,N,N))%*%F
+
 ### Create random symmetric sparse matrix S, whose entries are greater than or equal to zero.
 S = matrix(0,N,N)
 S = rsparsematrix(N, N, nnz = NNZ, symmetric = TRUE, rand.x = runif)
@@ -369,7 +382,7 @@ First_eigen1 = eigen(L3)$vectors[,1]
 Second_eigen1 = eigen(L3)$vectors[,2]
 Third_eigen1 = eigen(L3)$vectors[,3]
 Label3 = seq(from=1,to=N,by=1)
-
+K=4
 KMeans = kmeans(eigen(L3)$vectors[,1:K], K, iter.max = 1000, nstart = 100, algorithm = "Hartigan-Wong")
 plot(eigen(L3)$vectors[,1:K], col=KMeans$cluster,pch=2, main="N=120, K=5, NNZ=40",
      xlab="First_eigen vector", ylab="Second_eigen vector")
@@ -399,5 +412,3 @@ X_draw3 <- graph_from_adjacency_matrix(X3, mode = c("undirected"))
 E(X_draw3)$color <- "black"
 E(X_draw3)[list]$color <- "blue"
 plot(X_draw3, main = "N=120, K=5, NNZ=120")
-
-par(mfrow=c(1,1))

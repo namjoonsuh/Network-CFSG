@@ -1,4 +1,5 @@
 require(igraph)
+library(latex2exp)
 
 dscore = function(adj, K)
 {
@@ -158,14 +159,13 @@ score = function(adj, K)
 
 
 
-
-plotScree=function(adj)
+plotScree=function(adj,case)
 {
   #adj can be symmetric or asymmetric
   m = dim(adj)
   values = eigen(adj %*% t(adj))$values 
-  plot(sqrt(values[1:20]), cex=2, pch=22, type="b", lty=2, lwd=3, col="red", bg="red", xlab="", ylab="")
-  
+  plot(sqrt(values[1:20]), cex=2, pch=22, type="b", lty=2, lwd=3, col="red", bg="red", xlab="", ylab="",
+       main=TeX(sprintf("$\\textbf{Case  %d}$", case)))
 }
 
 
