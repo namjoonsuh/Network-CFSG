@@ -83,7 +83,7 @@ ADMM <- function(X, gamma, delta){
     res <- sqrt(sum((X_M-X_L-X_S)^2))
     print(res)
     # Convergence Check
-    if(res < 10^-4){
+    if(res < 5e-4){
       result <- list(X_a, X_M, X_L, X_S)
       break
     }

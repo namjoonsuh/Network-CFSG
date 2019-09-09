@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.15)  4 SEP 2019 15:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.15)  8 SEP 2019 23:29
 entering extended mode
 **./manuscript.tex
 (manuscript.tex
@@ -921,11 +921,7 @@ Package tocbibind Note: Using section or other style headings.
 LaTeX Warning: Unused global option(s):
     [AMS,STIX1COL].
 
-(manuscript.aux
-
-LaTeX Warning: Label `fig:figure3' multiply defined.
-
-)
+(manuscript.aux)
 \openout1 = `manuscript.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
@@ -1161,103 +1157,82 @@ Underfull \hbox (badness 10000) in paragraph at lines 585--587
 <Fig1.pdf, id=160, 498.86375pt x 348.30125pt>
 File: Fig1.pdf Graphic file (type pdf)
 <use Fig1.pdf>
-Package pdftex.def Info: Fig1.pdf  used on input line 618.
+Package pdftex.def Info: Fig1.pdf  used on input line 617.
 (pdftex.def)             Requested size: 507.50787pt x 354.34845pt.
 [8] [9 <./Fig1.pdf>]
-<Fig2.pdf, id=187, 677.53125pt x 322.20375pt>
+Underfull \hbox (badness 3439) in paragraph at lines 663--667
+[]\T1/ptm/m/n/10.03749 In the third sce-nario, we basi-cally study the same $\L
+S1/stix/m/n/10.03749 3$ \T1/ptm/m/n/10.03749 cases with those from the sec-ond 
+sce-nario. (i.e.,
+ []
+
+<Fig2.pdf, id=184, 677.53125pt x 322.20375pt>
 File: Fig2.pdf Graphic file (type pdf)
 <use Fig2.pdf>
-Package pdftex.def Info: Fig2.pdf  used on input line 725.
+Package pdftex.def Info: Fig2.pdf  used on input line 740.
 (pdftex.def)             Requested size: 507.50787pt x 241.35722pt.
- [10]
-<Fig3.pdf, id=200, 554.07pt x 322.20375pt>
+[10] [11 <./Fig2.pdf>]
+<Fig3.pdf, id=214, 441.65pt x 246.9225pt>
 File: Fig3.pdf Graphic file (type pdf)
 <use Fig3.pdf>
-Package pdftex.def Info: Fig3.pdf  used on input line 815.
-(pdftex.def)             Requested size: 507.50787pt x 295.12819pt.
-Package epstopdf Info: Source file: <Fig3.eps>
-(epstopdf)                    date: 2019-08-15 21:56:16
-(epstopdf)                    size: 9109 bytes
-(epstopdf)             Output file: <Fig3-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-08-15 21:56:16
-(epstopdf)                    size: 9108 bytes
-(epstopdf)             Command: <epstopdf --outfile=Fig3-eps-converted-to.pdf F
-ig3.eps>
-(epstopdf)             \includegraphics on input line 849.
-Package epstopdf Info: Output file is already uptodate.
-<Fig3-eps-converted-to.pdf, id=202, 754.82pt x 264.99pt>
-File: Fig3-eps-converted-to.pdf Graphic file (type pdf)
-<use Fig3-eps-converted-to.pdf>
-Package pdftex.def Info: Fig3-eps-converted-to.pdf  used on input line 849.
-(pdftex.def)             Requested size: 507.50787pt x 178.16505pt.
- [11 <./Fig2.pdf>] [12 <./Fig3.pdf>] [13 <./Fig3-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <Fig4.eps>
-(epstopdf)                    date: 2019-08-15 21:56:16
-(epstopdf)                    size: 72188 bytes
-(epstopdf)             Output file: <Fig4-eps-converted-to.pdf>
-(epstopdf)                    date: 2019-08-16 17:05:10
-(epstopdf)                    size: 24616 bytes
-(epstopdf)             Command: <epstopdf --outfile=Fig4-eps-converted-to.pdf F
-ig4.eps>
-(epstopdf)             \includegraphics on input line 912.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex.exe (file ./Fig4-eps-converted-to.pdf): PDF inclusion:
- found PDF version <1.7>, but at most version <1.5> allowed
-<Fig4-eps-converted-to.pdf, id=246, 700.6175pt x 293.095pt>
-File: Fig4-eps-converted-to.pdf Graphic file (type pdf)
-<use Fig4-eps-converted-to.pdf>
-Package pdftex.def Info: Fig4-eps-converted-to.pdf  used on input line 912.
+Package pdftex.def Info: Fig3.pdf  used on input line 861.
+(pdftex.def)             Requested size: 507.50787pt x 283.75519pt.
+<Fig4.pdf, id=216, 622.325pt x 206.7725pt>
+File: Fig4.pdf Graphic file (type pdf)
+<use Fig4.pdf>
+Package pdftex.def Info: Fig4.pdf  used on input line 895.
+(pdftex.def)             Requested size: 507.50787pt x 168.62378pt.
+ [12] [13 <./Fig3.pdf> <./Fig4.pdf>]
+<Fig5.pdf, id=248, 700.6175pt x 293.095pt>
+File: Fig5.pdf Graphic file (type pdf)
+<use Fig5.pdf>
+Package pdftex.def Info: Fig5.pdf  used on input line 958.
 (pdftex.def)             Requested size: 507.50787pt x 212.31624pt.
 
-Overfull \hbox (30.0746pt too wide) in paragraph at lines 922--956
+Overfull \hbox (30.0746pt too wide) in paragraph at lines 968--1003
  [][] 
  []
 
-[14 <./Fig4-eps-converted-to.pdf>] [15]
+[14] [15 <./Fig5.pdf>]
 
-LaTeX Warning: Reference `eq:1' on page 16 undefined on input line 1007.
+LaTeX Warning: Reference `eq:1' on page 16 undefined on input line 1054.
 
 [16] [17]
 
-LaTeX Warning: Reference `eq:1' on page 18 undefined on input line 1147.
+LaTeX Warning: Reference `eq:1' on page 18 undefined on input line 1194.
 
-(manuscript.bbl
+[18] (manuscript.bbl
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.03749> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 22.
- [18])
-Overfull \hbox (13.0pt too wide) in paragraph at lines 1188--1188
+ [19])
+Overfull \hbox (13.0pt too wide) in paragraph at lines 1235--1235
 [] [] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1188.
-[19]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1188.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1235.
+[20]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1235.
  (manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1188.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1188.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1235.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1235.
 
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1188.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1235.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 123 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 15591 strings out of 492895
- 220548 string characters out of 3133479
- 336791 words of memory out of 3000000
- 19070 multiletter control sequences out of 15000+200000
+ 15597 strings out of 492895
+ 220460 string characters out of 3133479
+ 337030 words of memory out of 3000000
+ 19071 multiletter control sequences out of 15000+200000
  133744 words of font info for 201 fonts, out of 3000000 for 9000
  1167 hyphenation exceptions out of 8191
- 43i,19n,40p,644b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,19n,40p,671b,506s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\namjo\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/publi
 c/bbm/dpi600\bbm7.pk> <C:\Users\namjo\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/
 public/bbm/dpi600\bbm10.pk>{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r
@@ -1273,9 +1248,9 @@ ix-mathrm.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/stix/stix-mathscr
 rogram Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 1/urw/times/utmri8a.pfb>
-Output written on manuscript.pdf (19 pages, 693924 bytes).
+Output written on manuscript.pdf (20 pages, 700364 bytes).
 PDF statistics:
- 458 PDF objects out of 1000 (max. 8388607)
- 105 named destinations out of 1000 (max. 500000)
+ 471 PDF objects out of 1000 (max. 8388607)
+ 110 named destinations out of 1000 (max. 500000)
  186 words of extra memory for PDF output out of 10000 (max. 10000000)
 
