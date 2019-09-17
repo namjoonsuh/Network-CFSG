@@ -1,12 +1,14 @@
 ####################  preparation  ####################
 rm(list=ls())
-setwd('C:/Users/nsuh3/Desktop/Citation Network/FLag/Codes & Data')
+setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes')
 library('Matrix')      ## For matrix computation on BIC
 library('igraph')      ## For drawing graph
 source('SynData.R')    ## Function for creating binary network
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
+source('GD.R')
 ################### Load the Citation Network Data ###################
+setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Statistician network data')
 paperCitAdj = as.matrix(read.table("paperCitAdj.txt", header=FALSE))
 G <- graph.adjacency(paperCitAdj, mode="undirected", weighted=NULL) # For directed networks
 X <- as_adjacency_matrix(G,type="both",names=TRUE,sparse=FALSE,attr=NULL)
@@ -25,8 +27,8 @@ plotScree(X_new)
 X = X_new
 
 ################### Model Selection ###################
-gamma = seq(from=0.0009,to=0.00093,by=0.000003);
-delta = seq(from=0.009,to=0.01,by=0.0001);
+gamma = seq(from=0.01,to=0.01,by=0.00000);
+delta = seq(from=0.01,to=0.01,by=0.0001);
 lambda = 1; Count = 1;
 AIC <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 BIC <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
@@ -40,7 +42,7 @@ source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 for(g in 1:length(gamma)){
   for(d in 1:length(delta)) {
     ### Use the ADMM method to estimate the parameters ###
-    result <- ADMM(X_chunk, gamma[g], delta[d])
+    result <- ADMM(X, 1, 0.01)
     
     a<-result1[[1]]
     M<-result1[[2]]
@@ -63,8 +65,8 @@ for(g in 1:length(gamma)){
     log_sum<-log(1+exp(a + L + S))
     
     log_max <- 0;
-    log_max <- a*sum(X_chunk[upper.tri(X,diag=FALSE)]) +
-      (1/2)*sum(X_chunk*(L+S)) - sum(log_sum[upper.tri(log_sum,diag=FALSE)])
+    log_max <- a*sum(X[upper.tri(X,diag=FALSE)]) +
+      (1/2)*sum(X*(L+S)) - sum(log_sum[upper.tri(log_sum,diag=FALSE)])
     
     AIC[g,d] <- -2*log_max + M_absolute*2
     BIC[g,d] <- -2*log_max + M_absolute*(log((N*(N-1))/2))
@@ -122,14 +124,13 @@ T3 = pap_list[Topic_3]
 paperList[Topic_1,6] = "Variable Selection"
 paperList[Topic_2,6] = "Multiple Testing"
 
-par(mfrow=c(1,2))
+par(mfrow=c(1,2),mar = c(4, 4, 2, 1))
 
 DF <- data.frame(FE = eigen(L1)$vector[,1], SE = eigen(L1)$vector[,2], Cluster = rep(0,N))
 DF[Topic1,3]=1; DF[Topic2,3]=2; DF[Topic3,3]=3; 
 plot(DF[,1:2], col=KMeans$cluster,pch=2,xlab="First Eigen",ylab="Second Eigen")
 legend(-0.3, 0.33, legend=c("Variable Selection", "Mixed Clusters", "Multiple Testing"),
        col = c("red","green","black"), pch=2, cex=0.8)
-
 
 ####################### See the lists of papers for each topics #######################
 T1 ### Variable Selection
@@ -138,8 +139,12 @@ T3 ### Mixed Topic
 
 ####################### Further Analysis on T3 #######################
 ############# Analysis on another big chunk of data ##################
+source('functions.R')
+par(mfrow=c(1,2),mar = c(2, 2, 2, 1))
+plotScree(X)
 X_chunk = X[Topic3,Topic3]
-plotScree(X_chunk)  # I guess.. there are 3 topics and also another chunk of papers with mixed topics
+plotScree(X_chunk)
+# I guess.. there are 3 topics and also another chunk of papers with mixed topics
 ############# Model Selection #############
 gamma = seq(from=0.0015,to=0.002,by=0.0001);
 delta = seq(from=0.0062,to=0.008,by=0.0002);
@@ -153,7 +158,7 @@ Like <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 N = ncol(X_chunk)
 
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
-for(g in 5:length(gamma)){
+for(g in 1:length(gamma)){
   for(d in 1:length(delta)) {
     ### Use the ADMM method to estimate the parameters ###
     result <- ADMM(X_chunk, gamma[g], delta[d])

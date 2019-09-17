@@ -8,7 +8,9 @@
 \usepackage{float}  % For fixing the image in draft
 \usepackage{lscape}
 \usepackage[nottoc,notlot,notlof]{tocbibind}
-
+\newcommand{\block}[1]{
+  \underbrace{\begin{matrix}1 & \cdots & 1\end{matrix}}_{#1}
+}
 %\newtheorem{theorem}{Theorem}[section]
 %\newtheorem{lemma}[theorem]{Lemma}
 %\newtheorem{corollary}[theorem]{Corollary}
@@ -94,7 +96,7 @@ We assume $d_{ii} > 0$ for $1 \le i \le K$.
 Another way to put \eqref{eq:logistic01} is
 \begin{equation}
 \label{eq:logistic02}
-\mathbb{P}(X_{ij}=1) = \frac{\exp\left\{\alpha + \sum_{k=1}^K f_{ik}f_{jk}d_{k} \right\}}{1 + \exp\left\{\alpha + \sum_{k=1}^K f_{ik}f_{jk}d_{k} \right\}}.
+\mathbb{P}(X_{ij}=1) = \frac{\exp\left(\alpha + \sum_{k=1}^K f_{ik}f_{jk}d_{k} \right)}{1 + \exp\left(\alpha + \sum_{k=1}^K f_{ik}f_{jk}d_{k} \right)}.
 \end{equation}
 A justification of the above model is that when both node $i$ and node $j$ are related to topic $k$, they have a higher chance to cite one way or the other.
 We have assumed a common strengthen coefficient $d_k$ ($1\le k \le K$) for factor $k$, despite different nodes.
@@ -114,13 +116,13 @@ The above \eqref{eq:logistic03} can be further rewritten as
 \begin{equation}
 \label{eq:logistic04}
 \mathbb{P}(\{X_{ij}, 1\le i,j \le n\})
-= \frac{\exp(\alpha \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet (F^T D F))}{\prod_{1\le i<j \le n}  1 + e^{\alpha + f_i^T D f_j }},
+= \frac{\exp\left(\alpha \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet (F^T D F)\right)}{\prod_{1\le i<j \le n}  1 + e^{\alpha + f_i^T D f_j }},
 \end{equation}
 where we assume $X_{ii}=0$ for all $i$ ($1\le i \le n$) and $X_{ij} = X_{ji}$ for all $i$ and $j$ ($1\le i,j \le n$), i.e., the matrix $X$ is symmetric.
 The above delivers a factor analysis model.
 Various linear and nonlinear latent variable models have been studied extensively in the literature (e.g.,\cite{joreskog1969general, mcdonald2014factor,lord2008statistical, rasch1980probabilistic, harman1960modern, joreskog1970general}).
 
-Our work is motivated from a recent work {\emph{Fused Latent and Graphical (FLaG) model} (Chen et al, 2016, \cite{chen2016fused}).
+Our work is motivated from a recent work named {\emph{Fused Latent and Graphical (FLaG) model} (Chen et al, 2016, \cite{chen2016fused}).
 They assume that majority of variation of responses can be accounted by low dimensional latent vector, and remaining dependent structure of responses can be explained by sparse graphical structure.
 Thus, the resulting model contains a low-dimensional latent vector and a sparse conditional graph.
 Their key idea is to separate these two dependent structures so that they can facilitate the statistical inference.
@@ -137,7 +139,7 @@ We summarize the differences as follows.
     In our case, the observed citation network can be thought of as one realization of a random graph.
 
 \item In FLaG model, a collection of binary responses for each question in the questionnaire follows a joint distribution, which is a combination of the Item Response Theory (IRT) model and the Ising model.
-    We model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of the Latent Factor Analysis model and the sparse graphical model.
+    We model the citation edges among papers as random variables, whose dependent structure is characterized by the combination of the Latent Factor Analysis model and the Sparse Graphical model.
 
 \item FLaG approximates the original likelihood through constructing pseudo-likelihood function by taking advantage of conditional independence among the nodes.
     In our model, likelihood function is directly accessible due to the conditional independence among edges given parameters.
@@ -152,7 +154,8 @@ The objective function in the optimization problem for the regularized estimator
 The rest of the paper is organized as follows.
 In Section \ref{sec:model-form}, we will give a presentation on how to build a model, which can encode both the latent dependent structure due to the common topics and the remaining sparse ad-hoc dependent structure.
 In Section \ref{sec:estimate}, we will discuss the assumptions in our model and penalization on likelihood function that is constructed in Section \ref{sec:model-form}.
-Section \ref{sec:compute} gives the detailed procedure on how to compute the estimator of the optimization problem formulated in Section \ref{sec:estimate}.
+In Section \ref{sec:theorem}, we provide a non-asymptotic error bound of the estimator.
+Section \ref{sec:compute} gives the detailed procedure on how to compute the estimator of the optimization problem that is formulated in Section \ref{sec:estimate}.
 In Section \ref{sec:Num-anal}, we will present simple numerical experiments on synthetic data, and application of our model on real citation network of statisticians.
 We finally conclude this work in Section \ref{sec:Con} with several open questions and some directions for future research.
 
@@ -161,8 +164,8 @@ We finally conclude this work in Section \ref{sec:Con} with several open questio
 
 Recall the following graphical model that was established in \eqref{eq:logistic04}, which is essentially a factor model (latent variable model):
 $$
-\mathbb{P}(\{X_{ij}, 1\le i,j \le n\})
-= \frac{\exp(\alpha \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet (F^T D F))}{\prod_{1\le i<j \le n}  1 + e^{\alpha + f_i^T D f_j }},
+\mathbb{P}\left(\{X_{ij}, 1\le i,j \le n\}\right)
+= \frac{\exp\left(\alpha \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet (F^T D F)\right)}{\prod_{1\le i<j \le n}  1 + e^{\alpha + f_i^T D f_j }},
 $$
 where
 $X_{ij}, 1\le i,j \le n$, are binary random variables indicating either node $i$ cites node $j$ or vice versa,
@@ -191,7 +194,7 @@ consequently, we have the total conditional probability function as follows:
 \mathbb{P}(\{X_{ij}, 1\le i,j \le n\})
 &=& \prod_{1\le i<j \le n} \mathbb{P}(X_{ij}) \nonumber \\
 &=& \prod_{1\le i<j \le n}  \frac{e^{X_{ij}(\alpha' + S_{ij}) }}{1 + e^{\alpha' + S_{ij} }} \nonumber \\
-&=& \frac{\exp(\alpha' \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet S)}{\prod_{1\le i<j \le n}  1 + e^{\alpha' + S_{ij} }}.
+&=& \frac{\exp\left(\alpha' \sum_{1\le i< j\le n}X_{ij} +\frac{1}{2} X \bullet S\right)}{\prod_{1\le i<j \le n}  1 + e^{\alpha' + S_{ij} }}.
 \label{eq:logistic06}
 \end{eqnarray}
 Recall that we have assumed that $X_{ii}=0$ for all $i$ ($1\le i \le n$) and $X_{ij} = X_{ji}$ for all $i$ and $j$ ($1\le i,j \le n$), i.e., the matrix $X$ is symmetric.
@@ -236,12 +239,12 @@ i.e., the choice of $F$ and $D$ is not unique.
 \item Overall, the rank of matrix $F^T D F$ cannot be larger than $\min\{n,K\}$.
 With the application that we have in mind, in this paper, we assume that $K$ is much smaller than $n$.
 
-\item To ensure the separation of matrices $\alpha\mathbbm{1}\mathbbm{1}^T$ and $L$, we assume that the eigen-vector of $L$ is centered, that is,
+\item To ensure the separation of matrices $\alpha\mathbbm{1}\mathbbm{1}^T$ and an arbitrary matrix $L$, we assume that the eigen-vector of $L$ is centered, that is,
 \[
     JLJ = L \quad \mbox{where} \quad
     J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T,
 \]
-where $\mathbbm{1}$ denotes a $n$-dimensional vector whose entries are all $1$s. This condition uniquely identifies $F$ up to a common orthogonal transformation of its columns.
+where $\mathbbm{1}$ denotes a $n$-dimensional vector whose entries are all $1$'s. If we have $L=F^TDF$, this condition uniquely identifies $F$ up to a common orthogonal transformation of its columns.
 
 \end{enumerate}
 
@@ -283,7 +286,8 @@ The rank of estimated $\widehat{L}$ will be our estimate of the number of factor
 For the issue on assigning the community membership of each node $i$, we will discuss this later in Section \ref{sec:Num-anal}.
 
 \section{Non-asymptotic error bound of the estimator}
-In this section, we focus on investigating the behaviour of non-asymptotic error bound of our estimator in the context where the number of papers in network is explicitly tracked. We are interested in solving the following optimization problem :
+\label{sec:theorem}
+In this section, we focus on investigating the behaviour of non-asymptotic error bound of our estimator in the context where the number of papers in a network is explicitly tracked. We are interested in solving the following optimization problem :
 \begin{equation}\label{eq:Modified}
 \min\limits_{\alpha \in R, S = S^T \atop L \succcurlyeq 0}
 -\frac{1}{n} \log \prod_{1\le i,j\le n}\frac{\exp\left(X_{ij}\left(\alpha+
@@ -306,19 +310,19 @@ Throughout the discussion, let $P^{*}=\big\{\frac{\exp(\Theta_{ij}^{*})}{1+\exp(
 We then impose several assumptions for theoretical guarantees of our estimator.
 
 \begin{assumption}(\textbf{Strong convexity})  \label{Ass:1}
-For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:Modified}), $h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}$.We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of likelihood function is bounded away from zero ($\tau > 0$):
+For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:Modified}), $h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}$.We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of the log-likelihood function is bounded away from zero ($\tau > 0$):
 \[
-\nabla^{2}h(\Theta) = diag\Big(vec\Big(\frac{\exp(\Theta)}{n(1+\exp(\Theta))^{2}}
+\nabla^{2}h(\Theta) = \mbox{diag}\Big(\mbox{vec}\Big(\frac{\exp(\Theta)}{n(1+\exp(\Theta))^{2}}
 \Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}
 \]
-For any vector $a$, $diag(a)$ is the diagonal matrix with elements of $a$ on its diagonal. For any square matrix $A$ and $B$, $ A \succcurlyeq B $ if and only if $A-B$ is positive semi-definite.
+For any vector $a$, $\mbox{diag}(a)$ is the diagonal matrix with elements of $a$ on its diagonal. For any square matrix $A$ and $B$, we have $ A \succcurlyeq B $ if and only if matrix $A-B$ is positive semi-definite.
 \end{assumption}
 
 \begin{assumption} (\textbf{Identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, Spikiness of L}) \label{Ass:2}
-To ensure the identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, we assume the latent variables are centered, that is $JL=L$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, $\mathbbm{1}$ denotes all one vector in $\mathbb{R}^{n}$. We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on L, to ensure the separation of L and S matrix \cite{agarwal2012noisy}. We would also like to note that the constraint $|\alpha|\leq C\kappa$, for an absolute constant $C$, is included partially for obtaining theoretical guarantees.
+To ensure the identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, we assume that the latent variables are centered, that is $JL=L$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, where $\mathbbm{1}$ denotes all one vector in $\mathbb{R}^{n}$. We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on L, to ensure the separation of L and S matrix \cite{agarwal2012noisy}. We would also like to note that the constraint $|\alpha|\leq C\kappa$, for an absolute constant $C$, is included partially for obtaining theoretical guarantees.
 \end{assumption}
 
-With these assumptions, we present the behavior of non-asymptotic error bound of our estimator through following theorem. In our result, we measure error using squared Frobenius norm summed across three matrices:
+With these assumptions, we present the behavior of non-asymptotic error bound of our estimator through the following theorem. In our result, we measure error using squared Frobenius norm summed across three matrices:
 \[
     e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}):=\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \|\widehat{\Delta}^{L}\|_{F}^{2} + \|\widehat{\Delta}^{S}\|_{F}^{2}
 \]
@@ -327,9 +331,9 @@ With these assumptions, we present the behavior of non-asymptotic error bound of
 Under the assumptions \ref{Ass:1} and \ref{Ass:2},
 if we solve the convex problem (\ref{eq:Modified}) with a pair of regularization parameter $(\delta,\gamma)$ satisfying
 \begin{align} \label{eq:49}
-\delta \geq 2\|\frac{1}{n}(X-P^{*})\|_{op} \quad and \quad \gamma \geq 2\|\frac{1}{n}(X-P^{*})\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg)
+\delta \geq 2\|\frac{1}{n}(X-P^{*})\|_{op} \quad and \quad \gamma \geq 2\|\frac{1}{n}(X-P^{*})\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg),
 \end{align}
-There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$ and $s = 1,2,...,n^{2}$, we have following upper bound on $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$
+then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$, and $s = 1,2,...,n^{2}$, we have the following upper bound on $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$
 \begin{align}
     e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \leq
     \underbrace{c_{1}\frac{\delta^{2}}{\tau^{2}}}
@@ -337,13 +341,13 @@ There exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,.
     \underbrace{c_{2}\frac{\delta^{2}}{\tau^{2}}
     \bigg\{k + \frac{\tau}{\delta}\sum_{j=k+1}^{n}\sigma_{j}(L^{*})\bigg\}}_{\mathcal{K}_{L^*}} +
     \underbrace{c_{3}\frac{\gamma^{2}}{\tau^{2}}
-    \bigg\{s + \frac{\tau}{\gamma}\sum_{(i,j) \notin M}|S^*_{ij}|\bigg\}}_{\mathcal{K}_{S^*}}
+    \bigg\{s + \frac{\tau}{\gamma}\sum_{(i,j) \notin M}|S^*_{ij}|\bigg\}}_{\mathcal{K}_{S^*}},
 \end{align}
 where $M$ is an arbitrary subset of matrix indices of cardinality at most s.
 \end{theorem}
 
-We would first like to note readers that the result presented in Theorem \ref{Th:th1} can be thought of as an extension to Theorem $1$ presented in paper \cite{agarwal2012noisy} to generalized linear model.
-Our work considers a logistic loss function whose parameters are characterized by sparse matrix plus low rank matrix, whereas \cite{agarwal2012noisy} works on quadratic loss of noisy realization of linear transformation of sum of low rank and sparse matrices.
+We would first like to note that the result presented in Theorem \ref{Th:th1} can be thought of as an extension to Theorem $1$ presented in paper \cite{agarwal2012noisy} to a generalized linear model.
+Our work considers a logistic loss function whose parameters are characterized by a sparse matrix plus a low rank matrix, whereas Agarwal, et al.\cite{agarwal2012noisy} work on a quadratic loss of a noisy realization of a linear transformation of sum of a low rank matrix and a sparse matrix.
 We show that similar proof techniques can be applied in our case, giving us similar results.
 %Detailed descriptions of each terms in bound are elaborated in paper \cite{agarwal2012noisy}.
 
@@ -405,7 +409,7 @@ To describe the algorithm, we will need the following proximal operators
 $$
 \mathbf{P}_{\lambda,f}(v) = \mbox{arg min}_{x \in \chi_f} \left\{
 f(x) + \frac{1}{2\lambda} \|x-v\|^2_2
-\right\}
+\right\},
 $$
 
 \item and $\mathbf{P}_{\lambda,g}: \mathbb{R}^d \to \chi_g$ as
@@ -427,7 +431,7 @@ At the $(m+1)$th iteration, $(x^m, z^m, u^m)$ is updated according to the follow
 \item Step 3: $u^{m+1} = u^m + x^{m+1} - z^{m+1}$.
 
 \end{itemize}
-The convergence properties of the algorithm are summarized in the following result in \cite{boyd2011distributed}.
+The convergence properties of the algorithm are summarized in the following result as in \cite{boyd2011distributed}.
 Let $p^\ast$ be the minimal value in \eqref{eq:admm1}.
 
 \begin{theorem}[Boyd et al., 2011]
@@ -459,8 +463,7 @@ the iterates approaches the optimal value.
 \end{enumerate}
 \end{theorem}
 
-
-Now we see how ADMM can be adopted to solve for our penalized likelihood estimation \eqref{eq:logistic10}.
+Now we describe how ADMM can be adopted to solve for our penalized likelihood estimation problem in \eqref{eq:logistic10}.
 We reparameterize $M = L + S$ and let $x = (\alpha, M, L, S)$ (viewed as a vector).
 We define the following:
 \begin{eqnarray*}
@@ -595,80 +598,144 @@ Section \ref{sec:Num-anal} is divided into two parts.
 In subsection \ref{sec:Syn-dat}, we conduct an empirical study of measuring the performance of our proposed method with artificially specified graphical structures.
 In subsection \ref{sec:citation_network}, we perform a real data analysis with citation network for statisticians.
 
-\begin{remark}
-Throughout the Section, we add $*$ to the superscript of parameters to denote that they are ground truth parameters.
-We use $\alpha^*$ as an intercept term in logistic regression model, and
-$f^*_j$ as $j$th column of factor loading matrix $F^* \in \mathbb{R}^{K \times n}$, where $K$ refers to the number of topics embedded in network, and $n$ denotes the number of papers in the network.
-We also introduce a notation, $n_{l}$, denoting the number of papers, which share $l$ common topics.
-Matrix $D^* \in \mathbb{R}^{K \times K}$ is a diagonal matrix whose entries denote weight coefficient of factors, and
-$S_{ij}^*$ denotes an ad-hoc citational relation between $i$th and $j$th paper.
-We use the notation $|(\bullet)|$ to denote the cardinality of non-zero components of upper-triangular part of $(\bullet)$ matrix
-(e.g., $|S^*|=|\{(i,j) : S_{ij}^{*}\neq 0, 1 \leq i<j \leq n\}|$).
-We will use $X \sim \text{Unif}[a,b]$ to denote
-the random variable $X$ is drawn from uniform distribution supported on the interval $[a,b]$.
-\end{remark}
+%\begin{remark}
+%Throughout the Section, we add $*$ to the superscript of parameters to denote that they are ground truth.
+%We use $\alpha^*$ as an intercept term in the logistic regression model, and
+%$f^*_j$ as the $j$th column of the factor loading matrix $F^* \in \mathbb{R}^{K \times n}$, where $K$ refers to the number of topics embedded in a network, and $n$ denotes the number of papers in the network.
+%We also introduce a notation, $n_{l}$, denoting the number of papers, which share $l$ common topics.
+%Matrix $D^* \in \mathbb{R}^{K \times K}$ is a diagonal matrix whose entries denote the weight coefficients of factors, and
+%$S_{ij}^*$ denotes an ad-hoc citational relation between $i$th and $j$th paper.
+%We use the notation $|M|$ to denote the cardinality of non-zero components of the upper-triangular part of an arbitrary matrix $M$.
+%We will use $X \sim \text{Unif}[a,b]$ to denote
+%the random variable $X$ is drawn from the uniform distribution that is supported on the interval $[a,b]$.
+%\end{remark}
 
 \subsection{Numerical experiments with synthetic data}
 \label{sec:Syn-dat}
-After an introduction on three synthetic scenarios that we want to explore, three model selection criteria and three evaluation metrics for the selected model will be suggested.
-Experimental results from the synthetic networks and several interesting findings from those results will be elaborated subsequently.
-
-\begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig1.pdf}
-\caption{Graphical illustrations of $9$ synthetic networks. Note the links that are drawn from $S^*_{ij} \neq 0$ are colored in green. }
-\label{fig:figure1}
-\end{figure}
+After an introduction on two synthetic scenarios that we want to explore, we describe three model selection criteria and four evaluation metrics for the selected model.
+Subsequently, we elaborate experimental results from the synthetic networks and several interesting findings from those results.
 
 \subsubsection{Synthetic Setting}
-In this subsection, we consider following $3$ scenarios:
+%In this subsection, we consider the following $3$ scenarios:
 %In this subsection, we consider $3$ scenarios.
 %In first scenario, we examine a simple setting, in which every paper in the network has only one topic.
 %In second scenario, we study a more complicated situation than the first one where each paper in the network can possibly have more than one topic.
 %It is worth noting that different clusters of papers, where each cluster is comprised of papers with same topic, are connected via ad-hoc links.
 %In third scenario, we consider a situation
-\begin{itemize}
-    \item \textbf{First scenario.} When there is a network of $n$ papers with $K$ topics, there are $K$ clusters of papers, where each of which deals with $1$ specific topic out of $K$ topics.
-        And each cluster is comprised of $\frac{n}{K}$ non-overlapping papers.
-        Moreover, these $K$ clusters are connected with each other via $|S^*|$ random ad-hoc links.
-        Specifically, we assume $|S^*|/\binom{K}{2}$ ad-hoc links connect $2$ different clusters of papers.
-        For example, suppose that we have a network of $120$ papers with $5$ topics and with $30$ random ad-hoc links. Then, there are $5$ clusters, each of which has $24$ papers, and each of $10 (=\binom{5}{2})$ pairs of clusters is connected through $3 (=30/\binom{5}{2})$ random ad-hoc links.
-%(See Fig$\ref{fig:figure1}$
+Before specifying the network settings in two scenarios that we want to explore, let us first describe a set of procedures for setting the model parameters, $\alpha^*, F^*, D^*$ and $S^*$ sequentially.
 
-    \item \textbf{Second scenario.} Based upon the settings mentioned in the first scenario, we suppose that there are $n_{l}$ papers, which share $l(\leq K)$ common topics in the network.
-        For instance, if we have a network of $210$ papers with $3$ topics, and
-        $n_2$ is equal to $50$, then this means that there are $50$ papers out of $210$ papers, which have $2$ shared topics out of $3$ topics.
+\begin{enumerate}
+    \item We draw an intercept term $\alpha^*$ in the logistic regression model from the uniform distribution that is supported on [-11,-10].
+        %In this way, we can make $\alpha^*$ have the least effects in creating edges in the network.
+
+    \item Recall that the binary factor loading matrix $F^*$ encodes the relation between topics and papers
+        (i.e., if $i$th paper studies about $k$th topic, we denote $F^*_{ki}=1$, otherwise $F^*_{ki}=0$).
+        First, we simply set there exists $K$ topics in the network with $n$ papers, and each of them consists of $\frac{n}{K}$ papers.
+        This can be expressed in $F^*$ as follows:
+        \[
+            F^* =
+               \begin{bmatrix}
+                 \smash[b]{\block{n/K}} \\
+                 && \smash[b]{\block{n/K}} \\
+                 &&&& \ddots \\
+                 &&&&& \block{n/K}
+                \end{bmatrix}
+              \in R^{K \times n},
+        \]
+        where each row of $F^*$ has $\frac{n}{K}$ $1$s and each column has only one $1$.
+        Then, we assume that $n_{l}$ papers share $l$ topics and $n_{m}$ papers share $m$ topics ($1 < l < m \leq K$).
+        This can be represented in the $F^*$ in following steps:
+        $1)$ Pick distinct $n_{l}$ indices randomly from $\{1,2,\dots,n\}$.
+        We will denote the set of the indices as $\Omega_{n_l}$.
+        $2)$ Choose $n_{m}$ indices from the set $\{1,2,\dots,n\}\setminus \Omega_{n_{l}}$ and denote the set of those indices as $\Omega_{n_{m}}$.
+        $3)$ Make the columns of $F^*$ with corresponding indices in set $\Omega_{n_{l}} \cup \Omega_{n_{m}}$ zeros.
+        $4)$ We use a notation $f^*_j$ to denote the $j$th column of the matrix $F^*$.
+        Fill arbitrary $l$ entries of $f^*_j$ for $j \in \Omega_{n_l}$ with $1$s, and also fill arbitrary $m$ entries of $f^*_j$ for $j \in \Omega_{n_m}$ with $1$s.
+        Lastly, we set $F^*=JF^*$ where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$.
+
+    \item Generate weight coefficients of the factors $D^*_{ii}$ from the uniform distribution that is supported on $[19,20]$ $ \forall 1 \leq i \leq K$.
+
+    \item Remind that the positive entries of $S^*$ can characterize the links in the network which cannot be accounted by the common topics.
+        In the spirit of this notion, we construct ad-hoc links in a way that they connect the clusters of papers with one topic.
+        Specifically, we assume that there are $\frac{|S^*|}{_KC_{2}}$ edges between two clusters, where $|S^*|$ denotes the number of non-zero entries of the upper-triangular part of the matrix $S^*$.
+        This can be implemented via following steps:
+        1) We construct $K$ sets $C^*_1,\dots,C^*_K$ that are defined as follows:
+        \begin{align*}
+           &C^*_{1} \subseteq \big\{1, 2, \dots, \frac{n}{K} \big\} \setminus \big\{ \Omega_{n_l}
+           \cup \Omega_{n_m} \big\} \\
+           &C^*_{2} \subseteq \big\{\frac{n}{K}+1, \dots, \frac{2n}{K} \big\} \setminus \big\{ \Omega_{n_l} \cup \Omega_{n_m} \big\}  \\
+           &\vdots \\
+           &C^*_{K} \subseteq \big\{\frac{(K-1)n}{K}+1, \dots, n \big\} \setminus \big\{ \Omega_{n_l}
+           \cup \Omega_{n_m} \big\}
+        \end{align*}
+        where each of them has arbitrary $\frac{|S^*|}{_KC_{2}}$ elements.
+        2) Create a set $I_{S^*}$ whose elements are pairs of indices such that
+        \[
+            I_{S^*} =
+            \bigg\{ (i_r,j_r) : i_r \in C^*_p, j_r \in C^*_q, 1 \leq p < q \leq K,   r = 1,2,\dots,\frac{|S^*|}{_KC_{2}} \bigg\},
+        \]
+        where we use $i_r$ to indicate $r$th element $i$ in the set.
+        3) Draw $S^*_{ij} \sim \mbox{Unif}[19,20], \forall (i,j) \in I_{S^*}$.
+        4) Lastly, make it symmetric by setting $S^*={S^*}^{T}$.
+    \item Create an upper-triangular part of the adjacency matrix $X$ whose each entry $X_{ij}$ follows Bernoulli distribution.
+        The distribution's parameter is parametrized by a probability, $P^{*}_{ij}=\frac{\exp (\alpha^{*}+f^{*T}_{i}D^{*}f^{*}_{j} +  S^{*}_{ij})}{1+\exp(\alpha^{*}+f^{*T}_{i}D^{*}f^{*}_{j} +  S^{*}_{ij})}$.
+        After drawing all the entries of $X$ in the upper-triangular part, then make the matrix symmetric by setting $X=X^T$.
+\end{enumerate}
+
+
+%\begin{itemize}
+%    \item \textbf{First scenario.}
+        %We consider a network of $n$ papers with $K$ topics, as represented by $K$ clusters.
+        %There are $K$ clusters of papers, where each of which deals with $1$ specific topic out of $K$ topics.
+        %Each cluster consists of $\frac{n}{K}$ non-overlapping papers.
+        %Moreover, these $K$ clusters are connected with each other via $|S^*|$ random ad-hoc links.
+        %Specifically, we assume $|S^*|/\binom{K}{2}$ ad-hoc links connect two different clusters of papers.
+        %For example, suppose that we have a network of $120$ papers with five topics and with $30$ random ad-hoc links. Then, there are five clusters for $24$ papers, and each $10(=\binom{5}{2})$ pairs of clusters are connected by $3 (=30/\binom{5}{2})$ random ad-hoc links.
+        %(See Fig$\ref{fig:figure1}$
+        %\[\begin{bmatrix} a_{11}&a_{12}&\cdots &a_{1n} \\ a_{21}&a_{22}&\cdots &a_{2n} \\ \vdots & \vdots & \ddots & \vdots\\ a_{n1}&a_{n2}&\cdots &a_{nn} \end{bmatrix}\]
+
+%    \item \textbf{Second scenario.} Based upon the settings mentioned in the first scenario, we suppose that there are $n_{l}$ papers, which share $l(\leq K)$ common topics in the network.
+%        For instance, if we have a network of $210$ papers with $3$ topics, and
+%        $n_2$ is equal to $50$, then this means that there are $50$ papers out of $210$ papers, which have $2$ shared topics out of $3$ topics.
         %Here, we want to note the readers that ad-hoc links are not used either to connect the clusters of papers that share $l$ common topics, or to connect a cluster of $1$ topic and a cluster that share $l$ common topics.
         %In order to represent this notion in a generated network,
         %first, we randomly pick $n_{l}$ indices from the set $\Omega_{n_{l}} = \{1,2,\dots,n\} \setminus \Omega_{S^*}$, where $\Omega_{S^*}$ denotes a set of indices of papers for formulating $|S^*|$ ad-hoc links.
         %Next, $\forall j \in \Omega_{n_{l}}$, fill in arbitrary $l$ positions of $f_j^*$ with $1$s.
 
-     \item \textbf{Third scenario.} In this scenario, we want to study a role of $\alpha^*$ in the network.
-        In the first and second scenarios, we set $\alpha^* \sim \text{Unif}[-11,-10]$, so that it has little effect on creating random edges in the network.
-        In the third scenario, we set $\alpha^* \sim \text{Unif}[-4,-3]$, whereas other parametric settings for $D^*, F^*$ and $S^*$ are same with those from the first and second scenarios.
-        This setting has an effect on increasing the number of edges connecting the clusters of papers with $l$ topics and those with $1$ topic.
-\end{itemize}
+     %\item \textbf{Third scenario.} In this scenario, we want to study a role of $\alpha^*$ in the network.
+        %In the first and second scenarios, we set $\alpha^* \sim \text{Unif}[-11,-10]$, so that it has little effect on creating random edges in the network.
+        %In the third scenario, we set $\alpha^* \sim \text{Unif}[-4,-3]$, whereas other parametric settings for $D^*, F^*$ and $S^*$ are same with those from the first and second scenarios.
+        %This setting has an effect on increasing the number of edges connecting the clusters of papers with $l$ topics and those with $1$ topic.
+%\end{itemize}
 
-With these settings in mind, we construct $3$ cases of networks for scenarios $1$, $2$, and $3$ respectively. Specifically;
+With these settings in mind, we consider two scenarios, where each of them has three synthetic networks.
 
 \begin{enumerate}
-    \item In the first scenario, we consider following three cases: $\{(n^{(i)},n_{1}^{(i)},K^{(i)},|S^*|^{(i)})\}_{i=1}^{3}$ $=\{(30,30,3,9), (80,80,4,18),$ $(120,120,5,30)\}$.
+    \item In the first scenario, we consider three networks, in which each of them consists of papers with only one topic.
+        Specifically, following three networks
+        $\{(n^{(i)},n_{1}^{(i)},K^{(i)},|S^*|^{(i)})\}_{i=1}^{3}$ $=\{(30,30,3,9), (80,80,4,18),$ $(120,120,5,30)\}$ are considered.
         If we take an example, the notation  $(n^{(1)},n_{1}^{(1)},K^{(1)},|S^*|^{(1)})=(30,30,3,9)$ means that we generate a network with $30$ papers. There are $3$ topics embedded in the network, and $9$ random ad-hoc links connect $3$ clusters of papers, where each cluster represents a collection of papers with same topic.
-        Note that every paper in three networks, which are considered in this scenario, studies only about $1$ topic among $K$ topics.
-    \item In the second scenario, we consider three cases where we have
-        $\{(n^{(i)},n_{2}^{(i)},n_{3}^{(i)},K^{(i)},|S^{*}|^{(i)})\}_{i=1}^{3}=
+
+    \item In the second scenario, we consider three networks, in which each of them has some papers that have more than one topic.
+        In particular, we consider $\{(n^{(i)},n_{2}^{(i)},n_{3}^{(i)},K^{(i)},|S^{*}|^{(i)})\}_{i=1}^{3}=
         \{(120,0,10,3,18),$ $(210,50,0,3,18),(210,10,10,3,18)\}$.
         For instance, in the third case, we have a network with $210$ papers in total. There are $3$ topics commonly shared across the network.
         Among $210$ papers, $10$ papers randomly share $2$ topics out of $3$, other $10$ papers have $3$ mixed topics, whereas remaining $190$ papers only discuss $1$ topic.
         Note that the $3$ clusters from these $190$ papers are connected through $18$ random ad-hoc links.
-    \item In the third scenario, we basically study the same $3$ cases with those from the second scenario.
-        (i.e., $\{(n^{(i)},n_{2}^{(i)},n_{3}^{(i)},K^{(i)},|S^{*}|^{(i)})
-        \}_{i=1}^{3}=\{(120,0,10,3,18), (210,50,0,3,18),(210,10,10,3,18)\}$)
-        The only difference between these two scenarios comes from the random setting of $\alpha^*$. (i.e.,$\alpha^* \sim \text{Unif}[-4,-3]$)
 \end{enumerate}
 
-All $9$ networks that are elaborated in scenarios $1$, $2$ and $3$ are visualized in Fig\ref{fig:figure1}.
-Note that ad-hoc links, which connect clusters of papers with $1$ topic, are colored in green.
-Readers can refer the R code provided in $\dots$, for more detailed descriptions on parametric settings for generating networks in Fig\ref{fig:figure1}.
+\begin{figure}[htbp]
+\includegraphics[width=1\textwidth]{Fig1.pdf}
+\caption{Graphical illustrations of six synthetic networks.
+Nodes that share the common factors are clustered. The cross cluster links are ad-hoc Citations.}
+\label{fig:figure1}
+\end{figure}
+
+All six networks that are elaborated in scenarios $1$ and $2$ are visualized in Fig\ref{fig:figure1}.
+Notice that the nodes that share the common topics are clustered,
+and the cross clustered links are ad-hoc citations.
+%ad-hoc links, which connect clusters of papers with $1$ topic, are colored in green.
+%Readers can refer the R code provided in $\dots$, for more detailed descriptions on parametric settings for generating networks in Fig\ref{fig:figure1}.
 
 %\subsubsection{Data Generation}
 %Following the notation of our paper, each edge $X_{ij}$ follows Bernoulli distribution, whose parameter is parameterized by the probability, $P^{*}_{ij}=\frac{\exp (
@@ -695,17 +762,17 @@ Readers can refer the R code provided in $\dots$, for more detailed descriptions
 \subsubsection{Choosing the tuning parameters and evaluation criteria}
 We observe that choosing a good pair of tuning parameters is an important yet challenging issue in our setting.
 Here we present a heuristic procedure for choosing a good pair of tuning parameters $(\gamma,\delta)$.
-Following the scree-plot approach in Ji and Jin \cite{ji2016coauthorship}, we plot the largest $20$ eigenvalues of the adjacency matrix $X$, and find an ``elbow'' point where the eigenvalues seem to level off.
+Following the scree-plot approach in Ji and Jin \cite{ji2016coauthorship}, we plot the largest $15$ eigenvalues of the adjacency matrix $X$, and find an ``elbow'' point where the eigenvalues seem to level off.
 An index of the point, which is to the left of this elbow point, is considered as the number of the topics embedded in the network.
-(We will denote this number as $\hat{K}^{\text{Scree}}$.)
+(We will denote this number as $\widehat{K}^{\text{Scree}}$.)
 We want to note the readers that the scree-plot analysis serves as a good guideline for determining the range of grids to search over.
 With the estimate of the number of topics in the network in mind, we record the $\text{rank}(\widehat{L}^{\gamma,\delta})$ and $|\widehat{S}^{\gamma,\delta}|$ for each tuning parameter pair on a given grid.
-We need to go through several iterations of this recording procedure to find a proper range of grid, in which we can get $\text{rank}(\widehat{L}^{\gamma,\delta})=\hat{K}^{\text{Scree}}$
+We need to go through several iterations of this recording procedure to find a proper range of grid, in which we can get $\text{rank}(\widehat{L}^{\gamma,\delta})=\widehat{K}^{\text{Scree}}$
 and $10^{-4}|X| \leq |\widehat{S}^{\gamma,\delta}| \leq 10^{-1}|X|$, via adjusting the range of grid for $\gamma$ and $\delta$ repeatedly.
 Once we find a grid, which satisfies above constraints, we choose a pair of tuning parameters: %($\gamma^{\text{Heu}},\delta^{\text{Heu}}$):
 \[
     (\gamma^{\text{Heu}},\delta^{\text{Heu}}):=
-    \big\{(\gamma,\delta): \text{rank}(\widehat{L}^{\gamma,\delta})=\hat{K}^{\text{Scree}},
+    \big\{(\gamma,\delta): \text{rank}(\widehat{L}^{\gamma,\delta})=\widehat{K}^{\text{Scree}},
     \quad \mbox{mode} |\widehat{S}^{\gamma,\delta}| \quad
     \text{s.t.} \quad 10^{-4}|X| \leq |\widehat{S}^{\gamma,\delta}| \leq 0.05|X| \big\}
 \]
@@ -734,25 +801,20 @@ We want to find a pair $(\gamma,\delta)$, which minimizes BIC($M$) and AIC($M$) 
     (\gamma^{AIC},\delta^{AIC}):= \mbox{arg min}_{\gamma, \delta}
     \mbox{AIC}(M)
 \]
-We evaluate the models that are selected via our heuristic approach, BIC, and AIC by using following three evaluation metrics.
-
-\begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig2.pdf}
-\caption{ Scree plots for $9$ synthetic Networks.
-    $\hat{K}^{\text{Scree}}$ recovers the number of topics in network correctly for all $9$ cases.}
-\label{fig:figure2}
-\end{figure}
+We evaluate the models that are selected via our heuristic approach, BIC, and AIC by using following four evaluation metrics.
 
 \begin{eqnarray*}
-M_1 &=& \mathbbm{1}\big\{\text{rank}(\widehat{L}) = \text{rank}(L^{*})\big\}, \\
+M_1 &=& \mathbbm{1}\big\{\mbox{rank}(\widehat{L}) = \mbox{rank}(L^{*})\big\}, \\
 M_2 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}\right|}, \\
-M_3 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}\right|},
+M_3 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} = 0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}=0\big\}\right|}, \\
+M_4 &=& \frac{\left|\big\{\mbox{Misclassified Nodes}\big\}\right|}{n},
 \end{eqnarray*}
-where $M_1$ is a metric on whether the selected model recovers true low rank structure of network,
+where $M_1$ is a metric on whether the selected model recovers the true low rank structure of network,
 $M_2$ evaluates the positive selection rate of the sparse ad-hoc structure in network,
 and $M_3$ evaluates the false discovery rate of ad-hoc edges.
-With properly selected tuning parameter, $M_1$ will be 1, $M_2$ will be close to 1, and $M_3$ will get close to 0.
-We present the evaluation results of $9$ cases via these $3$ criteria in Table \ref{tab:table1}.
+$M_4$ calculates the proportion of mis-classified nodes to the entire nodes in the network.
+With properly selected tuning parameter, $M_1$ will be 1, $M_2$ will be close to 1, and $M_3$ and $M_4$ will get close to 0.
+We present the evaluation results of the six cases via the four criteria, $M_1,M_2,M_3$, and $M_4$ in Table \ref{tab:table1}.
 
 \subsubsection{Several Observations}
 %Given a network data $X$, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to $k$th topic or not.
@@ -763,105 +825,91 @@ We present the evaluation results of $9$ cases via these $3$ criteria in Table \
 %Our experience shows that with only first two eigenvectors of $\widehat{L}$, we can also cluster the nodes comparably well.
 \begin{enumerate}
     \item \textbf{Model Selection.}
-    First and foremost, choosing a good pair of tuning parameters is of essential issue when it comes to making a good statistical inference on data.
-    As presented in Table\ref{tab:table1}, we observe that the traditional model selection methods, both BIC and AIC, perform poorly on choosing true models, whereas our heuristic approach chooses good models reasonably well for the 9 artificial cases.
-    In the heuristic approach, scree-plot plays an important role when it comes to recovering the number of topics for all $9$ cases. (See Fig\ref{fig:figure2})
-    On the other hand, both BIC and AIC choose the most parsimonious model with the smallest $K(=\text{rank}(\widehat{L}))$ and the smallest cardinality$(=|\widehat{S}|)$ of ad-hoc links among the estimated ($\widehat{L}$,$\widehat{S}$)s' over the given grid.
+    First and foremost, choosing a good pair of tuning parameters is critical when it comes to making a good statistical inference on data.
+    As presented in Table\ref{tab:table1}, both BIC and AIC, which are well known for their model selection consistency in asymptotic setting, appear to under-estimate either the number of topics or the number of ad-hoc links in the networks in our synthetic settings. This may be caused by the fact that these traditional methods take the sample size into account, and therefore penalizes the model complexity too harshly.
+    In the heuristic approach, scree-plot plays an important role when it comes to recovering the number of topics, and this strategy leads us to good model selection results for all the six cases considered in two scenarios. (See Fig\ref{fig:figure2}.)
+
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{c|ccc|ccc|ccc}
+                & \multicolumn{9}{c}{\textbf{Scenario 1}}                                              \\
+                \cline{2-10}
+                & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\
+                \cline{2-10}
+                & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
+                \hline
+    $M_{1}$   &    1 (3)  &    0 (2)   &  0 (2)  &    1 (4)    &  0 (3)   &  0 (3)  &    1 (5)  &   0 (4)    & 0 (4) \\
+    $M_{2}$   &    1     &    0 &      0 &         1    &     1  &    1  &         1    &    1   &   1   \\
+    $M_{3}$   &    0     &    0 &      0 &         0    &     0  &    0  &         0    &    0   &   0   \\
+    $M_{4}$   &  0  &       &      &   0          &       &      &  0           &       &      \\
+                \hline
+    \end{tabular}
+
+    \begin{tabular}{c|ccc|ccc|ccc}
+                & \multicolumn{9}{c}{\textbf{Scenario 2}}                                              \\
+                \cline{2-10}
+                & \multicolumn{3}{c|}{Case 4} & \multicolumn{3}{c|}{Case 5} & \multicolumn{3}{c}{Case 6} \\
+                \cline{2-10}
+                & Heuristic   & AIC   & BIC  &    Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
+                \hline
+    $M_{1}$   &   1 (3)     &     1 (3)  &  1 (3)    &      1 (3)   &   1 (3)    &  1 (3)    &   1 (3)     &  1 (3)   & 1 (3)   \\
+    $M_{2}$   &   $\frac{17}{18}$   &   0    &    0  &   $\frac{17}{18}$     &   0    &  0    &  $\frac{16}{18}$    &   0    &  0    \\
+    $M_{3}$   &   0 &     0  &   0   &        0     &    0   &  0    &        0     &   0    & 0 \\
+    $M_{4}$   &   0 &       &      &          0   &       &      &   $\frac{2}{210}$       &       &      \\
+                \hline
+    \end{tabular}
+    \caption{ For two scenarios, our heuristic method chooses the model with $\widehat{L}$ with true rank, $\widehat{S}$ whose $M_2$ value is close to $1$, and $M_3$ value is close to $0$. 
+    Also note that it chooses a model whose mis-classification rate is close to $0$.
+    A number in the parentheses represents the rank of $\widehat{L}$ estimated from ($\gamma^{\text{Heu}},\delta^{\text{Heu}}$), ($\gamma^{\text{AIC}},\delta^{\text{AIC}}$) and ($\gamma^{\text{BIC}},\delta^{\text{BIC}}$) for each case.}
+    \label{tab:table1}
+    \end{table}
+
+    \begin{figure}[htbp]
+        \includegraphics[width=1\textwidth]{Fig2.pdf}
+        \caption{ Scree plots for six synthetic Networks.
+        $\hat{K}^{\mbox{Scree}}$ recovers the number of topics in the network correctly for all six cases.}
+        \label{fig:figure2}
+    \end{figure}
 
     \item \textbf{Node Membership.}
-    After fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether the $i$th paper belongs to $k$th topic or not.
-    We apply a simple $k$-means clustering algorithm on the $\widehat{L}$ matrix’s $K(=\text{rank}(\widehat{L}))$ eigenvectors.
-    (We will denote column-wise concatenation of these $K$ eigenvectors as $\widehat{E}_{K} \in \mathbb{R}^{n\times K}$.)
-    For $3$ cases in Scenario $1$, where each paper in the network can only have $1$ topic, we confirm that $k$-means algorithm performs well on classifying papers in the network.
-    However, in Scenario $2$ and $3$ where we allow the papers in the network can have more than $1$ topic, naive implementation of $k$-means algorithm entails a problem, since it is not able to afford the overlapped membership of nodes.
+    After fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether the $i$th paper belongs to the $k$th topic or not.
+    We apply a simple $k$-means clustering algorithm on the $\widehat{L}$ matrix’s $K$ eigenvectors where $K$ denotes the rank of matrix $\widehat{L}$.
+    %(We will denote column-wise concatenation of these $K$ eigenvectors as $\widehat{E}_{K} \in \mathbb{R}^{n\times K}$.)
+    For three cases in Scenario $1$, where each paper in the network only has one topic, we confirm that $k$-means algorithm performs well on classifying papers in the network.
+    However, in Scenario $2$ where we allow the papers in the network can have more than one topic, naive implementation of $k$-means algorithm entails a problem, since it is not able to afford the overlapped membership of nodes.
+    Here, we create a matrix $\widehat{E}_{K}\in \mathbb{R}^{n \times K}$, whose $i$th column corresponds to the $i$th eigenvector of the $\widehat{L}$.
     In order to obtain a sense on how many clusters of papers exist in latent space, we project each row of the $\widehat{E}_{K}$ on the first and second principal components of data matrix $\widehat{E}_{K}$, and plot the projected points on $2$-dimensional plane.
     We count the number of distinct clusters plotted on the plane. Subsequently, we run the $k$-means algorithm on the projected points.
-    See Fig\ref{fig:figure3} for the references on how this procedure performs on $9$ synthetic cases.
+    Refer Table\ref{tab:table1} and Fig\ref{fig:figure3} for the references on how this procedure performs on six synthetic cases.
 
-    \item \textbf{Scenario $2$ vs. Scenario $3$.}
-    We empirically observe that the number of edges between clusters $\big\{ C_{i,j}:\forall 1 \leq i \neq j \leq K \big\}$ and $\big\{ C_{i}: \forall 1 \leq i \leq K \big\}$ has an effect on their clustering behaviors in latent space. Here $C_{i}$ is used to represent a set of papers on $i$th topic, and $C_{i,j}$ is used to denote a collection of papers that have $i$th and $j$th topics.
-    If we take a look at Fig\ref{fig:figure3}, Case $4$ in second scenario illustrates that it is difficult for us to visually distinguish the papers in $C_{1,2,3}$ and those in $\big\{ C_{i}: \forall 1 \leq i \leq 3 \big\}$ in projected space, whereas they are obviously distinguishable in Case $7$.
-    Unfortunately, we can observe similar phenomenon in Case $5$ and $6$, where the exact separations of clusters $\big\{ C_{i,j}:\forall 1 \leq i \neq j \leq 3 \big\}$ are not made.
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Fig3.pdf}
+    \caption{ Case $1\sim3$ : Plots of rows from the first two eigenvectors of $\widehat{L}^{\gamma^{\text{Heu}},\delta^{\text{Heu}}}$.
+    Case $4 \sim 6$ : Plots of the projected points on the first (X-axis) and second (Y-axis) principal component of the data matrix $\widehat{E}_{K}^{\gamma^{\text{Heu}},\delta^{\text{Heu}}}$. Different colors represent different clusters of papers that $k$-means algorithm assigns.}
+    \label{fig:figure3}
+    \end{figure}
+
+    %\item \textbf{Scenario $2$ vs. Scenario $3$.}
+    %We empirically observe that the number of edges between clusters $\big\{ C_{i,j}:\forall 1 \leq i \neq j \leq K \big\}$ and $\big\{ C_{i}: \forall 1 \leq i \leq K \big\}$ has an effect on their clustering behaviors in latent space. Here $C_{i}$ is used to represent a set of papers on $i$th topic, and $C_{i,j}$ is used to denote a collection of papers that have $i$th and $j$th topics.
+    %If we take a look at Fig\ref{fig:figure3}, Case $4$ in second scenario illustrates that it is difficult for us to visually distinguish the papers in $C_{1,2,3}$ and those in $\big\{ C_{i}: \forall 1 \leq i \leq 3 \big\}$ in projected space, whereas they are obviously distinguishable in Case $7$.
+    %Unfortunately, we can observe similar phenomenon in Case $5$ and $6$, where the exact separations of clusters $\big\{ C_{i,j}:\forall 1 \leq i \neq j \leq 3 \big\}$ are not made.
     %makes $k$-means algorithm difficult to distinguish the clusters of papers $C_{1,2}, C_{2,3}, C_{1,3}$ and $C_{1,2,3}$ from each other both in Case $5$ and $6$.
-    On the other hand, in third scenario, distinct separations are made between $6$ clusters $C_{1}, C_{2}, C_{3}, C_{1,2}, C_{2,3}, C_{1,3}$ in Case $8$, and between $7$ clusters $C_{1}, C_{2}, C_{3}, C_{1,2}, C_{2,3}, C_{1,3}, C_{1,2,3}$ in Case $9$, so that we can explicitly know the membership of each paper in the network.
+    %On the other hand, in third scenario, distinct separations are made between $6$ clusters $C_{1}, C_{2}, C_{3}, C_{1,2}, C_{2,3}, C_{1,3}$ in Case $8$, and between $7$ clusters $C_{1}, C_{2}, C_{3}, C_{1,2}, C_{2,3}, C_{1,3}, C_{1,2,3}$ in Case $9$, so that we can explicitly know the membership of each paper in the network.
 
     % In fact, this observation is especially helpful for us to understand the behavior of our model with the statisticians’ citation network data, which we are going to explore in the following subsection.
     % In the statisticians’ citation network, we also observe clusters of papers, which have more than $1$ topic, behave similarly with those from the second scenario.
 
-    \item \textbf{Ad-hoc links.}
-    In our setting, ad-hoc links of synthetic network data are considered as ``across edges'' between clusters $\big\{ C_{i}: \forall 1 \leq i \leq K \big\}$.
-    Our heuristic method works much better than either AIC or BIC in recovering the ad-hoc edges for the $6$ cases in $3$ scenarios.
-    For the three Cases (i.e., Case $2,3,9$) where both AIC and BIC work well, all the pairs of tuning parameters in the grid give the same $|\widehat{S}^{\gamma,\delta}|$.
+    %\item \textbf{Ad-hoc links.}
+    %In our setting, ad-hoc links of synthetic network data are considered as ``across edges'' between clusters $\big\{ C_{i}: \forall 1 \leq i \leq K \big\}$.
+    %Our heuristic method works much better than either AIC or BIC in recovering the ad-hoc edges for the $6$ cases in $3$ scenarios.
+    %For the three Cases (i.e., Case $2,3,9$) where both AIC and BIC work well, all the pairs of tuning parameters in the grid give the same $|\widehat{S}^{\gamma,\delta}|$.
 
     %Since indices of non-zero entries of $S^{*}$ are randomly chosen, there might be some indices of positive $S^{*}_{ij}$ entries where $L^{*}_{ij}$ is also positive.
     %In this case, this makes the edges indistinguishable if they come from $S^{*}_{ij}$ or $L^{*}_{ij}$.
     %Some of ``across edges" are also attributed to $\alpha^{*}$, and unfortunately, our algorithm cannot make a difference whether the edge comes from $\alpha^{*}$ or $S^{*}_{ij}$.
     %So the total number of ``across edges'' might not be exactly same as $|S^*|$ as we set in our data generation setting.
 \end{enumerate}
-
-\begin{table}[htbp]
-%\centering
-%\begin{tabular}{c|ccc|ccc|ccc}
-%   & \multicolumn{9}{c|}{Scenario 1}
-%   & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\ %\cline{2-10}
-%   & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC    & Heuristic        & AIC    & BIC   \\ \hline
-%$M_1$ & 1         & 0      & 0      & 1         & 0      & 0      & 1         & 0      & 0     \\
-%$M_2$ & 0.5       & 0      & 0      & 0.842     & 0      & 0      & 0.725     & 0      & 0     \\
-%$M_3$ & 0.007     & 0      & 0      & 0.008     & 0      & 0      & 0.0113    & 0      & 0
-%\end{tabular}
-%\begin{table}[htbp]
-
-\centering
-\begin{tabular}{c|ccc|ccc|ccc}
-            & \multicolumn{9}{c}{\textbf{Scenario 1}}                                              \\
-            \cline{2-10}
-            & \multicolumn{3}{c|}{Case 1} & \multicolumn{3}{c|}{Case 2} & \multicolumn{3}{c}{Case 3} \\
-            \cline{2-10}
-            & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
-            \hline
-$M_{1}$   &    1(3)  &    0(2)   &  0(2)  &    1(4)    &  0(3)   &  0(3)  &    1(5)  &   0(4)    &   0(4) \\
-$M_{2}$   &    1     &    0 &      0 &         1    &     1  &    1  &         1    &    1   &   1   \\
-$M_{3}$   &    0     &    0 &      0 &         0    &     0  &    0  &         0    &    0   &   0   \\
-%Grid Region &    &       &      &             &       &      &             &       &      \\
-            \hline
-\end{tabular}
-
-\begin{tabular}{c|ccc|ccc|ccc}
-            & \multicolumn{9}{c}{\textbf{Scenario 2}}                                              \\
-            \cline{2-10}
-            & \multicolumn{3}{c|}{Case 4} & \multicolumn{3}{c|}{Case 5} & \multicolumn{3}{c}{Case 6} \\
-            \cline{2-10}
-            & Heuristic   & AIC   & BIC  &    Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
-            \hline
-$M_{1}$   &   1(3)     &     1(3)  &  1(3)    &      1(3)   &   1(3)    &  1(3)    &   1(3)     &  1(3)     &   1(3)   \\
-$M_{2}$   &   $\frac{17}{18}$   &   0    &    0  &   $\frac{17}{18}$     &   0    &  0    &  $\frac{16}{18}$    &   0    &  0    \\
-$M_{3}$   &   0 &     0  &   0   &        0     &    0   &  0    &        0     &   0    & 0 \\
-%Grid Region &             &       &      &             &       &      &             &       &      \\
-            \hline
-\end{tabular}
-
-\begin{tabular}{c|ccc|ccc|ccc}
-            & \multicolumn{9}{c}{\textbf{Scenario 3}}                                              \\
-            \cline{2-10}
-            & \multicolumn{3}{c|}{Case 7} & \multicolumn{3}{c|}{Case 8} & \multicolumn{3}{c}{Case 9} \\
-            \cline{2-10}
-            & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  & Heuristic   & AIC   & BIC  \\
-            \hline
-$M_{1}$  &    1(3)   &   1(3)    &  1(3)    &     1(3)        &    1(3)   &  1(3)    &   1(3)          &  1(3)      &  1(3)     \\
-$M_{2}$  &     1       &   0  &    0  &    $\frac{15}{18}$         &   0  &  0  &   1   &  1    &   1     \\
-$M_{3}$  &  $\frac{1}{7122}$  &  0  &  0   &   $\frac{3}{21927}$ &     0  &  0     &  $\frac{4}{21927}$ & $\frac{4}{21927}$ & $\frac{4}{21927}$ \\
-%Grid Region &             &       &      &             &       &      &             &       &      \\
-\end{tabular}
-\caption{ For three scenarios, our heuristic method chooses the model with $\widehat{L}$ with true rank, $\widehat{S}$ whose $M_2$ value is close to $1$, and $M_3$ value is close to $0$.
-A number in the parentheses represents the rank of $\widehat{L}$ estimated from ($\gamma^{\text{Heu}},\delta^{\text{Heu}}$), ($\gamma^{\text{AIC}},\delta^{\text{AIC}}$) and ($\gamma^{\text{BIC}},\delta^{\text{BIC}}$) for each case.}
-\label{tab:table1}
-\end{table}
-
-\begin{figure}[htbp]
-\includegraphics[width=1\textwidth]{Fig3.pdf}
-\caption{ Plots of the projected points on the first (X-axis) and second (Y-axis) principal component of the data matrix $\widehat{E}_{K}$. Different colors represent different clusters of papers that $k$-means algorithm assigns.}
-\label{fig:figure3}
-\end{figure}
 
 %\textbf{Simulation Results}.
 %Our goal in this simulation experiment is to check if our model can cluster each nodes into correct communities.
@@ -889,28 +937,29 @@ A number in the parentheses represents the rank of $\widehat{L}$ estimated from 
 \subsection{Citation networks for statisticians}
 \label{sec:citation_network}
 Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting data set on citation  and co-authorship networks of statisticians.
-Citational relationships over $3000$ papers from $4$ statistical journals were collected, and collaborative network among authors of the papers is also given.
+Citational relationships over $3000$ papers from four statistical journals were collected, and collaborative network among authors of the papers is also given.
 In our work, we only analyze the citation network of papers.
 \begin{figure}[htbp]
 \includegraphics[width=1\textwidth]{Fig4.pdf}
 \caption{ Scree plots for 543-Citation network, and Sub-network.}
 \label{fig:figure4}
 \end{figure}
-This dataset is based on all papers published from $2003$ to first half of $2012$, in $4$ of the top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association and Journal of Royal Statistical Society (Series B).
-Among  $3248$ papers in total, we restrict our attention on papers, which have greater than or equal to $7$ citations from the collected papers.
+This dataset is based on all papers published from $2003$ to the first half of $2012$, in the four top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association and Journal of Royal Statistical Society (Series B).
+Among the $3248$ papers in total, we restrict our attention on papers, which have greater than or equal to seven citations from the collected papers.
 Consequently, we have $543$ papers in total.
-The elbow points of the eigen-value scree plot  from  may be at the $3$rd, $7$th, or $9$th largest eigenvalue, suggesting that there might be from $2$ to $8$ topics embedded in network (See Fig$\ref{fig:figure3}$).
+The elbow points of the scree plot from the network
+may be at the $3$rd, $7$th, or $9$th largest eigenvalue, suggesting that there might be from $2$ to $8$ topics embedded in the network (See Fig$\ref{fig:figure4}$ for the reference).
 In light of this, we performed our analysis under the assumption that there might exist $2$ distinct topics and one giant component, in which $3$ or $4$ topics are mixed up.
 
 A pair of parameters, $(\gamma^{\text{Heu}},\delta^{\text{Heu}}) = (0.000912,0.0097)$, gives us $\widehat{L}$ with rank $3$, and $\widehat{S}$ with $|\widehat{S}|=197$.
-We apply $k$-means algorithm on $3$ eigenvectors of estimated $\widehat{L}$ matrix, and visualize the result of clustering by plotting the rows of first two eigenvectors of $\widehat{L}$ on plane in Fig $\ref{fig:figure4}$.
-$404$ papers colored in green are densely clustered nearby the origin with a short tail, (Fig $\ref{fig:figure4}$), and $k$-means classifies these papers as third topic.
+We apply $k$-means algorithm on the first three eigenvectors of estimated $\widehat{L}$ matrix, and visualize the result of clustering by plotting the rows of first two eigenvectors of $\widehat{L}$ on plane in Fig $\ref{fig:figure5}$.
+$404$ papers colored in green are densely clustered nearby the origin with a short tail, (Fig $\ref{fig:figure5}$), and $k$-means classifies these papers as third topic.
 We list the first two topics discovered through our analysis.
 %Full lists of papers for each communities are provided in $\emph{https://sites.google.com/site/namjoonsuh/publications}$.
 
 \begin{itemize}
-  \item Variable selection ($85$ papers)
-  \item Multiple Hypothesis Testing ($54$ papers)
+  \item Variable selection, which includes $85$ paper.
+  \item Multiple Hypothesis Testing, which includes $54$ papers.
 \end{itemize}
 
 \noindent These two topics are classical research topics in field of statistics.
@@ -921,10 +970,10 @@ For further investigation on this group, after obtaining the sub-network which i
 We obtain four sub-communities as follows:
 
 \begin{itemize}
-  \item Non-parametric Bayesian Statistics ($17$ papers)
-  \item Functional Data analysis ($35$ papers)
-  \item Dimension Reduction ($23$ papers)
-  \item Mixed topics ($329$ papers)
+  \item Non-parametric Bayesian Statistics, which includes $17$ papers.
+  \item Functional Data analysis, which includes $35$ papers.
+  \item Dimension Reduction, which includes $23$ papers.
+  \item Mixed topics, which includes $329$ papers.
 \end{itemize}
 
 Out of this one big chunk, we got three small, but meaningful topics: Bayesian Statistics, Functional / Longitudinal Data Analysis, Dimension Reduction.
@@ -1037,21 +1086,21 @@ It would be interesting to see what happens if we apply some clustering methods 
 \section{Appendix}
 \subsection{Proof of Theorem \ref{Th:th1}}
 
-In proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(M,M^{\perp})$ denote arbitrary subspace pair for which component-wise $L_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$. And also note that proof relies on following lemma:
+In proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(M,M^{\perp})$ denote arbitrary subspace pair for which component-wise $L_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$. And also note that proof relies on the following lemma:
 
 \begin{lemma} \label{le:le1}
-If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\ref{eq:49}), then for $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$, we have
+If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\ref{eq:49}), then for $\mathbb{Q}\left(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}\right)$, we have
 \[
     \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}) \leq
     \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} +
-    3\mathbb{Q}(\widehat{\Delta}^{L}_{A},\widehat{\Delta}^{S}_{M})+4 \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 4\frac{\gamma}{\delta}
+    3\mathbb{Q}\left(\widehat{\Delta}^{L}_{A},\widehat{\Delta}^{S}_{M}\right)+4 \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 4\frac{\gamma}{\delta}
     \|S^{*}_{M^\perp}\|_{1}
 \]
 \end{lemma}
 
 \noindent\textbf{proof of Theorem \ref{Th:th1}}.
 \begin{proof}
-Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal and feasible (respectively) for the convex program (\ref{eq:1}), we have
+Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal minimizer and feasible solution respectively for the convex program (\ref{eq:Modified}), we have
 \begin{equation}\label{eq:2}
     h(\widehat{\Theta}) + \delta\|\widehat{L}\|_{*} + \gamma\|\widehat{S}\|_{1} \leq
      h(\Theta^{*}) + \delta\|{L^{*}}\|_{*} + \gamma\|{S}^{*}\|_{1}

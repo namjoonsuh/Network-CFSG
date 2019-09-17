@@ -38,12 +38,6 @@ Network1 <- function(N,K,NNZ, case){
   S = S + t(S)
   diag(S) = 0
   
-  ### Create random symmetric sparse matrix S, whose entries are greater than or equal to zero.
-  #S = matrix(0,N,N)
-  #S = rsparsematrix(N, N, nnz = NNZ, symmetric = TRUE, rand.x = runif)
-  #S[which(S!=0,arr.ind=TRUE)] = runif(1,6,7)
-  #diag(S) = 0
-  
   ### call function to generate the adjacency matrix
   X1 <- SynData(alpha,F,D,S,N)
   
@@ -70,10 +64,10 @@ Network1 <- function(N,K,NNZ, case){
   
   E(X_draw)$color <- "red"
   E(X_draw)[list]$color <- "green"
-  #plot(X_draw,main=TeX(sprintf("$\\textbf{Case %d : n = %d, n_{1} = %d, K = %d,\\left|S^{*}\\right| = %d}$", case, N, N, K, NNZ)))
-  plot(X_draw,main=TeX(sprintf("$\\textbf{Case  %d}$", case)))
-  #plot(X_draw,main=Tex(sprintf("$\\Scenario 1 : Case (%d)$",Case)))
   
+  plot(X_draw, family="serif", vertex.size=10, vertex.label=NA)
+  title(sprintf("Case %d",case),family="LM Roman 10")
+
   Res <- list(X1,B)
   return(Res)
 }
@@ -159,8 +153,9 @@ Network2<-function(N,N_K,N_K_1,K,NNZ, case){
   }
   E(X_draw2)$color <- "red"
   E(X_draw2)[list]$color <- "green"
-  #plot(X_draw2,main=TeX(sprintf("$\\textbf{Case %d \\ n = %d, n_{1} = %d, K = %d,\\left|S^{*}\\right| = %d}$", case, N, N, K, NNZ)))
-  plot(X_draw2,main=TeX(sprintf("$\\textbf{Case  %d}$", case)))
+  
+  plot(X_draw2, family="serif", vertex.size=10, vertex.label=NA)
+  title(sprintf("Case %d",case),family="serif")
   
   output <- list(X2,TT,RR)
   return(output)
@@ -335,18 +330,33 @@ K_means<-function(X, gamma, delta, K_clusters, case){
   FAC = eigen(L)$vectors[,1:K]
   pca <- prcomp(FAC,scale=TRUE)
 
-  KMeans = kmeans(cbind(pca$x[,1],pca$x[,2]), K_clusters, iter.max = 1000, nstart = 100, 
-                  algorithm = "Hartigan-Wong")
-  
-  for(i in 1:K_clusters){
-    print(length(which(KMeans$cluster==i,arr.ind=TRUE)))
-    print(which(KMeans$cluster==i,arr.ind=TRUE))
+  if(case==1 | case == 2 | case ==3){
+    KMeans = kmeans(FAC, K_clusters, iter.max = 1000, nstart = 100, 
+                    algorithm = "Hartigan-Wong")
+    
+    for(i in 1:K_clusters){
+      print(length(which(KMeans$cluster==i,arr.ind=TRUE)))
+      print(which(KMeans$cluster==i,arr.ind=TRUE))
+    }
+    
+    plot(FAC[,1], FAC[,2], family="serif", col=KMeans$cluster, cex=1, pch=0, xlab="PC1", ylab="PC2")
+    title(sprintf("Case %d",case),family="serif")
   }
-  
-  plot(pca$x[,1], pca$x[,2], col=KMeans$cluster, pch=0, 
-    main=TeX(sprintf("$\\textbf{Case  %d}$", case)), xlab="PC1", ylab="PC2")
+  else{
+    KMeans = kmeans(cbind(pca$x[,1],pca$x[,2]), K_clusters, iter.max = 1000, nstart = 100, 
+                    algorithm = "Hartigan-Wong")
+    
+    for(i in 1:K_clusters){
+      print(length(which(KMeans$cluster==i,arr.ind=TRUE)))
+      print(which(KMeans$cluster==i,arr.ind=TRUE))
+    }
+    
+    plot(pca$x[,1], pca$x[,2],family="serif", col=KMeans$cluster, cex=1, pch=0, xlab="PC1", ylab="PC2")
+    title(sprintf("Case %d",case),family="serif")
+  }
   #scatter3D(eigen(L)$vectors[,1], eigen(L)$vectors[,2], eigen(L)$vectors[,3], theta = 15, phi = 20)
 }
+
 
 Eval <- function(X,Result,gamma,delta,K_Scree,low,upp){
   gamma = seq(from=0.01,to=0.02,by=0.001);

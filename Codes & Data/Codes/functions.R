@@ -159,13 +159,14 @@ score = function(adj, K)
 
 
 
-plotScree=function(adj)
+plotScree=function(adj,case)
 {
   #adj can be symmetric or asymmetric
   m = dim(adj)
   values = eigen(adj %*% t(adj))$values 
-  plot(sqrt(values[1:20]), cex=2, pch=22, type="b", lty=2, lwd=3, col="red", bg="red", xlab="", ylab="",
-       main=TeX(sprintf("$\\textbf{Sub-Network}$")))
+  plot(sqrt(values[1:15]), cex=1, pch=22, type="b", 
+       lty=2, lwd=3, col="red", bg="red", xlab="", ylab="")
+  title(sprintf("Case %d",case),family="LM Roman 10")
 }
 
 
