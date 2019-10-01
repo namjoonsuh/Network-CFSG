@@ -9,7 +9,7 @@ source('functions.R')
 source('Synthetic Networks.R')
 #################### data generation N = 30, K = 3, NNZ = 10 ####################
 set.seed(123)
-par(mfrow=c(2,3),mar = c(1, 1.5, 1.5, 1.5)) # ??? ??? ??? ??? # 
+par(mfrow=c(2,3),mar = c(2, 2, 2, 2)) # ??? ??? ??? ??? # 
 ######## First Scenario ########
 set.seed(123); Net1 <- Network1(30,3,9,1)
 set.seed(123); Net2 <- Network1(80,4,18,2)
@@ -20,17 +20,11 @@ set.seed(123); Net5 <- Network2(210,0,50,3,18,5)
 set.seed(123); Net6 <- Network2(210,10,10,3,18,6)
 par(mfrow=c(1,1))
 
-######## Third Scenario ########
-set.seed(123); Net7 <- Network3(120,10,0,3,20,7)
-set.seed(123); Net8 <- Network3(210,0,50,3,18,8)
-set.seed(123); Net9 <- Network3(210,10,10,3,18,9);
-par(mfrow=c(1,1))
-
 ######## Plot Scree ########
-par(mfrow=c(3,3),mar = c(2, 2, 2, 1))
-plotScree(Net1,1); plotScree(Net2,2); plotScree(Net3,3);
-plotScree(Net4,4); plotScree(Net5,5); plotScree(Net6,6);
-plotScree(Net7,7); plotScree(Net8,8); plotScree(Net9,9);
+source('functions.R')
+par(mfrow=c(2,3),mar = c(2, 2, 2, 1))
+plotScree(Net1[[1]],1); plotScree(Net2[[1]],2); plotScree(Net3[[1]],3);
+plotScree(Net4[[1]],4); plotScree(Net5[[1]],5); plotScree(Net6[[1]],6);
 par(mfrow=c(1,1))
 
 ################ Scenario 1 ################
@@ -76,12 +70,12 @@ Eval9 <- Eval(Net9,Res9,gamma,delta)
   
 ############################################
 source('Synthetic Networks.R')
-par(mfrow=c(3,3),mar = c(2, 2, 2, 1))
+par(mfrow=c(2,3),mar = c(2, 2, 2, 2))
 set.seed(1234); K_means(Net1[[1]],0.011,0.024,3,1); 
 set.seed(1234); K_means(Net2[[1]],0.004,0.009,4,2); 
 set.seed(1234); K_means(Net3[[1]],0.003,0.00476,5,3);
 
-set.seed(1234); K_means(Net4[[1]],0.0032,0.019,3,4); 
+set.seed(1234); K_means(Net4[[1]],0.0032,0.019,4,4); 
 set.seed(1234); K_means(Net5[[1]],0.00212,0.048,5,5); 
 set.seed(1234); K_means(Net6[[1]],0.002,0.016,5,6);
 
@@ -104,7 +98,6 @@ save(object_list,file="myfile.RData")
 (sum(Net7[[1]])/2)*0.001
 (sum(Net8[[1]])/2)*0.001
 (sum(Net9[[1]])/2)*0.001
-
 
 
 library(extrafont)

@@ -40,7 +40,7 @@ GD <- function(para_v){
     old_sol = c(X_a, X_M)
     new_sol = old_sol - 0.05*grad
     CC<-max(abs(grad))
-    print(CC)
+    # print(CC)
     # Convergence Criteria
     if(CC < 10^-9){
       X_a <- new_sol[1]
