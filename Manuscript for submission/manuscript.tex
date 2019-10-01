@@ -1040,7 +1040,7 @@ Pair & Community & Title & \\
 15   & FuncAn    & Empirical dynamics for longitudinal data & \\
      & Mixed     & Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements   &       \\\hline
 \end{tabular}
-\caption{All the $15$ edges come from pairs of papers from different communities. For instance in the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.}
+\caption{All the $15$ edges come from pairs of papers from different communities. For instance in the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. But they are not related in terms of topic.}
 \end{table}
 \label{tab:table2}
 %\end{landscape}
@@ -1077,19 +1077,19 @@ It would be interesting to see what happens if we apply some clustering methods 
 \section{Appendix}
 \subsection{Proof of Theorem \ref{Th:th1}}
 
-In proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(M,M^{\perp})$ denote arbitrary subspace pair for which component-wise $L_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$. And also note that proof relies on the following lemma:
+In the proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(M,M^{\perp})$ denote an arbitrary subspace pair for which component-wise $L_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$. And also note that the proof relies on the following lemma:
 
 \begin{lemma} \label{le:le1}
 If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\ref{eq:49}), then for $\mathbb{Q}\left(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}\right)$, we have
 \[
-    \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}) \leq
-    \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} +
+    \mathbb{Q}\left(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}\right) \leq
+    \left\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\right\|_{F} +
     3\mathbb{Q}\left(\widehat{\Delta}^{L}_{A},\widehat{\Delta}^{S}_{M}\right)+4 \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 4\frac{\gamma}{\delta}
-    \|S^{*}_{M^\perp}\|_{1}
+    \left\|S^{*}_{M^\perp}\right\|_{1}
 \]
 \end{lemma}
 
-\noindent\textbf{proof of Theorem \ref{Th:th1}}.
+\noindent\textbf{Proof of Theorem \ref{Th:th1}}.
 \begin{proof}
 Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal minimizer and feasible solution respectively for the convex program (\ref{eq:Modified}), we have
 \begin{equation}\label{eq:2}
