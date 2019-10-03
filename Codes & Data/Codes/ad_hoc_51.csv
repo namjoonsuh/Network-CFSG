@@ -1,0 +1,103 @@
+,DOI,community,title
+654,10.1214/009053606000000272,Functional/Longitudinal Analysis,Properties of principal component methods for functional and longitudinal data analysis
+852,10.1214/009053604000000256,Variable Selection,Nonconcave penalized likelihood with a diverging number of parameters
+2115,10.1198/016214506000000735,Variable Selection,The adaptive lasso and its oracle properties
+2421,10.1198/jasa.2009.tm08302,Mixed Topics,Nonparametric {B}ayes conditional distribution modeling with variable selection
+254,10.1214/08-AOS679,Dimension Reduction,Contour projected dimension reduction
+1016,10.1093/biomet/asr074,Variable Selection,Factor profiled sure independence screening
+10161,10.1093/biomet/asr074,Variable Selection,Factor profiled sure independence screening
+2313,10.1198/016214508000000418,Dimension Reduction,Sliced regression for dimension reduction
+13,10.1214/12-AOS993,Covariance Estimation,Two sample tests for high-dimensional covariance matrices
+427,10.1214/07-AOS520,Variable Selection,The sparsity and bias of the {LASSO} selection in high-dimensional linear regression
+183,10.1214/09-AOS764,Multiple Testing,Innovated higher criticism for detecting sparse signals in correlated noise
+477,10.1214/009053607000000758,Covariance Estimation,Regularized estimation of large covariance matrices
+489,10.1214/009053607000000352,Dimension Reduction,A constructive approach to the estimation of dimension reduction directions
+1016.1,10.1093/biomet/asr074,Variable Selection,Factor profiled sure independence screening
+61,10.1214/11-AOS884,Variable Selection,A majorization-minimization approach to variable selection using spike and slab priors
+747,10.1214/009053605000000345,Mixed Topics,Empirical {B}ayes selection of wavelet thresholds
+1946,10.1198/016214504000001439,Mixed Topics,Nonparametric inferences for additive models
+2762,10.1198/jasa.2011.tm09779,Variable Selection,Nonparametric independence screening in sparse ultra-high-dimensional additive models
+127,10.1214/10-AOS798,Variable Selection,Sure independence screening in generalized linear models with {NP}-dimensionality
+3037,10.1111/j.1369-7412.2007.00606.x,Mixed Topics,Maximum likelihood estimation in semiparametric regression models with censored data
+618,10.1214/009053606000000623,Mixed Topics,Conditional growth charts
+2821,10.1080/01621459.2012.656014,Variable Selection,Quantile regression for analyzing heterogeneity in ultra-high dimension
+127.1,10.1214/10-AOS798,Variable Selection,Sure independence screening in generalized linear models with {NP}-dimensionality
+835,10.1214/009053604000000535,Mixed Topics,Robust inference for univariate proportional hazards frailty regression models
+2115.1,10.1198/016214506000000735,Variable Selection,The adaptive lasso and its oracle properties
+2716,10.1198/jasa.2011.tm10370,Mixed Topics,"Robust, adaptive functional regression in functional mixed model framework"
+656,10.1214/009053606000000281,Variable Selection,High-dimensional graphs and variable selection with the lasso
+2697,10.1198/jasa.2011.tm10465,Mixed Topics,Bayesian inference for general {G}aussian graphical models with application to multivariate lattice data
+1016.11,10.1093/biomet/asr074,Variable Selection,Factor profiled sure independence screening
+1722,10.1198/016214503000000828,Mixed Topics,Frequentist model average estimators
+322,10.1214/08-AOS625,Variable Selection,On the adaptive elastic-net with a diverging number of parameters
+1953,10.1198/016214504000001781,Mixed Topics,Semilinear high-dimensional model for normalization of microarray data: a theoretical analysis and partial consistency
+462,10.1214/009053607000000875,Variable Selection,Asymptotic properties of bridge estimators in sparse high-dimensional regression models
+1953.1,10.1198/016214504000001781,Mixed Topics,Semilinear high-dimensional model for normalization of microarray data: a theoretical analysis and partial consistency
+424,10.1214/07-AOS529,Mixed Topics,Dimension reduction based on constrained canonical correlation and variable filtering
+852.1,10.1214/009053604000000256,Variable Selection,Nonconcave penalized likelihood with a diverging number of parameters
+2904,10.1111/j.1467-9868.2010.00753.x,Mixed Topics,Maximum likelihood estimation of a multi-dimensional log-concave density
+3102,10.1111/j.1467-9868.2005.00532.x,Variable Selection,Model selection and estimation in regression with grouped variables
+129,10.1214/09-AOS786,Mixed Topics,Empirical dynamics for longitudinal data
+2384,10.1198/016214508000000788,Mixed Topics,Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements
+1778,10.1198/016214503000000639,Mixed Topics,On {$\psi$}-learning
+2376,10.1198/016214508000001066,Variable Selection,Smoothly clipped absolute deviation on high dimensions
+50,10.1214/11-AOS899,Mixed Topics,Parametric or nonparametric? {A} parametricness index for model selection
+601,10.1214/009053606000001019,Mixed Topics,Local {R}ademacher complexities and oracle inequalities in risk minimization
+1977,10.1198/016214504000001745,Functional/Longitudinal Analysis,Functional data analysis for sparse longitudinal data
+2710,10.1198/jasa.2011.ap10194,Mixed Topics,High-dimensional {ODE}s coupled with mixed-effects modeling techniques for dynamic gene regulatory network identification
+2533,10.1198/jasa.2009.0138,Variable Selection,Shrinkage estimation of the varying coefficient model
+2770,10.1198/jasa.2011.tm10592,Mixed Topics,A semiparametric threshold model for censored longitudinal data analysis
+237,10.1214/09-AOS720,Covariance Estimation,Sparsistency and rates of convergence in large covariance matrix estimation
+1646,10.1093/biomet/90.4.809,Mixed Topics,Efficient estimation of covariance selection models
+50.1,10.1214/11-AOS899,Mixed Topics,Parametric or nonparametric? {A} parametricness index for model selection
+2093,10.1198/016214505000001078,Mixed Topics,"Optimal model assessment, selection, and combination"
+475,10.1214/009053607000000604,Mixed Topics,Variable selection in semiparametric regression modeling
+2656,10.1198/jasa.2010.tm09313,Functional/Longitudinal Analysis,Generalized functional linear models with semiparametric single-index interactions
+2400,10.1198/016214508000000445,Dimension Reduction,On a projective resampling method for dimension reduction with multivariate responses
+2594,10.1198/jasa.2010.tm09666,Dimension Reduction,Dimension reduction in regressions through cumulative slicing estimation
+1726,10.1198/016214503000000927,Dimension Reduction,Using the bootstrap to select one of a new class of dimension reduction methods
+2594.1,10.1198/jasa.2010.tm09666,Dimension Reduction,Dimension reduction in regressions through cumulative slicing estimation
+391,10.1214/08-AOS600,Covariance Estimation,Covariance regularization by thresholding
+2843,10.1111/j.1467-9868.2011.01023.x,Variable Selection,High dimensional variable selection via tilting
+1241,10.1093/biomet/asp038,Mixed Topics,Adaptive regularization using the entire solution surface
+2093.1,10.1198/016214505000001078,Mixed Topics,"Optimal model assessment, selection, and combination"
+1793,10.1198/016214503000189,Mixed Topics,Clustering for sparsely sampled functional data
+2710.1,10.1198/jasa.2011.ap10194,Mixed Topics,High-dimensional {ODE}s coupled with mixed-effects modeling techniques for dynamic gene regulatory network identification
+2546,10.1198/jasa.2009.0127,Mixed Topics,Variable selection for partially linear models with measurement errors
+2770.1,10.1198/jasa.2011.tm10592,Mixed Topics,A semiparametric threshold model for censored longitudinal data analysis
+2253,10.1198/016214507000000536,Dimension Reduction,On directional regression for dimension reduction
+2594.2,10.1198/jasa.2010.tm09666,Dimension Reduction,Dimension reduction in regressions through cumulative slicing estimation
+550,10.1214/009053606000001370,Mixed Topics,Piecewise linear regularized solution paths
+17781,10.1198/016214503000000639,Mixed Topics,On {$\psi$}-learning
+388,10.1214/07-AOS559,Covariance Estimation,Operator norm consistent estimation of large-dimensional sparse covariance matrices
+2843.1,10.1111/j.1467-9868.2011.01023.x,Variable Selection,High dimensional variable selection via tilting
+1745,10.1198/016214503388619139,Dimension Reduction,Dimension reduction for multivariate response data
+2594.3,10.1198/jasa.2010.tm09666,Dimension Reduction,Dimension reduction in regressions through cumulative slicing estimation
+106,10.1214/10-AOS846,Mixed Topics,G{EE} analysis of clustered binary data with diverging number of covariates
+2007,10.1198/016214504000000629,Mixed Topics,Efficient semiparametric marginal estimation for longitudinal/clustered data
+1645,10.1093/biomet/90.4.831,Covariance Estimation,Nonparametric estimation of large covariance matrices of longitudinal data
+2384.1,10.1198/016214508000000788,Mixed Topics,Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements
+1834,10.1198/016214504000001060,Mixed Topics,New estimation and model selection procedures for semiparametric modeling in longitudinal data analysis
+3101,10.1111/j.1467-9868.2005.00533.x,Mixed Topics,Semiparametric estimation in general repeated measures problems
+286,10.1214/08-AOS662,Mixed Topics,A semiparametric model for cluster data
+4751,10.1214/009053607000000604,Mixed Topics,Variable selection in semiparametric regression modeling
+848,10.1214/009053604000000292,Mixed Topics,Testing predictor contributions in sufficient dimension reduction
+2594.4,10.1198/jasa.2010.tm09666,Dimension Reduction,Dimension reduction in regressions through cumulative slicing estimation
+37,10.1214/11-AOS905,Functional/Longitudinal Analysis,Factor models and variable selection in high-dimensional regression analysis
+694,10.1214/009053605000000660,Functional/Longitudinal Analysis,Functional linear regression analysis for longitudinal data
+37.1,10.1214/11-AOS905,Functional/Longitudinal Analysis,Factor models and variable selection in high-dimensional regression analysis
+616,10.1214/009053606000000830,Functional/Longitudinal Analysis,Prediction in functional linear regression
+37.2,10.1214/11-AOS905,Functional/Longitudinal Analysis,Factor models and variable selection in high-dimensional regression analysis
+3099,10.1111/j.1467-9868.2005.00535.x,Functional/Longitudinal Analysis,On properties of functional principal components analysis
+286.1,10.1214/08-AOS662,Mixed Topics,A semiparametric model for cluster data
+18341,10.1198/016214504000001060,Mixed Topics,New estimation and model selection procedures for semiparametric modeling in longitudinal data analysis
+507,10.1214/009053607000000127,Mixed Topics,On the ``degrees of freedom'' of the lasso
+2093.2,10.1198/016214505000001078,Mixed Topics,"Optimal model assessment, selection, and combination"
+37.3,10.1214/11-AOS905,Functional/Longitudinal Analysis,Factor models and variable selection in high-dimensional regression analysis
+381,10.1214/07-AOS563,Functional/Longitudinal Analysis,Smoothing splines estimators for functional linear regression
+1361,10.1093/biomet/asm053,Variable Selection,Tuning parameter selectors for the smoothly clipped absolute deviation method
+2421.1,10.1198/jasa.2009.tm08302,Mixed Topics,Nonparametric {B}ayes conditional distribution modeling with variable selection
+391.1,10.1214/08-AOS600,Covariance Estimation,Covariance regularization by thresholding
+650,10.1214/009053606000000074,Multiple Testing,Adapting to unknown sparsity by controlling the false discovery rate
+109,10.1214/10-AOS842,Mixed Topics,New efficient estimation and variable selection methods for semiparametric varying-coefficient partially linear models
+2770.2,10.1198/jasa.2011.tm10592,Mixed Topics,A semiparametric threshold model for censored longitudinal data analysis

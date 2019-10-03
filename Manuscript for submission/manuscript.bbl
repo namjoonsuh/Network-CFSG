@@ -1,4 +1,4 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{18}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -77,12 +77,6 @@ Lord, F.~M. and M.~R. Novick, 2008: {\it Statistical theories of mental test
 \bibitem[{McDonald(2014)}]{mcdonald2014factor}
 McDonald, R.~P., 2014: {\it Factor analysis and related methods\/}. Psychology
   Press.
-
-\bibitem[{Negahban et~al.(2012)Negahban, Ravikumar, Wainwright, Yu,
-  et~al.}]{negahban2012unified}
-Negahban, S.~N., P.~Ravikumar, M.~J. Wainwright, B.~Yu, et~al., 2012: A unified
-  framework for high-dimensional analysis of $ m $-estimators with decomposable
-  regularizers. {\it Statistical Science\/}, {\bf 27}, no. 4, 538--557.
 
 \bibitem[{Rasch(1980)}]{rasch1980probabilistic}
 Rasch, G., 1980: Probabilistic models for some intelligence and attainment

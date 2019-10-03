@@ -53,21 +53,6 @@ gamma = seq(from=0.002,to=0.004,by=0.0002);
 delta = seq(from=0.015,to=0.02,by=0.0005);
 Res6 <- Model_Sel(Net6[[1]],gamma,delta) ## gamma : 0.002, delta : 0.016
 
-################ Scenario 3 ################
-gamma = seq(from=0.002,to=0.004,by=0.0002);
-delta = seq(from=0.015,to=0.02,by=0.0005);
-Res7 <- Model_Sel(Net7[[1]],gamma,delta) ## gamma : 0.0032, delta : 0.019 
-Eval7 <- Eval(Net7,Res7,gamma,delta)
-
-gamma = seq(from=0.0019,to=0.002,by=0.00001);
-delta = seq(from=0.03,to=0.035,by=0.0005);
-Res8 <- Model_Sel(Net8[[1]],gamma,delta) ## gamma : 0.00212, delta : 0.048
-
-gamma = seq(from=0.001,to=0.002,by=0.0001);
-delta = seq(from=0.022,to=0.024,by=0.0002);
-Res9 <- Model_Sel(Net9[[1]],gamma,delta) ## gamma : 0.002, delta : 0.016
-Eval9 <- Eval(Net9,Res9,gamma,delta)
-  
 ############################################
 source('Synthetic Networks.R')
 par(mfrow=c(2,3),mar = c(2, 2, 2, 2))
@@ -78,37 +63,19 @@ set.seed(1234); K_means(Net3[[1]],0.003,0.00476,5,3);
 set.seed(1234); K_means(Net4[[1]],0.0032,0.019,4,4); 
 set.seed(1234); K_means(Net5[[1]],0.00212,0.048,5,5); 
 set.seed(1234); K_means(Net6[[1]],0.002,0.016,5,6);
-
-set.seed(1234); K_means(Net7[[1]],0.0032,0.019,4,7); 
-set.seed(1234); K_means(Net8[[1]],0.00192,0.0315,6,8); 
-set.seed(12345); K_means(Net9[[1]],0.0019,0.024,6,9);
 par(mfrow=c(1,1))
 
 object_list <- list(Res1,Res2,Res3,Res4,Res5,Res6,Res7,Res8,Res9)
 save(object_list,file="myfile.RData")
 
-(sum(Net1)/2)*0.03
-(sum(Net2)/2)*0.01
-(sum(Net3)/2)*0.01
 
-(sum(Net4[[1]])/2)*0.001
-(sum(Net5[[1]])/2)*0.001
-(sum(Net6[[1]])/2)*0.001
+set.seed(1234); K_means(Net1[[1]],gamma[11],delta[11],2,1); 
+set.seed(1234); K_means(Net2[[1]],gamma[1],delta[11],3,2); 
+set.seed(1234); K_means(Net3[[1]],gamma[3],delta[5],4,3);
 
-(sum(Net7[[1]])/2)*0.001
-(sum(Net8[[1]])/2)*0.001
-(sum(Net9[[1]])/2)*0.001
+set.seed(1234); K_means(Net4[[1]],0.0032,0.019,4,4); 
+set.seed(1234); K_means(Net5[[1]],0.00212,0.048,5,5); 
+set.seed(1234); K_means(Net6[[1]],0.002,0.016,5,6);
 
 
-library(extrafont)
-loadfonts(device = "win")
-par(family = "LM Roman 10")
-x <- seq(1, 10, 1)
-y <- seq(1, 10, 1)
-plot(y ~ x, main="This plot uses LaTeX font!", ylab = expression(alpha))
 
-
-library(cluster)
-data(votes.repub)
-agn1 <- agnes(votes.repub, metric = "manhattan", stand = TRUE)
-plot(agn1, which.plots=2)

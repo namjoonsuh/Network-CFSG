@@ -312,7 +312,7 @@ We then impose several assumptions for theoretical guarantees of our estimator.
 \begin{assumption}(\textbf{Strong convexity})  \label{Ass:1}
 For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:Modified}), $h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}$.We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of the log-likelihood function is bounded away from zero ($\tau > 0$):
 \[
-\nabla^{2}h(\Theta) = \mbox{diag}\Big(\mbox{vec}\Big(\frac{\exp(\Theta)}{n(1+\exp(\Theta))^{2}}
+\nabla^{2}h(\Theta) = \mbox{diag}\Big(\mbox{vec}\Big(\frac{1}{n}\frac{\exp(\Theta)}{(1+\exp(\Theta))^{2}}
 \Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}
 \]
 For any vector $a$, $\mbox{diag}(a)$ is the diagonal matrix with elements of $a$ on its diagonal.
@@ -327,17 +327,17 @@ To ensure the identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, we assu
 With these assumptions, we present the behavior of non-asymptotic error bound of our estimator through the following theorem. In our result, we measure error using squared Frobenius norm summed across three matrices:
 \[
     e^{2}(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})
-    :=\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \|\widehat{\Delta}^{L}\|_{F}^{2} + \|\widehat{\Delta}^{S}\|_{F}^{2}
+    :=\left\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\right\|_{F}^{2} + \left\|\widehat{\Delta}^{L}\right\|_{F}^{2} + \left\|\widehat{\Delta}^{S}\right\|_{F}^{2}
 \]
 
 \begin{theorem} \label{Th:th1}
 Under the assumptions \ref{Ass:1} and \ref{Ass:2},
 if we solve the convex problem (\ref{eq:Modified}) with a pair of regularization parameter $(\delta,\gamma)$ satisfying
 \begin{align} \label{eq:49}
-\delta \geq 2\|\frac{1}{n}(X-P^{*})\|_{op} \quad and \quad \gamma \geq 2\|\frac{1}{n}(X-P^{*})\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg),
+\delta \geq 2 \left\|\frac{1}{n}(X-P^{*}) \right\|_{op} \quad and \quad \gamma \geq 2\left\|\frac{1}{n}(X-P^{*})\right\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg),
 \end{align}
 then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$, and $s = 1,2,...,n^{2}$, and we have the following upper bound on $e^{2}(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$
-\begin{align}
+\begin{align} \label{theorem1}
     e^{2}(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \leq
     \underbrace{c_{1}\frac{\delta^{2}}{\tau^{2}}}
     _{\mathcal{K}_{\alpha^*}} +
@@ -349,18 +349,34 @@ then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 
 where $M$ is an arbitrary subset of matrix indices of cardinality at most s.
 \end{theorem}
 
-We would first like to note that the result presented in Theorem \ref{Th:th1} can be thought of as an extension to Theorem $1$ presented in paper \cite{agarwal2012noisy} to a generalized linear model.
-Our work considers a logistic loss function whose parameters are characterized by a sparse matrix plus a low rank matrix, whereas Agarwal, et al.\cite{agarwal2012noisy} work on a quadratic loss of a noisy realization of a linear transformation of sum of a low rank matrix and a sparse matrix.
-We show that similar proof techniques can be applied in our case, giving us similar results.
+We would first like to note that the result presented in Theorem \ref{Th:th1} can be thought of as an extension of Theorem $1$ presented in paper \cite{agarwal2012noisy} to a generalized linear model.
+Specifically, our work considers a logistic loss function whose parameter is characterized by a sparse matrix plus a low rank matrix,
+whereas Agarwal, et al.\cite{agarwal2012noisy} work on a general linear observation model whose parameter is also 
+characterized by sum of a low rank matrix and a sparse matrix.
+
+%In this Section, we show that similar proof techniques can be applied in our case, giving us similar results.
 %Detailed descriptions of each terms in bound are elaborated in paper \cite{agarwal2012noisy}.
 
-Result of the Theorem \ref{Th:th1} provides a family of upper-bounds, one for each indexed by a specific choice of model subspace $M$, and rank parameter $k$, helping us to understand the behavior of our proposed estimator both in practice and in ideal cases. In real-world, large scale citation network analysis, it is difficult to expect network with $L^*$ matrix with exactly $k(\ll n)$ non-zero eigenvalues, but with a matrix $L^*$ with approximately low rank.
-In this case, our theorem provides the intuition on the rate on how fast the error bound $\mathcal{K}_{L^*}$ will grow.
-In ideal cases where $L^*$ is an exact low rank matrix with rank $k$ (i.e., $rank(L^*)=k$) and $S^*$ is a sparse matrix, which lies within model subspace $M$ (i.e., $|supp(S^*)|=s$), we can easily verify ``\emph{approximation error}'' terms in $\mathcal{K}_{L^*}$ (i.e., $\tau\sum_{j=k+1}^{n}\sigma_j(L^*)$) and in $\mathcal{K}_{S^*}$ (i.e., $\tau\sum_{(i,j)\notin M}|S_{ij}^*|$) disappear, giving us Frobenius error bound as follows:
+Astute readers might have noticed that the upper bound in \ref{theorem1} consists of three different terms, where we denote them as
+$\mathcal{K}_{\alpha^*}$, $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$. 
+Each respective term is involved with estimating three model parameters, $\alpha, L$ and $S$.
+To be more specific, both $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ have two types of error:
+1) The first one is called as an ``estimation error''. 
+This error represents the statistical cost of estimating parameters which belong to the model subspace. 
+2) Another quantity is referred as ``approximation error''. 
+This error occurs when we only focus on estimating parameters within the model subspace, 
+and it shrinks as the model subspace becomes large.
+%=\left\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\right\|_{F}^{2} + \left\|\widehat{\Delta}^{L}\right\|_{F}^{2} + \left\|\widehat{\Delta}^{S}\right\|_{F}^{2}
+
+The result of the Theorem \ref{Th:th1} provides a family of upper-bounds, one for each indexed by a specific choice of model subspace $M$, and rank parameter $k$.
+In other words, this means that the subset $M$ and the target rank $k$ can be adaptively chosen so as to obtain the tightest upper bound.
+In ideal case where $L^*$ is an exact low rank matrix with rank $k$ \big(i.e., $\mbox{rank}(L^*)=k$\big) and $S^*$ is a sparse matrix, whose support lies within the model subspace $M$ \big(i.e., $\mbox{supp}(S^*) \subset M$\big), we can easily see ``\emph{approximation error}'' terms in $\mathcal{K}_{L^*}$ \big(i.e., $\delta\sum_{j=k+1}^{n}\sigma_j(L^*)$ \big) and in $\mathcal{K}_{S^*}$ \big(i.e., $\gamma\sum_{(i,j)\notin M}|S_{ij}^*|$\big) disappear, giving us Frobenius error bound as follows:
 \[
-    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \lesssim \delta^2(k+1)+\gamma^2s
+    e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}) \lesssim \delta^2(k+1)+\gamma^2s.
 \]
-where $\lesssim$ denotes that we ignore constant factors.
+Here we use the notation $X \lesssim Y$ to denote that there exists universal absolute constant $C$ such that $X \leq CY$.
+
+%This helps us to understand the behavior of our proposed estimator both in practice and in ideal cases. In real-world, large scale citation network analysis, it is difficult to expect network with $L^*$ matrix with exactly $k(\ll n)$ non-zero eigenvalues, but with a matrix $L^*$ with approximately low rank.
 
 \section{Computation}
 \label{sec:compute}
@@ -521,9 +537,9 @@ x^{m+1}_S &=& \mbox{arg min}_{ S} \quad  \gamma \|S\|_1
 && \mbox{subject to $S$ is symmetric,} \nonumber
 \end{eqnarray}
 where $\|\cdot\|_F$ is the matrix Frobenius norm, defined as
-$\|M\|^2_F = \sum_{i,j} m^2_{ij}$ for a matrix $M = (m_{ij})$.
+$\|M\|^2_F = \sum_{i,j} m^2_{ij}$ for a matrix $M = \{(m_{ij})\}_{i,j=1}^{n}$.
 The problem in \eqref{eq:admm02} may not have a closed-form solution.
-We use a simple gradient descent to solve in this step, setting the step size equal to $0.05$ and stopping criteria as $\max(|x_{\alpha,m}^{(t+1)}-x_{\alpha,m}^{(t)}|,\|x_{M,m}^{(t+1)}-x_{M,m}^{(t)}\|_{\infty}) \leq 10^{-9}$.
+We use a simple gradient descent to solve in this step, setting the step size equal to $0.05$ and stopping criteria as $\max\big(|x_{\alpha,m}^{(t+1)}-x_{\alpha,m}^{(t)}|,\|x_{M,m}^{(t+1)}-x_{M,m}^{(t)}\|_{\infty}\big) \leq 10^{-9}$.
 Note that there are close-form solutions to \eqref{eq:admm03} and \eqref{eq:admm04}, while \eqref{eq:admm02} is a unconstrained convex optimization problem.
 More specifically, in \eqref{eq:admm03}, suppose the eigenvalue decomposition of the symmetric matrix $(z^m_L - u^m_L)$ can be written as
 $$
@@ -531,7 +547,7 @@ z^m_L - u^m_L = T \Lambda T^T,
 $$
 where $T$ is orthogonal ($T T^T = I_n$). Then, for $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, we have
 $$
-x^{m+1}_L = J (T \mbox{diag}(\Lambda-\lambda \delta)_+ T^T)J^{T},
+x^{m+1}_L = J \big(T \mbox{diag}(\Lambda-\lambda \delta\big)_+ T^T)J^{T},
 $$
 and diag$(\Lambda-\lambda \delta)_+$ is a diagonal matrix with the $j$th
 diagonal entry being
@@ -634,7 +650,8 @@ Before specifying the network settings in two scenarios that we want to explore,
 
     \item Recall that the binary factor loading matrix $F^*$ encodes the relation between topics and papers
         (i.e., if $i$th paper studies about $k$th topic, we denote $F^*_{ki}=1$, otherwise $F^*_{ki}=0$).
-        First, we assume that there are $n$ papers in the network, and $K$ topics are embedded in the network. Each of them consists of $\frac{n}{K}$ papers.
+        First, we assume that there are $n$ papers in the network, and $K$ topics are embedded in it. 
+        Each of them consists of $\frac{n}{K}$ papers.
         This can be expressed in $F^*$ as follows:
         \[
             F^* =
@@ -681,7 +698,7 @@ Before specifying the network settings in two scenarios that we want to explore,
         \]
         where we use $i_r$ to indicate $r$th element $i$ in the set.
         3) Draw $S^*_{ij} \sim \mbox{Unif}[19,20], \forall (i,j) \in I_{S^*}$.
-        4) Lastly, make it symmetric by setting $S^*_{jj}=S^*_{ij},\forall 1\leq i < j \leq n$.
+        4) Lastly, make it symmetric by setting $S^*_{ji}=S^*_{ij},\forall 1\leq i < j \leq n$.
     \item Create an upper-triangular part of the adjacency matrix $X$ whose each entry $X_{ij}$ follows Bernoulli distribution.
         The distribution's parameter is parametrized by a probability, $P^{*}_{ij}=\frac{\exp (\alpha^{*}+f^{*T}_{i}D^{*}f^{*}_{j} +  S^{*}_{ij})}{1+\exp(\alpha^{*}+f^{*T}_{i}D^{*}f^{*}_{j} +  S^{*}_{ij})}$.
         After drawing all the entries of $X$ in the upper-triangular part, then make the matrix symmetric by setting $X_{ji}=X_{ij},\forall 1 \leq i < j \leq n$.
@@ -732,7 +749,8 @@ With these settings in mind, we consider two scenarios, where each of them has t
 \begin{figure}[htbp]
 \includegraphics[width=1\textwidth]{Fig1.pdf}
 \caption{Graphical illustrations of six synthetic networks.
-Nodes that share the common factors are clustered. The cross cluster links are ad-hoc Citations.}
+Nodes that share the common factors are clustered. The cross cluster links are ad-hoc Citations.
+All the graphs are drawn via R package `igraph'.}
 \label{fig:figure1}
 \end{figure}
 
@@ -845,7 +863,7 @@ We present the evaluation results of the six cases via the four criteria, $M_1,M
     $M_{1}$   &    1 (3)  &    0 (2)   &  0 (2)  &    1 (4)    &  0 (3)   &  0 (3)  &    1 (5)  &   0 (4)    & 0 (4) \\
     $M_{2}$   &    1     &    0 &      0 &         1    &     1  &    1  &         1    &    1   &   1   \\
     $M_{3}$   &    0     &    0 &      0 &         0    &     0  &    0  &         0    &    0   &   0   \\
-    $M_{4}$   &  0  &   $\frac{20}{30}$    &  $\frac{20}{30}$    &   0          &   $\frac{25}{40}$    &   $\frac{25}{30}$   &  0      &  $\frac{30}{30}$     &   $\frac{30}{30}$   \\
+    $M_{4}$   &  0  &   $\frac{10}{30}$    &  $\frac{10}{30}$    &   0          &   $\frac{20}{80}$    &   $\frac{20}{80}$   &  0      &  $\frac{24}{120}$     &   $\frac{24}{120}$   \\
                 \hline
     \end{tabular}
 
@@ -859,7 +877,7 @@ We present the evaluation results of the six cases via the four criteria, $M_1,M
     $M_{1}$   &   1 (3)     &     1 (3)  &  1 (3)    &      1 (3)   &   1 (3)    &  1 (3)    &   1 (3)     &  1 (3)   & 1 (3)   \\
     $M_{2}$   &   $\frac{17}{18}$   &   0    &    0  &   $\frac{17}{18}$     &   0    &  0    &  $\frac{16}{18}$    &   0    &  0    \\
     $M_{3}$   &   0 &     0  &   0   &        0     &    0   &  0    &        0     &   0    & 0 \\
-    $M_{4}$   &  0  &   $\frac{20}{120}$    &  $\frac{20}{120}$    &   0          &   $\frac{25}{210}$    &   $\frac{25}{210}$   &  0      &  $\frac{30}{210}$     &   $\frac{30}{210}$   \\
+    $M_{4}$   &  0  &   0    &  0    &   0          &   0    &   0   &  0      &  0     &   0   \\
                 \hline
     \end{tabular}
     \caption{ For two scenarios, our heuristic method chooses the model with $\widehat{L}$ with true rank, $\widehat{S}$ whose $M_2$ value is close to $1$, and $M_3$ value is close to $0$.
@@ -963,18 +981,19 @@ In light of this, we conduct the analysis in two steps:
         Here, we run the $k$-means algorithm on $\widehat{E}_{5}$ setting the number of clusters as $5$.
 \end{enumerate}
 
-In the first step, a pair of parameters, $(\gamma^{\text{Heu}},\delta^{\text{Heu}}) = (0.0021094, 0.01913)$, gives us $\widehat{L}^{\mbox{orig}}$ with rank $3$, and $\widehat{S}^{\mbox{orig}}$ with $|\widehat{S}^{\mbox{orig}}|=261$.
-We list the first two topics discovered through our analysis. Full list of papers for each community is provided in $https://sites.google.com/site/namjoonsuh/publications$.
+In the first step, a pair of parameters, $(\gamma^{\text{Heu}},\delta^{\text{Heu}}) = (0.0021094, 0.01913)$, gives us $\widehat{L}$ with rank $3$, and $\widehat{S}$ with $|\widehat{S}|=51$.
+We list the first two topics discovered through our analysis.
 \begin{itemize}
     \item Variable selection, which includes $43$ paper.
     \item Multiple Hypothesis Testing, which includes $31$ papers.
 \end{itemize}
-The first topic is about Variable Selection with high-dimensional data.
+The first topic studies on Variable Selection with high-dimensional data.
 The second topic discusses Controlling False Discovery Rate in various statistical settings.
 The third group, which consists of $158$ papers, is hard to interpret and appears to have sub-network structures.
-For further investigation, we set this group as a giant component in the network, and denote the corresponding network's adjacency matrix as $X^{\mbox{sub}}$.
-As aforementioned, we perform a model selection as described in Step $2$, and obtain five sub-communities as follows:
-
+For further investigation, we set this group as a giant component in the network, and denote the corresponding component's adjacency matrix as $X^{\mbox{sub}}$.
+We perform a model selection as described in aforementioned Step $2$.
+A pair of tuning parameters, $(\gamma^{\text{Heu}},\delta^{\text{Heu}}) = (0.00312, 0.0146)$, gives us the model with $\widehat{L}$ with rank $5$, and $\widehat{S}$ with $|\widehat{S}|=88$,
+and we can obtain five sub-communities as follows:
 \begin{itemize}
     \item Non-parametric Bayesian Statistics, which includes $15$ papers.
     \item Functional / Longitudinal Data analysis, which includes $16$ papers.
@@ -983,17 +1002,32 @@ As aforementioned, we perform a model selection as described in Step $2$, and ob
     \item Mixed topics, which includes $98$ papers.
 \end{itemize}
 From the sub-network $X^{\mbox{sub}}$, we got four meaningful topics: Bayesian Statistics, Functional/Longitudinal Data Analysis, Dimension Reduction, and high-dimensional covariance estimation.
-Due to the small volume of each community, we could manually check that false discovery for each community is all zero.
+Due to the small volume of each community, we could manually check that the false discovery for each community is all zero.
+(Full list of papers for each community is provided in $https://sites.google.com/site/namjoonsuh/publications$.)
 
-Sub-network structure has also a big chunk of papers which we refer it as ``Mixed Topics'' cluster.
+Sub-network structure has also a big collection of papers which we refer it as ``Mixed Topics'' cluster.
 Not only could we see the papers with topics on Learning Theory, Non-parametric / Semi-parametric Statistics, Spatial Statistics, Theoretical Machine Learning, which does not seem to belong to any of the five communities listed above, but also we could identify the papers with combinations of two or three topics.
 Papers, such as The Bayesian Lasso (T. Park, et al. $2008$), Coordinate-independent sparse sufficient dimension reduction and variable selection (X. Chen, et al. $2010$), are the examples of these papers.
 It is also interesting to think about a reason on papers which seem to have obvious membership in one of $5$ communities other than Mixed topic classified as Mixed topic.
-For instance, ``On the "degrees of freedom" on the LASSO (H. Zou, et al. $2007$)'' is classified as Mixed Topic paper.
+For instance, the paper, On the "degrees of freedom" on the LASSO (H. Zou, et al. $2007$), is classified as Mixed Topic paper.
 We can simply guess model selection has lots of applications in other topics, so it might cite or have been cited by many papers in other communities.
-Actually, out of $19$ citation relationships it has with other papers, $12$ of them came from the relationships with papers from Mixed topics.
+Actually, out of $11$ citation relationships it has with other papers, $6$ of them came from the relationships with papers from Mixed topics.
 
-Non-zero components of $\widehat{S}^{\mbox{orig}}$ capture the citation relationships among papers that are not attributable to the common topics. The model we select has $261$ sparse edges ($9\%$ of total edges), and all of them are positive edges. In Table \ref{tab:table2}, we provide $15$ pairs of papers that have the largest estimated $\widehat{S}_{ij}^{\mbox{orig}}$. All the $15$ edges come from the pairs of papers from different communities. For instance, the first pair of papers comes from the Functional Analysis community (denoted by \emph{FuncAn}) and Variable Selection $(\emph{VarSel})$ community. $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. Though it might appear to be a crucial step for building a theorem in their paper, we cannot say that two papers are closely related in terms of topic. Second pair comes from Multiple Testing (denoted as $\emph{MulT}$) and Variable Selection ($\emph{VarSel}$) community. $\emph{MulT}$ paper briefly mentions about $\emph{VarSel}$ paper in future work section, suggesting a possible way of combining their work and work in $\emph{VarSel}$ paper. And we also observe that as the estimated weight of sparse edges (i.e., $\widehat{S}_{ij}^{\mbox{orig}}$) decreases, the number of pairs of papers that come from Mixed topics community increases.
+Non-zero components of $\widehat{S}$ capture the citation relationships among papers that are not attributable to the common topics.
+The selected model has $51$ sparse edges, and all of them are positive edges.
+In Table \ref{tab:table2}, we provide $10$ pairs of papers that have the largest estimated $\widehat{S}_{ij}$.
+All the $10$ edges come from the pairs of papers from different communities.
+For instance, the first pair of papers comes from the Functional Analysis community (denoted by \emph{FuncAn}) and Variable Selection $(\emph{VarSel})$ community.
+$\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
+Though it might appear to be a crucial step for building a theorem in their paper, we cannot say that two papers are closely related in terms of topic.
+The second pair of papers comes from the Mixed topics community (denoted as $\emph{Mixed}$) and the Variable Selection ($\emph{VarSel}$) community.
+This case is interesting since both papers study about variable selection problem, but they are classified in different communities and connected via an ad-hoc link.
+Specifically, the paper from $Mixed$ community study the variable selection problem under the non-parametric Bayesian framework, and compare their method with the one that is proposed in $\emph{VarSel}$ paper, ``Adaptive Lasso’’.
+
+
+%Second pair comes from the Mixed topics community (denoted as $\emph{Mixed}$) and the Variable Selection ($\emph{VarSel}$) community.
+%$\emph{MulT}$ paper briefly mentions about $\emph{VarSel}$ paper in future work section, suggesting a possible way of combining their work and work in $\emph{VarSel}$ paper.
+%And we also observe that as the estimated weight of sparse edges (i.e., $\widehat{S}_{ij}^{\mbox{orig}}$) decreases, the number of pairs of papers that come from Mixed topics community increases.
 
 %\begin{figure}[htbp]
 %\includegraphics[width=1\textwidth]{Fig5.pdf}
@@ -1006,41 +1040,32 @@ Non-zero components of $\widehat{S}^{\mbox{orig}}$ capture the citation relation
 %\begin{landscape}
 \begin{table}[htbp]
 \centering
-\begin{tabular}{lclclcl}\hline
+\begin{tabular}{clclc}\hline
 Pair & Community & Title & \\
 \hline
 1    & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis       & \\
      & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters                         & \\
-2    & MulT      & Innovated higher criticism for detecting sparse signals in correlated noise                   & \\
-     & VarSel    & Regularized estimation of large covariance matrices & \\
-3    & DimRed    & Contour projected dimension reduction & \\
+2    & VarSel      & The adaptive lasso and its oracle properties                                                  & \\
+     & Mixed    & Nonparametric Bayes conditional distribution modeling with variable selection                & \\
+3    & DimRed    & Contour projected dimension reduction                                                        & \\
      & VarSel    & Factor profiled sure independence screening & \\
 4    & VarSel    & Factor profiled sure independence screening & \\
      & DimRed    & Sliced regression for dimension reduction & \\
-5    & VarSel    & Covariance regularization by thresholding & \\
-     & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
-6    & VarSel    & Asymptotic properties of bridge estimators in sparse high-dimensional regression models       & \\
-     & Mixed     & Marginal asymptotics for the ``large p small n'' paradigm: with applications to microarray data &  \\
-7    & VarSel    & A majorization-minimization approach to Variable Selection using spike and slab priors        & \\
-     & Mixed     & Empirical Bayes selection of wavelet thresholds & \\
-8    & VarSel    & Spades and mixture models & \\
-     & MulT      & Adapting to unknown sparsity by controlling the false discovery rate                          & \\
-9    & DimRed    & A constructive approach to the estimation of dimension reduction directions                   & \\
-     & VarSel    & Factor profiled sure independence screening & \\
-10   & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors        & \\
-     & Mixed     & Spike and slab variable selection: Frequentist and Bayesian strategies                        & \\
-11   & VarSel    & variable selection in nonparametric additive models & \\
-     & Mixed     & Nonparametric estimation of an additive model with a link function                            & \\
-12   & Mixed     & Nonparametric inferences for additive models & \\
-     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models         & \\
-13   & Mixed     & Bayesian variable selection in structured high-dimensional covariate spaces with applications in genomics & \\
-     & VarSel    & Model selection and estimation in regression with grouped variables                           & \\
-14   & VarSel    & The sparsity and bias of the LASSO selection in high-dimensional linear regression            & \\
-     & Mixed     & Tests for high-dimensional covariance matrices & \\
-15   & FuncAn    & Empirical dynamics for longitudinal data & \\
-     & Mixed     & Variable selection in nonparametric varying-coefficient models for analysis of repeated measurements   &       \\\hline
+5    & CovEst    & Two sample tests for high-dimensional covariance matrices & \\
+     & VarSel      & The sparsity and bias of the {LASSO} selection in high-dimensional linear regression          & \\
+6    & MulT    & Innovated higher criticism for detecting sparse signals in correlated noise       & \\
+     & CovEst     & Regularized estimation of large covariance matrices     &  \\
+7    & DimRed    & A constructive approach to the estimation of dimension reduction directions        & \\
+     & VarSel     & Factor profiled sure independence screening    & \\
+8    & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors  & \\
+     & Mixed      & Empirical {B}ayes selection of wavelet thresholds                          & \\
+9    & Mixed    & Nonparametric inferences for additive models                   & \\
+     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models      & \\
+10   & VarSel    & Sure independence screening in generalized linear models with {NP}-dimensionality        & \\
+     & Mixed     & Maximum likelihood estimation in semiparametric regression models with censored data                   & \\
+\hline
 \end{tabular}
-\caption{All the $15$ edges come from pairs of papers from different communities. For instance in the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. But they are not related in terms of topic.}
+\caption{All the $10$ edges come from pairs of papers from different communities. For instance in the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. But they are not related in terms of topic.}
 \end{table}
 \label{tab:table2}
 %\end{landscape}
@@ -1075,11 +1100,56 @@ This is probably because $k$-means does not allow overlapping membership of each
 It would be interesting to see what happens if we apply some clustering methods which allow the overlapped memberships of nodes in network.
 
 \section{Appendix}
-\subsection{Proof of Theorem \ref{Th:th1}}
+In this Section, first we briefly introduce several notations, a notion on the decomposability of regularizer, and a useful lemma proved in the work \cite{agarwal2012noisy}.
+Then, we present Lemma\ref{le:le2} and its proof.
+Finally, we present the proof of our Theorem\ref{Th:th1}.
 
-In the proof, we use the notion of \emph{decomposable regularizer} which is studied at length in the work \cite{negahban2012unified}. Let $(M,M^{\perp})$ denote an arbitrary subspace pair for which component-wise $L_{1}$ norm is decomposable. Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$. And also note that the proof relies on the following lemma:
+\subsection{Preliminary}
+Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$.
+We use $\langle A,B \rangle$ to denote the trace inner product of two matrices $A$ and $B$ \big(i.e.,$\langle A,B \rangle=\mbox{tr}\big(A^T B\big)$\big).
+We use $\|A\|_{\infty}$ to denote the maximum absolute entry of matrix $A$, and use $\|B\|_{op}$ to denote the largest singular value of matrix $B$.
+And we will use the notion of decomposability of $L_1$ norm with respect to a pair of subspace $(M,M^{\perp})$.
+Given an arbitrary subset $S \subseteq \{1,2,\dots,n\} \times \{1,2,\dots,n\}$ of matrix indices, $M$ is defined as follows:
+\[
+    M(S):=\{ U \in \mathbb{R}^{n \times n} | U_{ij}=0, \forall (i,j) \in S \}
+\]
+and $M^{\perp}(S):=(M(S))^{\perp}$.
+With this in mind, we recall the formal definition of the decomposability of $L_1$ norm as follows:
+\begin{definition}
+    Given a subspace $M \subset \mathbb{R}^{n \times n}$ and its orthogonal complement $M^{\perp}$, an elementwise $L_1$ norm
+    is decomposable with respect to $(M, M^{\perp})$ if
+    \[
+        \| A + B \|_{1} = \|A\|_{1} + \|B\|_{1},
+        \forall A \in M \mbox{and} B \in M^{\perp},
+    \]
+\end{definition}
+The notion of decomposability is used to penalize the perturbation from the model subspace $M$, and to obtain the tightest bound the $L_1$ norm can achieve.
+We will also use two results in our proof, which are presented and proved in the work \cite{agarwal2012noisy}.
+For the convenience of readers, we present them here as follows:
+%We will choose the model subspace $M$, which will be chosen such that the matrix $S^*$ lies within or close to $M$.
+\begin{lemma}
+(\textbf{Agarwal, et al} \cite{agarwal2012noisy})
+For any $k=1,2,\dots,n$, there is a decomposition $\widehat{\Delta}^{L} =\widehat{\Delta}^{L}_{A} + \widehat{\Delta}^{L}_{B}$ such that:
+\begin{enumerate}
+ \item The decomposition satisfies
+    \begin{equation}\label{eq:Lm1}
+        \mbox{rank}(\widehat{\Delta}^{L}_{A}) \leq 2k, \quad and \quad (\widehat{\Delta}^{L}_{A})^{T}\widehat{\Delta}^{L}_{B}
+        = (\widehat{\Delta}^{L}_{B})^{T}\widehat{\Delta}^{L}_{A} =0
+    \end{equation}
+ \item The difference $\mathbb{Q}(L^{*},S^{*}) -  \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})$ is upper-bounded by
+    \begin{equation} \label{eq:28}
+        \mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) - \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})
+        +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\|S^*_{M^\perp}\|_{1}
+    \end{equation}
+\end{enumerate}
+\end{lemma}
+where the notation $\mathbb{Q}(L,S)$ is defined as the weighted combination of the two regularizers for any pair of positive tuning parameters $(\gamma,\delta)$:
+\[
+\mathbb{Q}\left(L,S\right)   := \left\|L\right\|_{*} + \frac{\gamma}{\delta}\left\|S\right\|_1.
+\]
 
-\begin{lemma} \label{le:le1}
+\subsection{Lemma \ref{le:le2}}
+\begin{lemma} \label{le:le2}
 If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\ref{eq:49}), then for $\mathbb{Q}\left(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}\right)$, we have
 \[
     \mathbb{Q}\left(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}\right) \leq
@@ -1089,18 +1159,51 @@ If a pair of regularization parameters $(\delta,\gamma)$ satisfies condition (\r
 \]
 \end{lemma}
 
-\noindent\textbf{Proof of Theorem \ref{Th:th1}}.
+\begin{proof}
+Through the application of basic inequality by using optimality of $\widehat{\Theta}$ and feasibility of $\Theta^{*}$ to convex program (\ref{eq:Modified}), we have
+\begin{equation}
+    h(\widehat{\Theta}) - h(\Theta^{*})
+    \leq \delta \mathbb{Q}(L^{*},S^{*}) - \delta \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})
+\end{equation}
+By using convexity of $h(\Theta)$, we can write
+\begin{align}
+    h(\widehat{\Theta})-h(\Theta^{*}) &\geq
+    \langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ \nonumber \\
+    &= - \langle\,\frac{1}{n} (X-P^{*}), \hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T + \widehat{\Delta}^{L} + \widehat{\Delta}^{S} \rangle\ \nonumber \\
+    &\geq -\frac{1}{n} \|X - P^*\|_{op}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P^*\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \nonumber \\
+    &\geq -\frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_F + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) - \frac{\gamma}{2} (\|\widehat{\Delta}^{S}_{M}\|_{1} +
+    \|\widehat{\Delta}^{S}_{M^\perp}\|_{1}) \label{eq:27}
+\end{align}
+
+An application of Agarwal et al \cite{agarwal2012noisy}'s second element of lemma 1,
+we can get an upper bound of difference $\mathbb{Q}(L^*,S^*)- \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})$ as follows:
+
+\begin{equation} \label{eq:28}
+    \mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) - \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})
+    +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\|S^*_{M^\perp}\|_{1}
+\end{equation}
+
+By combining relations (\ref{eq:27}) and (\ref{eq:28}), we can get the upper bound of $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$ :
+\begin{align*}
+    \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}) \leq
+    \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} +
+    3\mathbb{Q}(\widehat{\Delta}^{L}_{A},\widehat{\Delta}^{S}_{M})+4 \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 4\frac{\gamma}{\delta}
+    \|S^{*}_{M^\perp}\|_{1}
+\end{align*}
+\end{proof}
+
+\subsection{Proof of Theorem \ref{Th:th1}}
 \begin{proof}
 Since $\widehat{\Theta}$ and $\Theta^{*}$ are optimal minimizer and feasible solution respectively for the convex program (\ref{eq:Modified}), we have
 \begin{equation}\label{eq:2}
-    h(\widehat{\Theta}) + \delta\|\widehat{L}\|_{*} + \gamma\|\widehat{S}\|_{1} \leq
-     h(\Theta^{*}) + \delta\|{L^{*}}\|_{*} + \gamma\|{S}^{*}\|_{1}
+    h(\widehat{\Theta}) + \delta\left\|\widehat{L}\right\|_{*} + \gamma\left\|\widehat{S}\right\|_{1} \leq
+     h(\Theta^{*}) + \delta\left\|{L^{*}}\right\|_{*} + \gamma\left\|{S}^{*}\right\|_{1}
 \end{equation}
 
 Through the assumption of strong convexity on $h(\Theta)$, and by the Taylor expansion, we can get a following lower bound on the term $h(\widehat{\Theta})-h(\Theta^{*})$ :
 \[
 h(\widehat{\Theta})-h(\Theta^{*}) \geq
-\langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ + \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2}
+\langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ + \frac{\tau}{2}\left\|\widehat{\Delta}^{\Theta}\right\|_{F}^{2}
 \]
 
 By rearranging the term in (\ref{eq:2}) and plugging in above inequality relation, we get:
@@ -1112,23 +1215,23 @@ By rearranging the term in (\ref{eq:2}) and plugging in above inequality relatio
     - \delta \|\widehat{L}\|_\ast - \gamma \|\widehat{S}\|_1
 \end{equation}
 
-Here, we introduce another notation, for any pair of positive tuning parameters $(\delta,\gamma)$ which is defined as the weighted combination of the two regularizers :
-\[
-\mathbb{Q}(L,S)   := \|L\|_{*} + \frac{\gamma}{\delta}\|S\|_1
-\]
+%Here, we introduce another notation, for any pair of positive tuning parameters $(\delta,\gamma)$ which is defined as the weighted combination of the two regularizers :
+%\[
+%\mathbb{Q}\left(L,S\right)   := \left\|L\right\|_{*} + \frac{\gamma}{\delta}\left\|S\right\|_1
+%\]
 Through the definition of $\mathbb{Q}$, we can rewrite (\ref{eq:3}) as follows:
 \begin{equation}\label{eq:4}
     \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2} \leq
     -\langle\,\nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\
-    + \delta \mathbb{Q}(L^{*},S^{*}) - \delta \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})
+    + \delta \mathbb{Q}\left(L^{*},S^{*}\right) - \delta \mathbb{Q}\left(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*}\right)
 \end{equation}
 
 According to Agarwal et al \cite{agarwal2012noisy}'s second element of lemma 1,
 the difference $\mathbb{Q}(L^*,S^*)- \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})$ is upper-bounded by
 
 \begin{equation}\label{eq:5}
-    \mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) - \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})
-    +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\|S^*_{M^\perp}\|_{1}
+    \mathbb{Q}\left(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}\right) - \mathbb{Q}\left(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}\right)
+    +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\left\|S^*_{M^\perp}\right\|_{1}
 \end{equation}
 
 First, we want to control upper bound of the term $-\langle\,\nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*} \rangle\,$
@@ -1136,12 +1239,12 @@ in (\ref{eq:4}).
 \begin{align}
 -\langle\,\nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*} \rangle\  \nonumber
 &=\langle\, \frac{1}{n} (X - P^*), \widehat\Delta^{\alpha\mathbbm{1}\mathbbm{1}^T} + \widehat\Delta^{L} + \widehat\Delta^{S} \rangle\ \\ \nonumber
-&\leq \frac{1}{n} \|X - P^*\|_{op}(\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P^*\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \\ \nonumber
-&\leq \frac{1}{n} \|X - P^*\|_{op}(\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) +
-\frac{1}{n} \|X - P^*\|_{\infty}(\|\widehat{\Delta}^{S}_{M}\|_{1} +
-\|\widehat{\Delta}^{S}_{M^{\perp}}\|_{1}) \\
-&\leq \frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) + \frac{\gamma}{2}(\|\widehat{\Delta}^{S}_{M}\|_{1} +
-\|\widehat{\Delta}^{S}_{M^{\perp}}\|_{1})  \label{eq:10}
+&\leq \frac{1}{n} \left\|X - P^*\right\|_{op}(\left\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\right\|_\ast + \left\|\widehat{\Delta}^{L}\right\|_\ast) +  \frac{1}{n} \left\|X - P^*\right\|_{\infty}\left\|\widehat{\Delta}^{S}\right\|_{1} \\ \nonumber
+&\leq \frac{1}{n} \left\|X - P^*\right\|_{op}(\left\|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\right\|_{F} + \left\|\widehat{\Delta}^{L}_{A}\right\|_\ast + \left\|\widehat{\Delta}^{L}_{B}\right\|_\ast) +
+\frac{1}{n} \left\|X - P^*\right\|_{\infty}(\left\|\widehat{\Delta}^{S}_{M}\right\|_{1} +
+\left\|\widehat{\Delta}^{S}_{M^{\perp}}\right\|_{1}) \\
+&\leq \frac{\delta}{2}(\left\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\right\|_{F} + \left\|\widehat{\Delta}^{L}_{A}\right\|_\ast + \left\|\widehat{\Delta}^{L}_{B}\right\|_\ast) + \frac{\gamma}{2}(\left\|\widehat{\Delta}^{S}_{M}\right\|_{1} +
+\left\|\widehat{\Delta}^{S}_{M^{\perp}}\right\|_{1})  \label{eq:10}
 \end{align}
 
 Combining the inequalities (\ref{eq:5}) and (\ref{eq:10}), we can obtain the upper bound of RHS in (\ref{eq:4}) as follows:
@@ -1167,13 +1270,13 @@ Second, we wish to control the lower bound of the term  $\frac{\tau}{2}\|\wideha
 \end{align}
 
 We want to get the further lower bound on trace inner product terms,
-$ \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ $, $ \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\ $. To control the first trace inner product term, we use the relation $\widehat{\Delta}^{L}\mathbbm{1}=0$, apply the definition of dual norm on inner product term, apply triangular inequality on $\hat{\Delta}^\alpha$, and lastly we apply the constraint imposed on $|\alpha|$ stated in Assumption \ref{Ass:2}.
+$ \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \rangle\ $, $ \langle\, \widehat\Delta^{L}, \widehat\Delta^{S} \rangle\ $. To control the first trace inner product term, we use the relation $\widehat{\Delta}^{L}\mathbbm{1}=0$, apply the definition of dual norm on inner product term, apply triangular inequality on $\widehat{\Delta}^\alpha$, and lastly we apply the constraint imposed on $|\alpha|$ stated in Assumption \ref{Ass:2}.
 
 \begin{align}
     | \langle\, \widehat\Delta^{L} + \widehat\Delta^{S} ,\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\rangle\ | \nonumber
     &= | \langle\,\widehat\Delta^{S},\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\rangle\ | \\ \nonumber
-    &\leq \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \|_{\infty} \|\widehat{\Delta}^{S}\|_1 \\ \nonumber
-    &\leq (|\hat{\alpha}|+|\alpha^{*}|)\|\widehat{\Delta}^{S}\|_1\\
+    &\leq \|\widehat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T \|_{\infty} \|\widehat{\Delta}^{S}\|_1 \\ \nonumber
+    &\leq (|\widehat{\alpha}|+|\alpha^{*}|)\|\widehat{\Delta}^{S}\|_1\\
     &\leq 2C\kappa\|\widehat{\Delta}^{S}\|_1  \label{eq:13}
 \end{align}
 
@@ -1192,7 +1295,7 @@ We can combine the inequality (\ref{eq:12}), (\ref{eq:13}) and (\ref{eq:14}). Th
 \begin{align}
     \frac{\tau}{2}\|\widehat{\Delta}^{\Theta}\|_{F}^{2}  \nonumber
     &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2}
-    - 2\kappa\tau(\frac{Cn+1}{n})\|\widehat{\Delta}^{S}\|_{1} \\ \nonumber
+    - \kappa\tau\bigg(\frac{Cn+1}{n}\bigg)\|\widehat{\Delta}^{S}\|_{1} \\ \nonumber
     &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} - \frac{\gamma}{2}\|\widehat{\Delta}^{S}\|_{1}\\
     &\geq \frac{\tau}{2} \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{L}\|_{F}^{2} + \frac{\tau}{2} \|\widehat{\Delta}^{S}\|_{F}^{2} - \frac{\delta}{2} \mathbb{Q}(\widehat{\Delta}^L,\widehat{\Delta}^S) \label{eq:26}
 \end{align}
@@ -1225,45 +1328,6 @@ Here $\Psi(M)$ measures the compatibility between Frobenius norm and component-w
     \Psi(M):=\sup\limits_{U\in M,U\neq0}\frac{\|U\|_{1}}{\|U\|_{F}}
 \]
 Using Cauchy-Schwarz inequality, we can easily check the quantity $\Psi(M)$ is bounded by at most $\sqrt{s}$. Plugging in the relation ($\ref{eq:43}$) into ($\ref{eq:42}$) and rearranging the term relevant with  $e^{2}(\hat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S})$ yield the claim.
-\end{proof}
-
-
-\subsection{Proof of Lemma \ref{le:le1}}
-
-\begin{proof}
-Through the application of basic inequality by using optimality of $\widehat{\Theta}$ and feasibility of $\Theta^{*}$ to convex program (\ref{eq:1}), we have
-\begin{equation}
-    h(\widehat{\Theta}) - h(\Theta^{*})
-    \leq \delta \mathbb{Q}(L^{*},S^{*}) - \delta \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})
-\end{equation}
-By using convexity of $h(\Theta)$, we can write
-\begin{align}
-    h(\widehat{\Theta})-h(\Theta^{*}) &\geq
-    \langle\, \nabla_{\Theta}h(\Theta^{*}),\widehat{\Theta}-\Theta^{*}\rangle\ \nonumber \\
-    &= - \langle\,\frac{1}{n} (X-P^{*}), \hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T + \widehat{\Delta}^{L} + \widehat{\Delta}^{S} \rangle\ \nonumber \\
-    &\geq -\frac{1}{n} \|X - P^*\|_{op}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_\ast + \|\widehat{\Delta}^{L}\|_\ast) +  \frac{1}{n} \|X - P^*\|_{\infty}\|\widehat{\Delta}^{S}\|_{1} \nonumber \\
-    &\geq -\frac{\delta}{2}(\|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_F + \|\widehat{\Delta}^{L}_{A}\|_\ast + \|\widehat{\Delta}^{L}_{B}\|_\ast) - \frac{\delta}{2} (\|\widehat{\Delta}^{S}_{M}\|_{1} +
-    \|\widehat{\Delta}^{S}_{M^\perp}\|_{1}) \label{eq:27}
-\end{align}
-
-One more round of application on Agarwal et al \cite{agarwal2012noisy}'s second element of lemma 1,
-we can get an upper bound of difference $\mathbb{Q}(L^*,S^*)- \mathbb{Q}(\widehat{\Delta}^L + L^{*},\widehat{\Delta}^S + S^{*})$ as follows:
-
-\begin{equation} \label{eq:28}
-    \mathbb{Q}(\widehat{\Delta}^L_{A},\widehat{\Delta}^S_{M}) - \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})
-    +2 \sum_{j=k+1}^{n} \sigma_{j}(L^*) + 2\frac{\gamma}{\delta}\|S^*_{M^\perp}\|_{1}
-\end{equation}
-
-By combining relations (\ref{eq:27}) and (\ref{eq:28}), we can get the upper bound of $\mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp})$ :
-\begin{align*}
-    \mathbb{Q}(\widehat{\Delta}^L_{B},\widehat{\Delta}^S_{M^\perp}) \leq
-    \|\hat{\Delta}^{\alpha}\mathbbm{1}\mathbbm{1}^T\|_{F} +
-    3\mathbb{Q}(\widehat{\Delta}^{L}_{A},\widehat{\Delta}^{S}_{M})+4 \sum_{j=k+1}^{n} \sigma_{j}(L^{*}) + 4\frac{\gamma}{\delta}
-    \|S^{*}_{M^\perp}\|_{1}
-\end{align*}
-
-
-
 \end{proof}
 
 %\nocite{*}

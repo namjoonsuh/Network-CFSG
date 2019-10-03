@@ -28,7 +28,12 @@ A = rowSums(X_new)
 ind = which(A==0,arr.ind=TRUE)
 X = X_new[-ind,-ind]
 
+par(mfrow=c(1,2),mar = c(2, 2, 1.5, 1.5)) # ??? ??? ??? ??? # 
 plotScree(X)
+title(TeX("$\\X^{orig}$"),cex.main=0.85)
+
+plotScree(X_chunk)
+title(TeX("$\\X^{sub}$"),cex.main=0.85)
 
 ################### Model Selection ###################
 gamma = seq(from=0.0021091,to=0.0021095,by=0.00000006);
@@ -75,7 +80,8 @@ for(g in 1:length(gamma)){
   }
 }
 #################### Choose the proper tuning parameters #######################
-result1 <- ADMM(X, gamma[6], delta[1])  ## Gamma : 0.002109, Delta : 0.0194
+N = ncol(X)
+result1 <- ADMM(X, 0.002109, 0.0194)  ## Gamma : 0.002109, Delta : 0.0194
 a1 <- result1[[1]]
 M1 <- result1[[2]]
 L1 <- result1[[3]]
@@ -97,7 +103,7 @@ non_zero_S;
 set.seed(1233)
 K = qr(L1)$rank;
 setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Statistician network data')
-KMeans = kmeans(eigen(L)$vectors[,1:K], K, iter.max = 1000, nstart = 100, algorithm = "Hartigan-Wong")
+KMeans = kmeans(eigen(L1)$vectors[,1:K], K, iter.max = 1000, nstart = 100, algorithm = "Hartigan-Wong")
 Topic1 = which(KMeans$cluster == 1,arr.ind = TRUE)
 Topic2 = which(KMeans$cluster == 2,arr.ind = TRUE)
 Topic3 = which(KMeans$cluster == 3,arr.ind = TRUE)
@@ -144,7 +150,7 @@ plot(X_draw_Topic4, main = "Papers on variable selection")
 par(mfrow=c(1,2),mar = c(4, 4, 2, 1))
 
 DF <- data.frame(FE = eigen(L1)$vector[,1], SE = eigen(L1)$vector[,2], Cluster = rep(0,N))
-DF[Topic1,3]=1; DF[Topic2,3]=2; DF[Topic3,3]=3; DF[Topic4,4]=4;
+DF[Topic1,3]=1; DF[Topic2,3]=2; DF[Topic3,3]=3;
 plot(DF[,1:2], col=KMeans$cluster,pch=2,xlab="First Eigen",ylab="Second Eigen")
 legend(-0.3, 0.33, legend=c("Variable Selection", "Mixed Clusters", "Multiple Testing"),
        col = c("red","green","black"), pch=2, cex=0.8)
@@ -209,12 +215,13 @@ par(mfrow=c(1,1))
 source('functions.R')
 par(mfrow=c(1,2),mar = c(2, 2, 2, 1))
 plotScree(X)
-X_chunk = X[Topic2,Topic2]
+X_chunk = X[Topic3,Topic3]
 plotScree(X_chunk)
+title(TeX("$\\X^{sub}$"),cex.main=1)
 # I guess.. there are 3 topics and also another chunk of papers with mixed topics
 ############# Model Selection #############
 gamma = seq(from=0.0031,to=0.00315,by=0.000005);
-delta = seq(from=0.015,to=0.015,by=0.0006);
+delta = seq(from=0.014,to=0.015,by=0.0001);
 lambda = 1; Count = 1;
 AIC <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
 BIC <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
@@ -228,8 +235,8 @@ setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes') ## 
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
 source('GD.R')
-for(g in 7:length(gamma)){
-  for(d in 1:length(delta)) {
+for(g in 1 : length(gamma)){
+  for(d in 1 : length(delta)) {
     ### Use the ADMM method to estimate the parameters ###
     result <- ADMM(X_chunk, gamma[g], delta[d])
     
@@ -259,20 +266,21 @@ for(g in 7:length(gamma)){
 }
 
 ############################# Choose the proper tuning parameters #############################
-result2 <- ADMM(X_chunk, gamma[3], delta[8]) 
+result2 <- ADMM(X_chunk, 0.00312, 0.0146) # Gamma : 0.00312, delta : 0.0146
 N = ncol(X_chunk)
 a2<-result2[[1]]
 M2<-result2[[2]]
 L2<-result2[[3]]
 S2<-result2[[4]]
+
 ############# Clusters by Kmeans #############
-K=4
-set.seed(1232)
+K=qr(L2)$rank;
 KMeans = kmeans(eigen(L2)$vectors[,1:K], K, iter.max = 1000, nstart = 100, algorithm = "Hartigan-Wong")
 Topic3 = which(KMeans$cluster == 1,arr.ind = TRUE)
 Topic4 = which(KMeans$cluster == 2,arr.ind = TRUE)
 Topic5 = which(KMeans$cluster == 3,arr.ind = TRUE)
 Topic6 = which(KMeans$cluster == 4,arr.ind = TRUE)
+Topic7 = which(KMeans$cluster == 5,arr.ind = TRUE)
 
 paperList = read.table("C:/Users/nsuh3/Desktop/Citation Network/paperList.txt", sep=",", stringsAsFactors=F, header=T)
 community = rep(0,nrow(paperList))
@@ -283,12 +291,14 @@ Topic_3 = as.numeric(sub('.','',row_name[Topic3]))
 Topic_4 = as.numeric(sub('.','',row_name[Topic4]))
 Topic_5 = as.numeric(sub('.','',row_name[Topic5]))
 Topic_6 = as.numeric(sub('.','',row_name[Topic6]))
+Topic_7 = as.numeric(sub('.','',row_name[Topic7]))
 
 pap_list = paperList[,3]
 T3 = pap_list[Topic_3]
 T4 = pap_list[Topic_4]
 T5 = pap_list[Topic_5]
 T6 = pap_list[Topic_6]
+T7 = pap_list[Topic_7]
 
 N = ncol(X_chunk)
 DF <- data.frame(FE = eigen(L2)$vector[,1], SE = eigen(L2)$vector[,2], Cluster = rep(0,N))
@@ -297,10 +307,11 @@ plot(DF[,1:2], col=KMeans$cluster,pch=2,xlab="First Eigen",ylab="Second Eigen")
 legend(-0.05, 0.28, legend=c("Functional Analysis", "Dimension Reduction", "Bayesian Statistics", "Mixed Topic"),
        col = c("black","red","green","blue"), pch=2, cex=0.8)
 
-paperList[Topic_3,6] = "Bayesian Statistics"
-paperList[Topic_4,6] = "Functional Analysis"
-paperList[Topic_5,6] = "Mixed Topics"
-paperList[Topic_6,6] = "Dimension Reduction"
+paperList[Topic_3,6] = "Mixed Topics"
+paperList[Topic_4,6] = "Dimension Reduction"
+paperList[Topic_5,6] = "Bayesian Nonparametric Stat"
+paperList[Topic_6,6] = "Covariance Estimation"
+paperList[Topic_7,6] = "Functional/Longitudinal Analysis"
 
 ########################################################################################
 ############################ Ad-hoc dependent structure : S ############################
@@ -333,7 +344,7 @@ Ad_hoc_list
 ################# View the papers of Ad-hoc pair #################
 which(Ad_hoc_list[,3]=="Multiple Testing")
 which(Ad_hoc_list[,3]=="Variable Selection")
-write.csv(Ad_hoc_list, "C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes/ad_hoc_192.csv") 
+write.csv(Ad_hoc_list, "C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes/ad_hoc_51.csv") 
 
 ################################################################################
 ############################ Get the list of Topics ############################
@@ -355,9 +366,9 @@ X_draw_Topic4 <- graph_from_adjacency_matrix(X_Topic4, mode = c("undirected"))
 plot(X_draw_Topic4, main = "Papers on variable selection")
 
 ######## Hui Zou's "On the degrees of freedom of LASSO" ##########
-H_Zou = which(row.names(X_new)=="V507",arr.ind=TRUE)
-H_Zou_Cit_pap = which(X_new[H_Zou,]==1, arr.ind=TRUE)
-H_Zou_Cit_pap_ind = as.numeric(sub('.','',row.names(X_new)[H_Zou_Cit_pap]))
+H_Zou = which(row.names(X)=="V507",arr.ind=TRUE)
+H_Zou_Cit_pap = which(X[H_Zou,]==1, arr.ind=TRUE)
+H_Zou_Cit_pap_ind = as.numeric(sub('.','',row.names(X)[H_Zou_Cit_pap]))
 H_Zou_paper = paperList[H_Zou_Cit_pap_ind,c(3,6)]
 length(which(H_Zou_paper[,2]=="Mixed Topics",arr.ind=TRUE))
 ##################################################################
