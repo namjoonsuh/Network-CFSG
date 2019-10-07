@@ -1,4 +1,4 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{19}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -42,6 +42,11 @@ Chen, Y., X.~Li, J.~Liu, and Z.~Ying, 2016: A fused latent and graphical model
 Fazel, M., H.~Hindi, S.~P. Boyd, et~al., 2001: A rank minimization heuristic
   with application to minimum order system approximation. {\it Proceedings of
   the American control conference\/}, Citeseer, volume~6, 4734--4739.
+
+\bibitem[{Fruchterman and Reingold(1991)}]{fruchterman1991graph}
+Fruchterman, T.~M. and E.~M. Reingold, 1991: Graph drawing by force-directed
+  placement. {\it Software: Practice and experience\/}, {\bf 21}, no. 11,
+  1129--1164.
 
 \bibitem[{Gabay and Mercier(1975)}]{gabay1975dual}
 Gabay, D. and B.~Mercier, 1975: {\it A dual algorithm for the solution of non

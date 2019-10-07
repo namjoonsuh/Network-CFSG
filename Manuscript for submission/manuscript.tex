@@ -648,6 +648,8 @@ Subsequently, we elaborate experimental results from the synthetic networks and 
 %It is worth noting that different clusters of papers, where each cluster is comprised of papers with same topic, are connected via ad-hoc links.
 %In third scenario, we consider a situation
 Before specifying the network settings in two scenarios that we want to explore, let us first describe a set of procedures for setting the model parameters, $\alpha^*, F^*, D^*$ and $S^*$ sequentially.
+We put stars to the superscript of parameters to denote that they are ground truth.
+Readers can refer the meaning of each parameter in the model in Section \ref{sec:intro} and Section \ref{sec:model-form}.
 
 \begin{enumerate}
     \item We draw an intercept term $\alpha^*$ in the logistic regression model from the uniform distribution that is supported on [-11,-10].
@@ -669,6 +671,7 @@ Before specifying the network settings in two scenarios that we want to explore,
               \in R^{K \times n},
         \]
         where each row of $F^*$ has $\frac{n}{K}$ $1$'s and each column has only one $1$.
+        Note that the remaining entries of the matrix are filled with zeros.
         Then, we assume that $n_{l}$ papers share $l$ topics and $n_{m}$ papers share $m$ topics ($1 < l < m \leq K$).
         This can be represented in the $F^*$ in following steps:
         $1)$ Pick distinct $n_{l}$ indices randomly from $\{1,2,\dots,n\}$.
@@ -755,7 +758,7 @@ With these settings in mind, we consider two scenarios, where each of them has t
 \includegraphics[width=1\textwidth]{Fig1.pdf}
 \caption{Graphical illustrations of six synthetic networks.
 Nodes that share the common factors are clustered. The cross cluster links are ad-hoc Citations.
-All the graphs are drawn via R package `igraph'.}
+All the graphs are drawn via the algorithm in \cite{fruchterman1991graph}.}
 \label{fig:figure1}
 \end{figure}
 
@@ -1021,13 +1024,13 @@ Actually, out of $11$ citation relationships it has with other papers, $6$ of th
 Non-zero components of $\widehat{S}$ capture the citation relationships among papers that are not attributable to the common topics.
 The selected model has $51$ sparse edges, and all of them are positive edges.
 In Table \ref{tab:table2}, we provide $10$ pairs of papers that have the largest estimated $\widehat{S}_{ij}$.
-All the $10$ edges come from the pairs of papers from different communities.
-For instance, the first pair of papers comes from the Functional Analysis community and Variable Selection community.
-$\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
+All the $10$ edges come from the pairs of papers from different topics.
+For instance, the first pair of papers comes from the Functional Analysis topic and Variable Selection topic.
+The paper from Functional Analysis topic cites the paper from Variable Selection for borrowing a mathematical representation to build a theorem.
 Though it might appear to be a crucial step for building a theorem in their paper, we cannot say that two papers are closely related in terms of topic.
-The second pair of papers comes from the Mixed topics community (denoted as $\emph{Mixed}$) and the Variable Selection ($\emph{VarSel}$) community.
+The second pair of papers comes from the Mixed topics community and the Variable Selection community.
 This case is interesting since both papers study about variable selection problem, but they are classified in different communities and connected via an ad-hoc link.
-Specifically, the paper from $Mixed$ community study the variable selection problem under the non-parametric Bayesian framework, and compare their method with the one that is proposed in $\emph{VarSel}$ paper, ``Adaptive Lasso’’.
+Specifically, the authors in the paper from Mixed topics community study the variable selection problem under the non-parametric Bayesian framework, and compare their method with the ``Adaptive Lasso'' that is proposed in the paper from Variable Selection topic.
 
 
 %Second pair comes from the Mixed topics community (denoted as $\emph{Mixed}$) and the Variable Selection ($\emph{VarSel}$) community.
@@ -1065,9 +1068,9 @@ Pair & Community & Title & \\
 8    & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors (TJ.Yen, $2011$) & \\
      & Mixed      & Empirical {B}ayes selection of wavelet thresholds (IM. Johnstone, et al. $2005$)                         & \\
 9    & Mixed    & Nonparametric inferences for additive models (J.Fan, et al, $2005$)                  & \\
-     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models 
+     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models
      (J.Fan, et al, $2011$)     & \\
-10   & VarSel    & Sure independence screening in generalized linear models with {NP}-dimensionality    
+10   & VarSel    & Sure independence screening in generalized linear models with {NP}-dimensionality
     (J.Fan, et al, $2010$) & \\
      & Mixed     & Maximum likelihood estimation in semi-parametric regression models with censored data  & \\
 \hline
