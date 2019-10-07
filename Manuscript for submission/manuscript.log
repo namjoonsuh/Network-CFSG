@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.15)  7 OCT 2019 08:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.8.15)  7 OCT 2019 09:03
 entering extended mode
 **./manuscript.tex
 (manuscript.tex
@@ -1196,7 +1196,7 @@ File: Fig4-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: Fig4-eps-converted-to.pdf  used on input line 970.
 (pdftex.def)             Requested size: 507.50787pt x 165.11623pt.
 [12 <./Fig2.pdf>] [13 <./Fig3.pdf> <./Fig4-eps-converted-to.pdf>]
-Overfull \hbox (39.36006pt too wide) in paragraph at lines 1051--1078
+Overfull \hbox (51.39445pt too wide) in paragraph at lines 1051--1078
  [][] 
  []
 
@@ -1247,7 +1247,7 @@ ix-mathrm.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/stix/stix-mathscr
 rogram Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKT
 eX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
 1/urw/times/utmri8a.pfb>
-Output written on manuscript.pdf (20 pages, 473874 bytes).
+Output written on manuscript.pdf (20 pages, 473910 bytes).
 PDF statistics:
  487 PDF objects out of 1000 (max. 8388607)
  120 named destinations out of 1000 (max. 500000)
