@@ -1,4 +1,4 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{20}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -78,6 +78,11 @@ J{\"o}reskog, K.~G., 1969: A general approach to confirmatory maximum
 \bibitem[{Lord and Novick(2008)}]{lord2008statistical}
 Lord, F.~M. and M.~R. Novick, 2008: {\it Statistical theories of mental test
   scores\/}. IAP.
+
+\bibitem[{Ma and Ma(2017)}]{ma2017exploration}
+Ma, Z. and Z.~Ma, 2017: Exploration of large networks with covariates via fast
+  and universal latent space model fitting. {\it arXiv preprint
+  arXiv:1705.02372\/}.
 
 \bibitem[{McDonald(2014)}]{mcdonald2014factor}
 McDonald, R.~P., 2014: {\it Factor analysis and related methods\/}. Psychology

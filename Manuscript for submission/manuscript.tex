@@ -300,7 +300,8 @@ L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1.
 For the convenience of theoretical investigation, we slightly modify the first term in the objective function summing over all $(i,j)$ pairs.
 After scaling, due to symmetry of $X$,$L$, and $S$, the only difference between (\ref{eq:logistic10}) and (\ref{eq:Modified}) is in the inclusion of terms in diagonal pairs $(i,i),\forall i=1,\dots,n$.
 %the first term in the objective function in (\ref{eq:Modified}) sums over all $(i,j)$ pairs.
-This slight modification leads to neither theoretical consequence nor noticeable difference in practice.
+We borrow the idea of this modification from the work of \cite{ma2017exploration}, where they also consider the latent factor model in analyzing the embedded topics in the network but without the sparse component.
+As stated in \cite{ma2017exploration}, this slight modification leads to neither theoretical consequence nor noticeable difference in practice.
 Let ($\widehat{\alpha},\widehat{L},\widehat{S}$) be the solution to (\ref{eq:Modified}), and ($\alpha^{*},L^{*},S^{*}$) be the ground truth, which governs the data generating process.
 Let $\widehat{\Theta}$ and $\Theta^{*}$ be defined respectively as $\widehat{\Theta} = \widehat{\alpha}\mathbbm{1}\mathbbm{1}^T+\widehat{L}+\widehat{S}$ and $\Theta^{*} = \alpha^{*}\mathbbm{1}\mathbbm{1}^T+L^{*}+S^{*}$.
 And denote the error term for each parameter as $\widehat{\Delta}^{\Theta} = \widehat{\Theta}-\Theta^{*},
@@ -1050,36 +1051,46 @@ Specifically, the authors in the paper from Mixed Topics community study the var
 \begin{table}[htbp]
 \centering
 \begin{tabular}{clcl}\hline
-Pair & Community & Title (Author, Year) & \\
+Pair & Community & Title  & \\
 \hline
-1    & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis (P. Hall, et al. $2006$)      & \\
-     & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters (J. Fan, et al, $2004$)                       & \\
-2    & VarSel      & The adaptive lasso and its oracle properties (H. Zou, $2006$)                             & \\
-     & Mixed    & Nonparametric Bayes conditional distribution modeling with variable selection (Y. Chung, et al. $2009$)    & \\
-3    & DimRed    & Contour projected dimension reduction (R. Luo, et al. $2009$)                                                     & \\
-     & VarSel    & Factor profiled sure independence screening (H. Wang, $2012$)& \\
-4    & VarSel    & Factor profiled sure independence screening (H. Wang, $2012$)& \\
-     & DimRed    & Sliced regression for dimension reduction (H. Wang, et al. $2012$) & \\
-5    & CovEst    & Two sample tests for high-dimensional covariance matrices (J. Li, et al. $2012$)& \\
-     & VarSel      & The sparsity and bias of the {LASSO} selection in high-dimensional linear regression (CH. Zhang, et al. $2008$)        & \\
-6    & MulT    & Innovated higher criticism for detecting sparse signals in correlated noise (P. Hall, et al. $2010$)       & \\
-     & CovEst     & Regularized estimation of large covariance matrices (PJ. Bickel, et al. $2008$)    &  \\
-7    & DimRed    & A constructive approach to the estimation of dimension reduction directions (Y. Xia. $2007$)       & \\
-     & VarSel     & Factor profiled sure independence screening (H. Wang, $2012$)    & \\
-8    & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors (TJ. Yen, $2011$) & \\
-     & Mixed      & Empirical {B}ayes selection of wavelet thresholds (IM. Johnstone, et al. $2005$)                         & \\
-9    & Mixed    & Nonparametric inferences for additive models (J. Fan, et al. $2005$)                  & \\
-     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive models
-     (J. Fan, et al. $2011$)     & \\
-10   & VarSel    & Sure independence screening in generalized linear models with {NP}-dimensionality
-    (J. Fan, et al. $2010$) & \\
-     & Mixed     & Maximum likelihood estimation in semi-parametric regression models with censored data (D. Zeng, et al. $2007$) & \\
-\hline
+1    & FuncAn    & Properties of principal component methods for functional and longitudinal data analysis       & \\
+     & VarSel    & Nonconcave penalized likelihood with a diverging number of parameters                        & \\
+2    & VarSel      & The adaptive lasso and its oracle properties                              & \\
+     & Mixed    & Nonparametric Bayes conditional distribution modeling with variable selection     & \\
+3    & DimRed    & Contour projected dimension reduction                                                      & \\
+     & VarSel    & Factor profiled sure independence screening & \\
+4    & VarSel    & Factor profiled sure independence screening & \\
+     & DimRed    & Sliced regression for dimension reduction  & \\
+5    & CovEst    & Two sample tests for high-dimensional covariance matrices & \\
+     & VarSel      & The sparsity and bias of the {LASSO} selection in high-dimensional linear regression         & \\
+6    & MulT    & Innovated higher criticism for detecting sparse signals in correlated noise      & \\
+     & CovEst     & Regularized estimation of large covariance matrices   &  \\
+7    & DimRed    & A constructive approach to the estimation of dimension reduction directions       & \\
+     & VarSel     & Factor profiled sure independence screening   & \\
+8    & VarSel    & A majorization-minimization approach to variable selection using spike and slab priors & \\
+     & Mixed      & Empirical {B}ayes selection of wavelet thresholds               & \\
+9    & Mixed    & Nonparametric inferences for additive models          & \\
+     & VarSel    & Nonparametric independence screening in sparse ultra-high-dimensional additive model  & \\
+10   & VarSel    & Sure independence screening in generalized linear models with {NP}-dimensionality & \\
+     & Mixed     & Maximum likelihood estimation in semi-parametric regression models with censored data & \\
+\hline \\
 \end{tabular}
-\caption{Top $10$ edges come from pairs of papers from different communities. For instance in the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. But they are not related in terms of topic.}
-\end{table}
+
+\begin{tabular}{ccccc}
+\hline
+Pair $1$                                                                                 & Pair $2$                                                                       & Pair $3$                                                                             & Pair $4$                                                                            & Pair $5$                                                                              \\ \hline
+\begin{tabular}[c]{@{}c@{}}P. Hall, et al. $2006$\\ J. Fan, et al. $2004$\end{tabular}     & \begin{tabular}[c]{@{}c@{}}H. Zou. $2006$\\ Y. Chung, et al. $2009$\end{tabular} & \begin{tabular}[c]{@{}c@{}}R. Luo, et al. $2009$\\ H. Wang. $2012$\end{tabular}        & \begin{tabular}[c]{@{}c@{}}H. Wang. $2012$\\ H. Wang, et al. $2012$\end{tabular}      & \begin{tabular}[c]{@{}c@{}}J. Li, et al. $2012$\\ CH. Zhang, et al. $2008$\end{tabular} \\ \hline
+Pair $6$                                                                                 & Pair $7$                                                                       & Pair $8$                                                                             & Pair $9$                                                                            & Pair $10$                                                                             \\ \hline
+\begin{tabular}[c]{@{}c@{}}P. Hall, et al. $2010$\\ PJ. Bickel, et al. $2008$\end{tabular} & \begin{tabular}[c]{@{}c@{}}Y. Xia. $2007$\\ H. Wang. $2012$\end{tabular}         & \begin{tabular}[c]{@{}c@{}}TJ. Yen. $2011$\\ IM. Johnstone, et al. $2005$\end{tabular} & \begin{tabular}[c]{@{}c@{}}J. Fan, et al. $2005$\\ J. Fan, et al. $2011$\end{tabular} & \begin{tabular}[c]{@{}c@{}}J. Fan, et al. $2010$\\ D. Zeng, et al. $2007$\end{tabular}
+\\ \hline
+\end{tabular}
+\caption{Top $10$ edges come from pairs of papers from different communities.
+Authors and years of publication for the papers in each pair are also presented.
+In the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. 
+But they are not related in terms of topic.}
 \label{tab:table2}
 %\end{landscape}
+\end{table}
 
 \section{Discussion}
 \label{sec:Con}
