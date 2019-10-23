@@ -66,7 +66,7 @@ The proposed method has been applied to a real application, which contains a cit
 Some interesting findings are reported.
 }
 
-\keywords{citation network, matrix decomposition, latent variable model, logistic regression model, convex optimization, alternating direction method of multiplier}
+\keywords{citation network, matrix decomposition, latent variable model, logistic regression model, convex optimization, alternating direction method of multiplier (ADMM)}
 
 \jnlcitation{\cname{%
 \author{Suh Namjoon.},
@@ -147,7 +147,7 @@ We summarize the differences as follows.
 \end{enumerate}
 
 The proposed modeling framework is also related with the analysis of decomposing a matrix into low-rank and sparse components (\cite{agarwal2012noisy,candes2011robust,chandrasekaran2010latent, zhou2010stable}).
-Specifically, \cite{chandrasekaran2010latent} studies statistical inference of a multivariate Gaussian model whose precision matrix admits the form of a low-rank matrix plus a sparse matrix.
+Specifically, paper \cite{chandrasekaran2010latent} studies statistical inference of a multivariate Gaussian model whose precision matrix admits the form of a low-rank matrix plus a sparse matrix.
 The inference and optimization of the current model are different from the aforementioned cases.
 We will construct a regularized-likelihood function, based on which estimator will be proposed for simultaneous model selection and parameter estimation.
 The objective function in the optimization problem for the regularized estimator is convex, for which we will develop an efficient algorithm through the alternating direction method of multiplier (ADMM, \cite{boyd2011distributed, gabay1975dual, glowinski1975solution}).
@@ -157,8 +157,8 @@ In Section \ref{sec:model-form}, we will give a presentation on how to build a m
 In Section \ref{sec:estimate}, we will discuss the assumptions in our model and the penalization on the likelihood function, which is constructed in Section \ref{sec:model-form}.
 In Section \ref{sec:theorem}, we provide a non-asymptotic error bound of the estimator.
 Section \ref{sec:compute} gives the detailed procedure on how to compute the estimator of the optimization problem.
-In Section \ref{sec:Num-anal}, we will present simple numerical experiments on synthetic data, and application of our model on a real citation network of statisticians.
-We finally conclude this work in Section \ref{sec:Con} with several open questions and some directions for future research.
+In Section \ref{sec:Num-anal}, we will present simple numerical experiments on synthetic data, as well as an application of our model on a real citation network of statisticians.
+We finally conclude this work in Section \ref{sec:Con} with several open questions and some possible directions of future research.
 
 \section{Model Formulation}
 \label{sec:model-form}
@@ -295,11 +295,12 @@ In this section, we focus on investigating the behaviour of non-asymptotic error
 L_{ij}+S_{ij}\right)\right)}{1+\exp\left(\alpha+
 L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1.
 \end{equation}
-
 %Astute readers might notice the slight difference of the first term in objective function between (\ref{eq:logistic10}) and (\ref{eq:Modified}).
 For the convenience of theoretical investigation, we slightly modify the first term in the objective function summing over all $(i,j)$ pairs.
 After scaling, due to symmetry of $X$,$L$, and $S$, the only difference between (\ref{eq:logistic10}) and (\ref{eq:Modified}) is in the inclusion of terms in diagonal pairs $(i,i),\forall i=1,\dots,n$.
 %the first term in the objective function in (\ref{eq:Modified}) sums over all $(i,j)$ pairs.
+Note that we have $X_{ii}=0$ in our setting. 
+
 We borrow the idea of this modification from the work of \cite{ma2017exploration}, where they also consider the latent factor model in analyzing the embedded topics in the network but without the sparse component.
 As stated in \cite{ma2017exploration}, this slight modification leads to neither theoretical consequence nor noticeable difference in practice.
 Let ($\widehat{\alpha},\widehat{L},\widehat{S}$) be the solution to (\ref{eq:Modified}), and ($\alpha^{*},L^{*},S^{*}$) be the ground truth, which governs the data generating process.
@@ -309,25 +310,30 @@ And denote the error term for each parameter as $\widehat{\Delta}^{\Theta} = \wi
 \widehat{\Delta}^L = \widehat{L}-L^{*},
 \widehat{\Delta}^S = \widehat{S}-S^{*}.$
 Throughout the discussion, let $P^{*}=\bigg\{\frac{\exp(\Theta_{ij}^{*})}{1+\exp(\Theta_{ij}^{*})}\bigg\}_{1 \leq i,j \leq n} \in \mathbb{R}^{n \times n}$.
-We then impose several assumptions for theoretical guarantees of our estimator.
+We describe several assumptions before we can establish theoretical guarantees of our estimator.
 
 \begin{assumption}(\textbf{Strong convexity})  \label{Ass:1}
-For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:Modified}), $h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}$.We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of the log-likelihood function is bounded away from zero ($\tau > 0$):
+For any $\Theta \in \mathbb{R}^{n\times n}$, define the log-likelihood in (\ref{eq:Modified}):
+$$
+h(\Theta) = -\frac{1}{n}\sum_{i,j} \big\{ X_{ij}\Theta_{ij} - \log(1+\exp(\Theta_{ij})) \big\}.
+$$
+We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of the log-likelihood function is bounded away from zero ($\tau > 0$):
 \[
 \nabla^{2}h(\Theta) = \mbox{diag}\Big(\mbox{vec}\Big(\frac{1}{n}\frac{\exp(\Theta)}{(1+\exp(\Theta))^{2}}
-\Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}
+\Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}. 
 \]
 For any vector $a$, $\mbox{diag}(a)$ is the diagonal matrix with elements of $a$ on its diagonal.
 For any matrix $B=[b_1,\dots,b_n]\in\mathbb{R}^{n \times n}$, $\mbox{vec}(B)\in\mathbb{R}^{n^2}$ is obtained by stacking $ b_1,\dots, b_{n}$ in order.
 For any square matrix $A$ and $B$, we have $ A \succcurlyeq B $ if and only if matrix $A-B$ is positive semi-definite.
 \end{assumption}
 
-\begin{assumption} (\textbf{Identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L}) \label{Ass:2}
-To ensure the identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and L, we assume that the latent variables are centered, that is $JL=L$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, where $\mathbbm{1}$ denotes an all one vector in $\mathbb{R}^{n}$.
+\begin{assumption} (\textbf{Identifiability of $\alpha\mathbbm{1}\mathbbm{1}^T$ and $L$}) \label{Ass:2}
+To ensure the separation between $\alpha\mathbbm{1}\mathbbm{1}^T$ and $L$, we assume that the latent variables are centered, that is $JL=L$, where $J=I_{n}-\frac{1}{n}\mathbbm{1}\mathbbm{1}^T$, where $\mathbbm{1}$ denotes an all one vector in $\mathbb{R}^{n}$.
 \end{assumption}
 
-\begin{assumption} (\textbf{Spikiness of L and Constraint on $\alpha$}) \label{Ass:3}
-We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on L, to ensure the separation of L and S matrix \cite{agarwal2012noisy}. We would also like to note that the constraint $|\alpha|\leq C\kappa$, for an absolute constant $C$, is included partially for obtaining theoretical guarantees.
+\begin{assumption} (\textbf{Spikiness of $L$ and Constraint on $\alpha$}) \label{Ass:3}
+We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on $L$, to ensure the separation of $L$ and matrix $S$ \cite{agarwal2012noisy}. 
+We would also like to note that the constraint $|\alpha|\leq C\kappa$, for an absolute constant $C$, is included partially for obtaining theoretical guarantees.
 \end{assumption}
 
 With these assumptions, we present the behavior of non-asymptotic error bound of our estimator through the following theorem. In our result, we measure error using squared Frobenius norm summed across three matrices:
@@ -342,7 +348,7 @@ if we solve the convex problem (\ref{eq:Modified}) with a pair of regularization
 \begin{align} \label{eq:49}
 \delta \geq 2 \left\|\frac{1}{n}(X-P^{*}) \right\|_{op} \quad and \quad \gamma \geq 2\left\|\frac{1}{n}(X-P^{*})\right\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg),
 \end{align}
-then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$, and $s = 1,2,...,n^{2}$, and we have the following upper bound on $e^{2}\big(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}\big)$
+then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$, and $s = 1,2,...,n^{2}$, and we have the following upper bound of $e^{2}\big(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}\big)$: 
 \begin{align} \label{theorem1}
     e^{2}\big(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}\big) \leq
     \underbrace{c_{1}\frac{\delta^{2}}{\tau^{2}}}
@@ -365,7 +371,7 @@ characterized by a sum of a low rank matrix and a sparse matrix.
 
 Astute readers might have noticed that the upper bound in \eqref{theorem1} consists of three different terms, where we denote them as
 $\mathcal{K}_{\alpha^*}$, $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$.
-Each respective term is involved with estimating three model parameters, $\alpha, L$ and $S$.
+Each respective term is involved with estimating three model parameters: $\alpha, L$ and $S$.
 To be more specific, both $\mathcal{K}_{L^*}$ and $\mathcal{K}_{S^*}$ have two types of error:
 1) The first one is called as an ``estimation error.''
 This error represents the statistical cost of estimating parameters that belong to the model subspace.
@@ -651,7 +657,7 @@ Subsequently, we elaborate experimental results from the synthetic networks and 
 %In third scenario, we consider a situation
 Before specifying the network settings in two scenarios that we want to explore, let us first describe a set of procedures for setting the model parameters, $\alpha^*, F^*, D^*$ and $S^*$ sequentially.
 We put astroids in the superscript of parameters to denote that they are ground truth.
-Readers can refer the meaning of each parameter in the model in Section \ref{sec:intro} and Section \ref{sec:model-form}.
+Readers can refer the meaning of each parameter in the model in Section \ref{sec:intro} and  \ref{sec:model-form}.
 
 \begin{enumerate}
     \item We draw an intercept term $\alpha^*$ in the logistic regression model from the uniform distribution that is supported on [-11,-10].
@@ -755,7 +761,6 @@ With these settings in mind, we consider two scenarios, where each of them has t
         Among $210$ papers, $10$ papers randomly share $2$ topics out of $3$, other $10$ papers have $3$ mixed topics, whereas remaining $190$ papers only discuss $1$ topic.
         Note that the $3$ clusters from these $190$ papers are connected through $18$ random ad-hoc links.
 \end{enumerate}
-
 \begin{figure}[htbp]
 \includegraphics[width=1\textwidth]{Fig1.pdf}
 \caption{Graphical illustrations of six synthetic networks.
@@ -1086,7 +1091,7 @@ Pair $6$                                                                        
 \end{tabular}
 \caption{Top $10$ edges come from pairs of papers from different communities.
 Authors and years of publication for the papers in each pair are also presented.
-In the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem. 
+In the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
 But they are not related in terms of topic.}
 \label{tab:table2}
 %\end{landscape}
@@ -1354,7 +1359,6 @@ Using Cauchy-Schwarz inequality, we can easily check the quantity $\Psi(M)$ is b
 
 %\nocite{*}
 \bibliography{References}
-
 
 %\backmatter
 
