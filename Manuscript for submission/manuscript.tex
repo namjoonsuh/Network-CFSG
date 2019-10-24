@@ -804,16 +804,18 @@ Following the scree-plot approach in Ji and Jin \cite{ji2016coauthorship}, we pl
 An index of the point, which is to the left of this elbow point, is considered as the number of the topics embedded in the network.
 (We will denote this number as $\widehat{K}^{\text{Scree}}$.)
 We want to note that the scree-plot analysis serves as a good guideline for determining the range of grids to search over.
-With the estimate of the number of topics in the network in mind, we record the $\text{rank}(\widehat{L}^{\gamma,\delta})$ and $|\widehat{S}^{\gamma,\delta}|$ for each tuning parameter pair on a given grid.
+With the estimate of the number of topics in the network in mind, we record the $\text{rank}(\widehat{L}^{\gamma,\delta})$ and $|\widehat{S}^{\gamma,\delta}|$ (i.e., the cardinality of the set $\widehat{S}^{\gamma,\delta}$) for each tuning parameter pair on a given grid.
 We need to go through several iterations of this recording procedure to find a proper range of grid, in which we can get $\text{rank}(\widehat{L}^{\gamma,\delta})=\widehat{K}^{\text{Scree}}$
-and $10^{-4}|X| \leq |\widehat{S}^{\gamma,\delta}| \leq 10^{-1}|X|$, via adjusting the range of grid for $\gamma$ and $\delta$ repeatedly.
+and $10^{-4}\|X\|_0 \leq |\widehat{S}^{\gamma,\delta}| \leq 10^{-1}\|X\|_0$, via adjusting the range of grid for $\gamma$ and $\delta$ repeatedly.
+Here $\|X\|_0$ denotes the number of nonzero entries in the matrix $X$.
 Once we find a grid, which satisfies above constraints, we choose a pair of tuning parameters: %($\gamma^{\text{Heu}},\delta^{\text{Heu}}$):
 \[
     (\gamma^{\text{Heu}},\delta^{\text{Heu}}):=
     \big\{(\gamma,\delta): \text{rank}(\widehat{L}^{\gamma,\delta})=\widehat{K}^{\text{Scree}},
-    \mbox{mode} |\widehat{S}^{\gamma,\delta}|: \mbox{subject to} \Hquad 10^{-4}|X| \leq |\widehat{S}^{\gamma,\delta}| \leq 10^{-1}|X| \big\}.
+    \mbox{mode} |\widehat{S}^{\gamma,\delta}|: \mbox{subject to} \Hquad 10^{-4}\|X\|_0 \leq |\widehat{S}^{\gamma,\delta}| \leq 10^{-1}\|X\|_0 \big\}.
 \]
-One might wonder how traditional model selection methods, such as the Bayes Information Criterion (BIC;\cite{schwarz1978estimating}) and the AIC, work where we recall that BIC and AIC are defined as follows:
+One might wonder how the traditional model selection methods, such as the Bayes Information Criterion (BIC;\cite{schwarz1978estimating}) and the Akaike information criterion (AIC), work.
+Recall that BIC and AIC are defined as follows:
 \[
 \mbox{BIC}(M) = -2  \mathbb{L}_n( \hat{\beta}(M)) + |M| \log \bigg(\frac{n(n-1)}{2}\bigg),
 \]
@@ -830,7 +832,7 @@ In detail, if we have $\text{rank}(\widehat{L}^{\gamma,\delta})=K$, we can estab
 \]
 since the number of free parameters in $\widehat{L}^{\gamma,\delta}$ is $K$ plus $nK - K(K+1)/2$, which is the number of free parameters in determining $K$ orth-normal vectors.
 Additional $1$ in the last term is due to $\hat{\alpha}$.
-We want to find a pair $(\gamma,\delta)$, which minimizes BIC($M$) and AIC($M$) as a function of $(\gamma,\delta)$ respectively, where we denote them as follows:
+We want to find a pair $(\gamma,\delta)$, which minimizes BIC($M$) or AIC($M$) as a function of $(\gamma,\delta)$, respectively, where we denote them as follows:
 \[
     (\gamma^{BIC},\delta^{BIC}):= \mbox{arg min}_{\gamma, \delta}
     \mbox{BIC}(M),
@@ -838,8 +840,7 @@ We want to find a pair $(\gamma,\delta)$, which minimizes BIC($M$) and AIC($M$) 
     (\gamma^{AIC},\delta^{AIC}):= \mbox{arg min}_{\gamma, \delta}
     \mbox{AIC}(M).
 \]
-We evaluate the models that are selected via our heuristic approach, BIC, and AIC by using following four evaluation metrics:
-
+We evaluate the models that are selected via our heuristic approach, BIC, and AIC by using the following four evaluation metrics:
 \begin{eqnarray*}
 M_1 &=& \mathbbm{1}\big\{\mbox{rank}(\widehat{L}) = \mbox{rank}(L^{*})\big\}, \\
 M_2 &=& \frac{\left|\big\{(i,j):i<j:S^{*}_{i,j} \neq0 \quad \& \quad \widehat{S}_{i,j} \neq 0 \big\}\right|}{\left|\big\{(i,j):i<j:S^{*}_{i,j}\neq0\big\}\right|}, \\
@@ -853,21 +854,8 @@ $M_4$ calculates the proportion of mis-classified nodes to the entire nodes in t
 With properly selected tuning parameter, $M_1$ will be 1, $M_2$ will be close to 1, and $M_3$ and $M_4$ will get close to 0.
 We present the evaluation results of the six cases via the four criteria, $M_1,M_2,M_3$, and $M_4$ in Table.\ref{tab:table1}.
 
-\subsubsection{Several Observations} \label{sec:obs}
-%Given a network data $X$, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to $k$th topic or not.
-%We apply a simple $k$-means clustering on the fitted $L$ matrix's $K$ eigenvectors.
-%For the illustration of performance of our fitted model after applying $k$-means algorithm on three synthetic scenarios, in Fig\ref{fig:figure1}, we plot the coordinates of each rows of first two eigen-vectors on $2$D plane.
-%Furthermore, we find one interesting phenomenon.
-%Coordinates of each rows from first two eigenvectors of estimated $\widehat{L}$ matrix in our model characterize the clustering behavior of embedded topics reasonably well.
-%Our experience shows that with only first two eigenvectors of $\widehat{L}$, we can also cluster the nodes comparably well.
-\begin{enumerate}
-    \item \textbf{Model Selection.}
-    First and foremost, choosing a good pair of tuning parameters is critical when it comes to making a good statistical inference on data.
-    As presented in Table.\ref{tab:table1}, both BIC and AIC, which are well known for their model selection consistency in asymptotic setting, appear to under-estimate either the number of topics or the number of ad-hoc links in the networks in our synthetic settings. This may be caused by the fact that these traditional methods take the sample size into account, and therefore penalizes the model complexity too harshly.
-    In the heuristic approach, scree-plot plays an important role when it comes to recovering the number of topics, and this strategy leads us to good model selection results for all the six cases considered in two scenarios. (See Fig.$\ref{fig:figure2}$)
-
-    \begin{table}[htbp]
-    \centering
+\begin{table}[htbp]
+\centering
     \begin{tabular}{c|ccc|ccc|ccc}
                 & \multicolumn{9}{c}{\textbf{Scenario 1}}                                              \\
                 \cline{2-10}
@@ -899,25 +887,40 @@ We present the evaluation results of the six cases via the four criteria, $M_1,M
     Also note that it chooses a model whose mis-classification rate is close to $0$.
     A number in the parentheses represents the rank of $\widehat{L}$ estimated from ($\gamma^{\text{Heu}},\delta^{\text{Heu}}$), ($\gamma^{\text{AIC}},\delta^{\text{AIC}}$) and ($\gamma^{\text{BIC}},\delta^{\text{BIC}}$) for each case.}
     \label{tab:table1}
-    \end{table}
+\end{table}
+
+\subsubsection{Several Observations} \label{sec:obs}
+%Given a network data $X$, after fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether node $i$ belongs to $k$th topic or not.
+%We apply a simple $k$-means clustering on the fitted $L$ matrix's $K$ eigenvectors.
+%For the illustration of performance of our fitted model after applying $k$-means algorithm on three synthetic scenarios, in Fig\ref{fig:figure1}, we plot the coordinates of each rows of first two eigen-vectors on $2$D plane.
+%Furthermore, we find one interesting phenomenon.
+%Coordinates of each rows from first two eigenvectors of estimated $\widehat{L}$ matrix in our model characterize the clustering behavior of embedded topics reasonably well.
+%Our experience shows that with only first two eigenvectors of $\widehat{L}$, we can also cluster the nodes comparably well.
+\begin{enumerate}
+    \item \textbf{Model Selection.}
+    First and foremost, choosing a good pair of tuning parameters is critical when it comes to making a good statistical inference on data.
+    As presented in Table.\ref{tab:table1}, both BIC and AIC, which are well known for their model selection consistency in asymptotic setting, appear to under-estimate both the number of topics and the number of ad-hoc links in the networks in our synthetic settings. This may be caused by the fact that these traditional methods take the sample size into account, and therefore penalizes the model complexity too harshly.
+    In the heuristic approach, scree-plot plays an important role when it comes to recovering the number of topics, and this strategy leads us to good model selection results for all the six cases considered in two scenarios. (See Fig.$\ref{fig:figure2}$)
 
     \begin{figure}[htbp]
         \includegraphics[width=1\textwidth]{Fig2.pdf}
         \caption{ Scree plots for six synthetic Networks.
-        $\hat{K}^{\mbox{Scree}}$ recovers the number of topics in the network correctly for all six cases.}
+        $\widehat{K}^{\mbox{Scree}}$ recovers the number of topics in the network correctly for all six cases.}
         \label{fig:figure2}
     \end{figure}
 
     \item \textbf{Node Membership.}
     After fitting the model with a proper pair of tuning parameters, $(\gamma,\delta)$, we need to determine whether the $i$th paper belongs to the $k$th topic or not.
-    We apply a simple $k$-means clustering algorithm on the $\widehat{L}$ matrix’s $K$ eigenvectors where $K$ denotes the rank of matrix $\widehat{L}$.
+    We apply a simple $k$-means clustering algorithm on the $\widehat{L}$ matrix's  $K$ eigenvectors where $K$ denotes the rank of matrix $\widehat{L}$.
     %(We will denote column-wise concatenation of these $K$ eigenvectors as $\widehat{E}_{K} \in \mathbb{R}^{n\times K}$.)
-    For three cases in Scenario $1$, where each paper in the network only has one topic, we confirm that $k$-means algorithm performs well on classifying papers in the network.
-    However, in Scenario $2$ where we allow the papers in the network can have more than one topic, naive implementation of $k$-means algorithm entails a problem, since it is not able to afford the overlapped membership of nodes.
-    Here, we create a matrix $\widehat{E}_{K}\in \mathbb{R}^{n \times K}$, whose $i$th column corresponds to the $i$th eigenvector of the $\widehat{L}$.
-    In order to obtain a sense on how many clusters of papers exist in latent space, we project each row of the $\widehat{E}_{K}$ on the first and second principal components of data matrix $\widehat{E}_{K}$, and plot the projected points on $2$-dimensional plane.
-    We count the number of distinct clusters plotted on the plane. Subsequently, we run the $k$-means algorithm on the projected points.
-    Refer Table.\ref{tab:table1} and Fig.\ref{fig:figure3} for the references on how this procedure performs on six synthetic cases.
+    For the three cases in Scenario $1$, where each paper in the network only belongs to one topic, we confirm that $k$-means algorithm performs well on classifying papers in the network.
+    However, in Scenario $2$ where we allow the papers in the network can have more than one topics, naive implementation of the $k$-means algorithm entails a problem -- it is not able to cope with the overlapped membership of nodes.
+    In this case, we create a matrix $\widehat{E}_{K}\in \mathbb{R}^{n \times K}$, whose $i$th column corresponds to the $i$th eigenvector of the matrix $\widehat{L}$.
+    In order to obtain a sense on how many clusters of papers exist in the latent space, we project each row of the $\widehat{E}_{K}$ on the first and second principal components of data matrix $\widehat{E}_{K}$, and plot the projected points on a $2$-dimensional plane.
+    We count the number of distinct clusters plotted on the plane.
+    Subsequently, we run the $k$-means algorithm on the projected points.
+    Table.\ref{tab:table1} and Fig.\ref{fig:figure3} illustrate the result of the above procedure.
+    They result seem to be consistent with the underlying truth.
 
     \begin{figure}[htbp]
     \centering
@@ -979,14 +982,14 @@ We present the evaluation results of the six cases via the four criteria, $M_1,M
 \label{fig:figure4}
 \end{figure}
 Recently, Ji and Jin \cite{ji2016coauthorship} published an interesting dataset on citation network of papers from statistics journals.
-Specifically, this dataset is based upon all papers published from $2003$ to the first half of $2012$, from the four top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association and Journal of Royal Statistical Society (Series B).
+Specifically, this dataset is based upon all papers published from $2003$ to the first half of $2012$, from the four top statistical journals: Annals of Statistics, Biometrika, Journal of American Statistical Association, and Journal of Royal Statistical Society (Series B).
 Citational relationships of $3248$ papers are given in the form of adjacency matrix.
 In our analysis, we focus our attentions on the papers which have greater than or equal to $10$ citational edges in the network of Ji and Jin \cite{ji2016coauthorship}.
 After collecting papers with greater than or equal to $10$ citational edges and eliminating those that have no connecting edges from the rest, we have $232$ papers in total.
 
 We denote the adjacency matrix of these $232$ papers as $X^{\mbox{orig}}$.
 Elbow points of the scree plot from $X^{\mbox{orig}}$ may be at the $3$rd, $5$th, or $9$th largest eigenvalue, suggesting that there are from $2$ to $8$ embedded topics in the network. (See Fig. \ref{fig:figure4})
-In light of this, we conduct the analysis in two steps:
+In light of this, we conduct the analysis in the following two steps:
 \begin{enumerate}
     \item First, we assume that the network $X^{\mbox{orig}}$ has $2$ distinct topics and one giant mixed-component, which has a sub-network structure. Under this assumption, we set $\widehat{K}^{\mbox{scree}}$ as $3$, and select a proper model via our heuristic method.
         Then, we perform a $k$-means algorithm on matrix $\widehat{E}_{3}$ treating each row of the matrix as one data point.
@@ -1018,13 +1021,13 @@ and we can obtain five sub-communities as follows:
 \end{itemize}
 From the sub-network $X^{\mbox{sub}}$, we got four meaningful topics: Bayesian Statistics, Functional/Longitudinal Data Analysis, Dimension Reduction, and High-dimensional Covariance Estimation.
 Due to the small volume of each community, we could manually check that the false discovery for each community is all zero.
-(Full list of papers for each community is provided in $https://sites.google.com/site/namjoonsuh/publications$.)
+(Full list of papers for each community is provided in {\em https://sites.google.com/site/namjoonsuh/publications}.)
 
-Sub-network structure has also a big collection of papers which we refer it as ``Mixed Topics'' cluster.
+The sub-network structure has also a big collection of papers that we refer to as the ``Mixed Topics'' cluster.
 Not only could we see the papers with topics on Learning Theory, Non-parametric / Semi-parametric Statistics, Spatial Statistics, Theoretical Machine Learning, which does not seem to belong to any of the five communities listed above, but also we could identify the papers with combinations of two or three topics.
 Papers, such as The Bayesian Lasso (T. Park, et al. $2008$), Coordinate-independent sparse sufficient dimension reduction and variable selection (X. Chen, et al. $2010$), are the examples of these papers.
-It is also interesting to think about a reason on papers which seem to have obvious membership in one of $5$ communities other than Mixed Topic classified as Mixed Topic.
-For instance, the paper, On the "degrees of freedom" on the LASSO (H. Zou, et al. $2007$), is classified as Mixed Topic paper.
+It is also interesting to think about a reason on papers that seem to have obvious membership in one of $5$ communities other than Mixed Topic classified as Mixed Topic.
+For instance, the paper, On the ``degrees of freedom'' on the LASSO (H. Zou, et al. $2007$), is classified as Mixed Topic paper.
 We can simply guess model selection has lots of applications in other topics, so it might cite or have been cited by many papers in other communities.
 Actually, out of $11$ citation relationships it has with other papers, $6$ of them came from the relationships with papers from Mixed Topics.
 
@@ -1089,10 +1092,10 @@ Pair $6$                                                                        
 \begin{tabular}[c]{@{}c@{}}P. Hall, et al. $2010$\\ PJ. Bickel, et al. $2008$\end{tabular} & \begin{tabular}[c]{@{}c@{}}Y. Xia. $2007$\\ H. Wang. $2012$\end{tabular}         & \begin{tabular}[c]{@{}c@{}}TJ. Yen. $2011$\\ IM. Johnstone, et al. $2005$\end{tabular} & \begin{tabular}[c]{@{}c@{}}J. Fan, et al. $2005$\\ J. Fan, et al. $2011$\end{tabular} & \begin{tabular}[c]{@{}c@{}}J. Fan, et al. $2010$\\ D. Zeng, et al. $2007$\end{tabular}
 \\ \hline
 \end{tabular}
-\caption{Top $10$ edges come from pairs of papers from different communities.
+\caption{Top $10$ edges corresponding with the pairs of papers from different communities.
 Authors and years of publication for the papers in each pair are also presented.
-In the first pair, $\emph{FuncAn}$ paper cites $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
-But they are not related in terms of topic.}
+In the first pair, a $\emph{FuncAn}$ paper cites a $\emph{VarSel}$ paper for borrowing a mathematical representation to build a theorem.
+But they are not related in terms of {\it topic}.}
 \label{tab:table2}
 %\end{landscape}
 \end{table}
@@ -1100,36 +1103,38 @@ But they are not related in terms of topic.}
 \section{Discussion}
 \label{sec:Con}
 
-We propose a new combined latent factor and sparse graphical model.
-We consider the regularized likelihood by means of $L_1$ and nuclear norm penalties.
-The computation of the regularized estimator is facilitated by developing an algorithm based on the alternating direction method of multiplier to optimize a non-smooth and convex objective function.
-The proposed method is applied to citation network of statisticians, and the estimated model renders good interpretative power.
-Specifically, our analysis on statistician's citation network sheds the new light on the interpretation of dataset.
+We propose a new model that combines the latent factors and a sparse graphical structure.
+We consider the regularized likelihood by means of the $L_1$ norm and the nuclear norm penalties.
+The computation of the regularized estimator is facilitated by developing an algorithm that is based on the alternating direction method of multiplier (ADMM), which optimizes a non-smooth however convex objective function.
+The proposed method is applied to a citation network of statisticians, and the estimated model renders some meaningful interpretations.
+We believe that our analysis on statistician's citation network sheds some new light on the interpretation of the data set.
 
-Nonetheless, there are still several questions remaining to be answered.
-First of all, it remains unclear on how to choose the proper tuning parameters.
-Classical methods for choosing tuning parameters such as BIC or AIC did not work in our case, since they tend to choose the most parsimonious models.
-We also do not have systematic ways to do cross validation in network data.
-Not only because it is computationally expensive procedure, but also because if we partition the network data, we can loose fair amount of information on dependent structures among edges.
-This problem is also closely related with determining the number of communities in network.
-In lieu of using BIC or AIC, our analysis is heavily relying on heuristic approach when choosing the tuning parameter, and during this procedure, we use the screeplot for determining number of communities in network.
+There are still several questions remaining to be answered.
+First of all, it remains unclear on how to choose the tuning parameters.
+Classical methods for choosing tuning parameters such as BIC or AIC tend to choose the most parsimonious models, which lead to an underestimation in our case.
+We also do not have systematic ways to do cross-validation in our network data.
+Not only because it is computationally expensive, but also because if we partition the network data, we can loose fair amount of information on dependent structures among the edges.
+This problem is also closely related to determining the number of communities in network.
+In lieu of using BIC or AIC, our analysis is heavily relying on a heuristic approach when choosing the tuning parameter, and during this procedure, we use the scree-plot to determine the number of communities in a network.
 Screeplot approach works well in general situation, but it does not necessarily always guarantee the correct estimate of number of communities.
-We need a more reliable and theoretically well understood way to determine $K$.
+We need a more systematic way to choose the parameters. 
+And it will be nice to derive some theoretical guarantees for the methods.
 
-Secondly, we only consider the undirected case which is somewhat unrealistic assumption for citation network in real world, in a sense that it is not usual for two papers to cite each other at the same time.
+Secondly, we only consider an undirected graph, which is somewhat inconsistent with a real citation network, which is directional.
 Since, in our research, we were interested in separating the low rank structure of edges and ad-hoc links in network, we did not take into account the directions of edges in our model.
-However, it would be interesting to consider incorporating the directed network into our matrix decomposition framework.
+However, it would be interesting to study a similar problem on a directed graph.
+This is a future work. 
 
-Last but not least, when we assign the memberships of each nodes, we use $k$-means clustering algorithm.
-However, $k$-means algorithm turns out that it tends to assign nodes conservatively to each communities.
-For example, in Fig.$\ref{fig:figure4}$(left), we can see that bunch of Multiple Testing papers are assigned as Mixed cluster, and in Fig.$\ref{fig:figure4}$(right) also, many papers which should have been classified to among three communities other than mixed topic, have been assigned as Mixed topic community.
-This is probably because $k$-means does not allow overlapping membership of each nodes.
-It would be interesting to see what happens if we apply some clustering methods which allow the overlapped memberships of nodes in network.
+Last but not least, when we assign the memberships of each nodes, we adopt the $k$-means clustering algorithm.
+However, we notice that the $k$-means algorithm tends to assign nodes conservatively to each communities.
+For example, in Fig. \ref{fig:figure4} (left), we can see that a bunch of Multiple Testing papers are assigned as Mixed cluster, and in Fig. \ref{fig:figure4} (right), many papers that should have been classified to three communities other than the Mixed topic, have been assigned into the Mixed topic community.
+It would be interesting to experiment on some other clustering methods that accommodate overlapping memberships.
 
 \section{Appendix}
-In this Section, first we briefly introduce several notations, a notion on the decomposability of regularizer, and a useful lemma proved in the work \cite{agarwal2012noisy} (Section\ref{App:Pre}).
+
+In this Section, first we briefly introduce several notations, including a notion on the decomposability of regularizer, and a useful lemma that is proved in the work \cite{agarwal2012noisy} (Section\ref{App:Pre}).
 Then, we present Lemma \ref{le:le2} and its proof (Section \ref{App:Lemma2}).
-Finally, we present the proof of our Theorem\ref{Th:th1} (Section \ref{App:Theorem1}).
+Finally, we present the proof of our Theorem \ref{Th:th1} (Section \ref{App:Theorem1}).
 
 \subsection{Preliminary} \label{App:Pre}
 Throughout the proof, we adopt the convenient short-hand notation on projection of matrix $P$ on subspace $M$ as $P_{M}$.
@@ -1147,7 +1152,7 @@ With this in mind, we recall the formal definition of the decomposability of $L_
     is decomposable with respect to $(M, M^{\perp})$ if
     \[
         \| A + B \|_{1} = \|A\|_{1} + \|B\|_{1},
-        \forall A \in M \mbox{and} B \in M^{\perp}.
+        \forall A \in M \mbox{ and } B \in M^{\perp}.
     \]
 \end{definition}
 The notion of decomposability is used to penalize the perturbation from the model subspace $M$, and to obtain the tightest bound the $L_1$ norm can achieve.
