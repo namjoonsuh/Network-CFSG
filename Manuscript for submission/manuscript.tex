@@ -299,7 +299,7 @@ L_{ij}+S_{ij}\right)} + \delta \|L\|_\ast + \gamma \|S\|_1.
 For the convenience of theoretical investigation, we slightly modify the first term in the objective function summing over all $(i,j)$ pairs.
 After scaling, due to symmetry of $X$,$L$, and $S$, the only difference between (\ref{eq:logistic10}) and (\ref{eq:Modified}) is in the inclusion of terms in diagonal pairs $(i,i),\forall i=1,\dots,n$.
 %the first term in the objective function in (\ref{eq:Modified}) sums over all $(i,j)$ pairs.
-Note that we have $X_{ii}=0$ in our setting. 
+Note that we have $X_{ii}=0$ in our setting.
 
 We borrow the idea of this modification from the work of \cite{ma2017exploration}, where they also consider the latent factor model in analyzing the embedded topics in the network but without the sparse component.
 As stated in \cite{ma2017exploration}, this slight modification leads to neither theoretical consequence nor noticeable difference in practice.
@@ -320,7 +320,7 @@ $$
 We assume that $h(\Theta)$ is $\tau$-strongly convex in a sense that lowest eigenvalue of Hessian matrix of the log-likelihood function is bounded away from zero ($\tau > 0$):
 \[
 \nabla^{2}h(\Theta) = \mbox{diag}\Big(\mbox{vec}\Big(\frac{1}{n}\frac{\exp(\Theta)}{(1+\exp(\Theta))^{2}}
-\Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}. 
+\Big)\Big) \succcurlyeq \tau I_{n^{2} \times n^{2}}.
 \]
 For any vector $a$, $\mbox{diag}(a)$ is the diagonal matrix with elements of $a$ on its diagonal.
 For any matrix $B=[b_1,\dots,b_n]\in\mathbb{R}^{n \times n}$, $\mbox{vec}(B)\in\mathbb{R}^{n^2}$ is obtained by stacking $ b_1,\dots, b_{n}$ in order.
@@ -332,7 +332,7 @@ To ensure the separation between $\alpha\mathbbm{1}\mathbbm{1}^T$ and $L$, we as
 \end{assumption}
 
 \begin{assumption} (\textbf{Spikiness of $L$ and Constraint on $\alpha$}) \label{Ass:3}
-We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on $L$, to ensure the separation of $L$ and matrix $S$ \cite{agarwal2012noisy}. 
+We impose a spikiness condition $\|L\|_{\infty}\leq\frac{\kappa}{\sqrt{n \times n}}$ on $L$, to ensure the separation of $L$ and matrix $S$ \cite{agarwal2012noisy}.
 We would also like to note that the constraint $|\alpha|\leq C\kappa$, for an absolute constant $C$, is included partially for obtaining theoretical guarantees.
 \end{assumption}
 
@@ -348,7 +348,7 @@ if we solve the convex problem (\ref{eq:Modified}) with a pair of regularization
 \begin{align} \label{eq:49}
 \delta \geq 2 \left\|\frac{1}{n}(X-P^{*}) \right\|_{op} \quad and \quad \gamma \geq 2\left\|\frac{1}{n}(X-P^{*})\right\|_{\infty}+4\kappa\tau\bigg(\frac{Cn+1}{n} \bigg),
 \end{align}
-then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$, and $s = 1,2,...,n^{2}$, and we have the following upper bound of $e^{2}\big(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}\big)$: 
+then there exist universal constants $c_{j}$, j = 1,2,3,  for all integers $k = 1,2,...,n$, and $s = 1,2,...,n^{2}$, and we have the following upper bound of $e^{2}\big(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}\big)$:
 \begin{align} \label{theorem1}
     e^{2}\big(\widehat{\alpha}\mathbbm{1}\mathbbm{1}^T,\widehat{L},\widehat{S}\big) \leq
     \underbrace{c_{1}\frac{\delta^{2}}{\tau^{2}}}
@@ -655,8 +655,8 @@ Subsequently, we elaborate experimental results from the synthetic networks and 
 %In second scenario, we study a more complicated situation than the first one where each paper in the network can possibly have more than one topic.
 %It is worth noting that different clusters of papers, where each cluster is comprised of papers with same topic, are connected via ad-hoc links.
 %In third scenario, we consider a situation
-Before specifying the network settings in two scenarios that we want to explore, let us first describe a set of procedures for setting the model parameters, $\alpha^*, F^*, D^*$ and $S^*$ sequentially.
-We put astroids in the superscript of parameters to denote that they are ground truth.
+Before specifying the network settings in two scenarios that we want to explore, let us first describe a set of steps for setting the model parameters, $\alpha^*, F^*, D^*$ and $S^*$ sequentially.
+We put astroids in the superscripts of parameters to indicate that they are the ground truth.
 Readers can refer the meaning of each parameter in the model in Section \ref{sec:intro} and  \ref{sec:model-form}.
 
 \begin{enumerate}
@@ -666,7 +666,7 @@ Readers can refer the meaning of each parameter in the model in Section \ref{sec
     \item Recall that the binary factor loading matrix $F^*$ encodes the relation between topics and papers
         (i.e., if $i$th paper studies about $k$th topic, we denote $F^*_{ki}=1$, otherwise $F^*_{ki}=0$).
         First, we assume that there are $n$ papers in the network, and $K$ topics are embedded in it.
-        Each of them consists of $\frac{n}{K}$ papers.
+        Each of them consists of roughly $\frac{n}{K}$ papers.
         This can be expressed in $F^*$ as follows:
         \[
             F^* =
@@ -693,10 +693,10 @@ Readers can refer the meaning of each parameter in the model in Section \ref{sec
     \item Generate the weight coefficients of the factors $D^*_{ii}$ from the uniform distribution that is supported on $[19,20]$, $ \forall 1 \leq i \leq K$.
         In this way, we can leave the papers with same topic cluster together.
 
-    \item Recall that the positive entries of $S^*$ can characterize the links in the network which cannot be accounted by the common topics.
+    \item Recall that the positive entries of $S^*$ can characterize the links in the network, which cannot be accounted by the common topics.
         In the spirit of this notion, we construct ad-hoc links in a way that they connect the clusters of papers with one topic.
         Specifically, we assume that there are $\frac{|S^*|}{\binom{K}{2}}$ edges between two clusters, where $|S^*|$ denotes the number of non-zero entries of the upper-triangular part of the matrix $S^*$.
-        This can be implemented via following steps:
+        This can be implemented via the following steps:
         1) We construct $K$ sets $C^*_1,\dots,C^*_K$ that are defined as follows:
         \begin{align*}
            &C^*_{1} \subseteq \big\{1, 2, \dots, \frac{n}{K} \big\} \setminus \big\{ \Omega_{n_l}
@@ -771,7 +771,7 @@ All the graphs are drawn via the algorithm in \cite{fruchterman1991graph}.}
 
 All six networks that are elaborated in scenarios $1$ and $2$ are visualized in Fig.\ref{fig:figure1}.
 Notice that the nodes that share the common topics are clustered,
-and the cross clustered links are ad-hoc citations.
+and the cross clustered links are the ad-hoc citations.
 %ad-hoc links, which connect clusters of papers with $1$ topic, are colored in green.
 %Readers can refer the R code provided in $\dots$, for more detailed descriptions on parametric settings for generating networks in Fig\ref{fig:figure1}.
 
@@ -803,7 +803,7 @@ Here we present a heuristic procedure for choosing a good pair of tuning paramet
 Following the scree-plot approach in Ji and Jin \cite{ji2016coauthorship}, we plot the largest $15$ eigenvalues of the adjacency matrix $X$, and find an ``elbow'' point where the eigenvalues seem to level off.
 An index of the point, which is to the left of this elbow point, is considered as the number of the topics embedded in the network.
 (We will denote this number as $\widehat{K}^{\text{Scree}}$.)
-We want to note the readers that the scree-plot analysis serves as a good guideline for determining the range of grids to search over.
+We want to note that the scree-plot analysis serves as a good guideline for determining the range of grids to search over.
 With the estimate of the number of topics in the network in mind, we record the $\text{rank}(\widehat{L}^{\gamma,\delta})$ and $|\widehat{S}^{\gamma,\delta}|$ for each tuning parameter pair on a given grid.
 We need to go through several iterations of this recording procedure to find a proper range of grid, in which we can get $\text{rank}(\widehat{L}^{\gamma,\delta})=\widehat{K}^{\text{Scree}}$
 and $10^{-4}|X| \leq |\widehat{S}^{\gamma,\delta}| \leq 10^{-1}|X|$, via adjusting the range of grid for $\gamma$ and $\delta$ repeatedly.
