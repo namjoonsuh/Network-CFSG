@@ -59,7 +59,7 @@
 \abstract[Summary]{We propose a combined model, which integrates the latent factor model and the logistic regression model, for the citation network.
 It is noticed that neither a latent factor model nor a logistic regression model alone is sufficient to capture the structure of the data.
 The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (a.k.a., factors), and adds a sparse component that captures the remaining ad-hoc dependence.
-Parameter estimation are carried out through the construction of a joint-likelihood function of edges and properly chosen penalty terms.
+Parameter estimation is carried out through the construction of a joint-likelihood function of edges and properly chosen penalty terms.
 The convexity of the objective function allows us to develop an efficient algorithm, while the penalty terms push towards a low-dimensional latent component and a sparse graphical structure.
 Simulation results show that the proposed method works well in practical situations.
 The proposed method has been applied to a real application, which contains a citation network of statisticians (Ji and Jin, 2016 \cite{ji2016coauthorship}).
@@ -1117,13 +1117,13 @@ Not only because it is computationally expensive, but also because if we partiti
 This problem is also closely related to determining the number of communities in network.
 In lieu of using BIC or AIC, our analysis is heavily relying on a heuristic approach when choosing the tuning parameter, and during this procedure, we use the scree-plot to determine the number of communities in a network.
 Screeplot approach works well in general situation, but it does not necessarily always guarantee the correct estimate of number of communities.
-We need a more systematic way to choose the parameters. 
+We need a more systematic way to choose the parameters.
 And it will be nice to derive some theoretical guarantees for the methods.
 
 Secondly, we only consider an undirected graph, which is somewhat inconsistent with a real citation network, which is directional.
 Since, in our research, we were interested in separating the low rank structure of edges and ad-hoc links in network, we did not take into account the directions of edges in our model.
 However, it would be interesting to study a similar problem on a directed graph.
-This is a future work. 
+This is a future work.
 
 Last but not least, when we assign the memberships of each nodes, we adopt the $k$-means clustering algorithm.
 However, we notice that the $k$-means algorithm tends to assign nodes conservatively to each communities.
