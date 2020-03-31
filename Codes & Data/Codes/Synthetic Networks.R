@@ -39,8 +39,9 @@ Network1 <- function(N,K,NNZ, case){
   diag(S) = 0
   
   ### call function to generate the adjacency matrix
-  X1 <- SynData(alpha,F,D,S,N)
-  
+  X1 <- as.matrix(SynData(alpha,F,D,S,N)[[1]])
+  P <- SynData(alpha,F,D,S,N)[[2]]
+    
   ### generate the figure to illustrate the network
   X_draw <- graph_from_adjacency_matrix(X1, mode = c("undirected"))
   
@@ -262,7 +263,8 @@ SynData <- function(alpha,F,D,S,N){
     }
   }
   X <- X + t(X)
-  return(X)
+  result <- list(X,P)
+  return(result)
 }
 
 Model_Sel <- function(X1,gamma,delta){

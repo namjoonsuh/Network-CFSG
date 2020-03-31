@@ -4,7 +4,7 @@ library('Matrix')      ## For matrix computation on BIC
 library('igraph')      ## For drawing graph
 
 ################### Load the Citation Network Data ###################
-setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Statistician network data')
+setwd('C:/Users/Namjoon Suh/Desktop/Stat+PDE/Citation-Network/Codes & Data/Statistician network data')
 paperCitAdj = as.matrix(read.table("paperCitAdj.txt", header=FALSE))
 G <- graph.adjacency(paperCitAdj, mode="undirected", weighted=NULL) # For directed networks
 X <- as_adjacency_matrix(G,type="both",names=TRUE,sparse=FALSE,attr=NULL)
@@ -14,7 +14,7 @@ for (i in 1:sqrt(length(X))){
 }
 
 ################### Load Functions for analysis ###################
-setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes')
+setwd('C:/Users/Namjoon Suh/Desktop/Stat+PDE/Citation-Network/Codes & Data/Codes')
 source('SynData.R')    ## Function for creating binary network
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')

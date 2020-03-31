@@ -20,7 +20,6 @@ GD <- function(para_v){
   grad <- rep(0,(N^2+1))
   g <- matrix(0,N,N)
   K = (-1/N)*sum(X[upper.tri(X,diag=FALSE)])
-  #K = (-1/N)*sum(X)
   P = Z_a-U_a; Q = Z_M-U_M;
   
   while(TRUE){
@@ -40,9 +39,9 @@ GD <- function(para_v){
     old_sol = c(X_a, X_M)
     new_sol = old_sol - 0.05*grad
     CC<-max(abs(grad))
-    # print(CC)
+    #print(CC)
     # Convergence Criteria
-    if(CC < 10^-9){
+    if(CC < 10^-7){
       X_a <- new_sol[1]
       X_M <- matrix(new_sol[2:(N^2+1)],N,N)
       break

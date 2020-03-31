@@ -1,12 +1,13 @@
 ####################  preparation  ####################
 rm(list=ls())
-setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes')
+setwd('C:/Users/Namjoon Suh/Desktop/Stat+PDE/Citation-Network/Codes & Data/Codes')
 library('Matrix')      ## For matrix computation on BIC
 library('igraph')      ## For drawing graph
 source('SynData.R')    ## Function for creating binary network
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
 source('Synthetic Networks.R')
+source('GD2.R')
 #################### data generation N = 30, K = 3, NNZ = 10 ####################
 set.seed(123)
 par(mfrow=c(2,3),mar = c(2, 2, 2, 2)) # ??? ??? ??? ??? # 
@@ -30,11 +31,11 @@ par(mfrow=c(1,1))
 ################ Scenario 1 ################
 gamma = seq(from=0.01,to=0.02,by=0.001);
 delta = seq(from=0.02,to=0.03,by=0.001);
-Res1 <- Model_Sel(Net1,gamma,delta) ## gamma : 0.011, delta : 0.023 
+Res1 <- Model_Sel(Net1[[1]],gamma,delta) ## gamma : 0.011, delta : 0.023 ##
 
 gamma = seq(from=0.004,to=0.005,by=0.0001);
 delta = seq(from=0.009,to=0.01,by=0.0001);
-Res2 <- Model_Sel(Net2,gamma,delta) ## gamma : 0.004, delta : 0.009 ## 
+Res2 <- Model_Sel(Net2[[1]],gamma,delta) ## gamma : 0.004, delta : 0.009 ## 
 
 gamma = seq(from=0.002,to=0.003,by=0.0001);
 delta = seq(from=0.0046,to=0.0048,by=0.00002);
@@ -68,14 +69,9 @@ par(mfrow=c(1,1))
 object_list <- list(Res1,Res2,Res3,Res4,Res5,Res6,Res7,Res8,Res9)
 save(object_list,file="myfile.RData")
 
-
 set.seed(1234); K_means(Net1[[1]],gamma[11],delta[11],2,1); 
 set.seed(1234); K_means(Net2[[1]],gamma[1],delta[11],3,2); 
 set.seed(1234); K_means(Net3[[1]],gamma[3],delta[5],4,3);
-
 set.seed(1234); K_means(Net4[[1]],0.0032,0.019,4,4); 
 set.seed(1234); K_means(Net5[[1]],0.00212,0.048,5,5); 
 set.seed(1234); K_means(Net6[[1]],0.002,0.016,5,6);
-
-
-
