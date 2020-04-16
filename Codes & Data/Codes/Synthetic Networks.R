@@ -133,7 +133,7 @@ Network2<-function(N,N_K,N_K_1,K,NNZ, case){
   ### call function to generate the adjacency matrix
   X2 <- SynData(alpha,F,D,S,N)
   ### generate the figure to illustrate the network
-  X_draw2 <- graph_from_adjacency_matrix(X2, mode = c("undirected"))
+  X_draw2 <- graph_from_adjacency_matrix(X2[[1]], mode = c("undirected"))
 
   Edge = which(S>0, arr.ind=TRUE)
   g = graph_from_edgelist(Edge)
@@ -316,7 +316,10 @@ Model_Sel <- function(X1,gamma,delta){
     }
   }
   
-  result <- list(AIC,BIC,non_zeroS,L_Rank)
+  AIC_index <- which(AIC==min(AIC),arr.ind=TRUE);
+  BIC_index <- which(BIC==min(BIC),arr.ind=TRUE);
+  
+  result <- list(AIC_index,BIC_index,non_zeroS,L_Rank);
   return(result)
 }
 
@@ -359,6 +362,38 @@ K_means<-function(X, gamma, delta, K_clusters, case){
   #scatter3D(eigen(L)$vectors[,1], eigen(L)$vectors[,2], eigen(L)$vectors[,3], theta = 15, phi = 20)
 }
 
+Eval_func <- function(Net,gamma,delta,case){
+  n = nrow(Net[[1]]);
+  Res <- ADMM(Net[[1]],gamma,delta);
+  rank <- qr(Res[[3]])$rank;
+  K_clusters = rank;
+  
+  K_means(Net[[1]], gamma, delta, K_clusters, case)
+  
+  print(rank);
+    
+  list <- c();
+  for(i in 1:n){
+    for(j in 1:n){
+      if(i<j && Res[[4]][i,j]!=0){
+        list = rbind(list, c(i,j));
+      }
+    }
+  }
+  
+  count = 0;
+  if(length(list)/2==0){
+    count = 0;
+  }else{
+    for(k in 1:(length(list)/2)){
+      for(l in 1:(length(Net[[2]])/2)){
+        if(list[k,1]==Net[[2]][l,1] && list[k,2]==Net[[2]][l,2])
+          count = count + 1;
+      }
+    }
+  }
+  print(count);
+}
 
 Eval <- function(X,Result,gamma,delta,K_Scree,low,upp){
   gamma = seq(from=0.01,to=0.02,by=0.001);
@@ -435,20 +470,4 @@ Intersected_set <- function(d,c){
   }
   return(f)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -17,7 +17,7 @@ ADMM <- function(X, gamma, delta){
   
   J = diag(1,N)-(1/N)*matrix(1,N,N)
   
-  lambda <- 0.5; k <- 1; r <- 15;
+  lambda <- 0.5; k <- 1; r <- 4;
   Obj <- rep(0,500);
   
   #Obj_Val<-function(para_v){
@@ -88,9 +88,9 @@ ADMM <- function(X, gamma, delta){
   
     # res <- (X_a-Z_a)^2 + sum((X_M-Z_M)^2) + sum((X_L-Z_L)^2) + sum((X_S-Z_S)^2)
     res <- sqrt(sum((X_M-X_L-X_S)^2))
-    #print(res)
+    print(res)
     # Convergence Check
-    if(res < 1e-4){
+    if(res < 1e-2){
       result <- list(X_a, X_M, X_L, X_S)
       break
     }

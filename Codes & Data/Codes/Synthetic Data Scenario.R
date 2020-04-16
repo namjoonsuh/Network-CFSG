@@ -15,6 +15,7 @@ par(mfrow=c(2,3),mar = c(2, 2, 2, 2)) # ??? ??? ??? ??? #
 set.seed(123); Net1 <- Network1(30,3,9,1)
 set.seed(123); Net2 <- Network1(80,4,18,2)
 set.seed(123); Net3 <- Network1(120,5,30,3)
+
 ######## Second Scenario ########
 set.seed(123); Net4 <- Network2(120,10,0,3,20,4)
 set.seed(123); Net5 <- Network2(210,0,50,3,18,5)
