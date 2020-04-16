@@ -1,7 +1,7 @@
 ADMM <- function(X, gamma, delta){
   library(RSpectra)
   N <- nrow(X)
-  source('C:/Users/Namjoon Suh/Desktop/Stat+PDE/Citation-Network/Codes & Data/Codes/GD.R')
+  source('GD.R')
   # Initialization
   # Initialization on X^m = (X_a, X_M, X_L, X_S)
   X_a <- runif(1,0,1); X_M <- matrix(0,N,N);
