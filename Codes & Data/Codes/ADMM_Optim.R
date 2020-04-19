@@ -88,7 +88,7 @@ ADMM <- function(X, gamma, delta){
   
     # res <- (X_a-Z_a)^2 + sum((X_M-Z_M)^2) + sum((X_L-Z_L)^2) + sum((X_S-Z_S)^2)
     res <- sqrt(sum((X_M-X_L-X_S)^2))
-    print(res)
+    # print(res)
     # Convergence Check
     if(res < 1e-2){
       result <- list(X_a, X_M, X_L, X_S)
