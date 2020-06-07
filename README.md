@@ -28,7 +28,10 @@
     
 # Karate club data example
 ```R
-import load_data
+library(igraphdata) # for karate data 
+library(igraph)
+source('Synthetic Networks.R')
+source('ADMM_Optim.R') # delta = 10^-7, r = 15
 # first time it runs, downloads and caches the data
 df = load_data.load_county_level(data_dir='/path/to/data') 
 ```
