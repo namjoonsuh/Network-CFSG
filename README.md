@@ -19,7 +19,7 @@
       **(2)** a pair of indices (gamma, delta) that minimizes BIC over the given grid. 
       **(3)** the number of non-zero entries of the estimated S for each point on the grid. 
       **(4)** the rank of the estimated L for each point on the grid.
-    3. [CV](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : Code for Network Cross-validation. Refer Section 6.2. of the [paper](https://arxiv.org/abs/1912.00524) for detailed explanation. Takes the adjacency matrix of the network data, a pair of tuning parameters (gamma, delta) and  
+    3. [CV](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : Code for Network Cross-validation. Refer Section 6.2. of the [paper](https://arxiv.org/abs/1912.00524) for detailed explanation of the procedure. Takes the adjacency matrix of the network data, a pair of tuning parameters (gamma, delta) and the number of iterations for the K averaged mis-classifation rate of edges. Gives the K averaged mis-classification rate as output. 
     
 # Karate club data example
 
