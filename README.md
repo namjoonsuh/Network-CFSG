@@ -2,8 +2,6 @@
 
 <!-- [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) -->
 
-***INSERT GRAPHIC HERE (include hyperlink in image)***
-
 # Latent Factor + Sparse Matrix logistic regression model for network data
 
 > Subtitle or Short Description Goes Here
