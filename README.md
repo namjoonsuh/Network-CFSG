@@ -7,3 +7,5 @@
 </p>
 
 # Overview
+
+- **[Paper link](https://arxiv.org/abs/2005.07882)**: "Curating a COVID-19 data repository and forecasting county-level death counts in the United States"
