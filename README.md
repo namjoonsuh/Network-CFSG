@@ -4,7 +4,7 @@
 
 ***INSERT GRAPHIC HERE (include hyperlink in image)***
 
-# Repository Title Goes Here
+# Latent Factor + Sparse Matrix logistic regression model for network data
 
 > Subtitle or Short Description Goes Here
 
