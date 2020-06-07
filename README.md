@@ -45,6 +45,7 @@ Karate_ad <- as.matrix(as_adjacency_matrix(karate, type = c("both", "upper", "lo
 - Over the given grid points with gamma being ranged from 0.012 to 0.0128 with 0.0002 interval and delta being ranged from 0.04 to 0.05 with 0.002 interval, we perform a model selection through Heuristic Network Cross-validation. (There are 30 points in total on the grid.)
     1. Run a [Model_Sel](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) code for recording the rank of the estimated L and the number of non-zero entries of the estimated S matrices.
     2. Calculate the mis-classification rate over the 30 points on the grid.  
+    3. Among the grid points where the estimated L's rank is equal to 2, choose a pair of tuning parameters which gives the lowest mis-classification rates. 
 ```R
 ##### Model Selection through HNCV #####
 gamma = seq(from=0.012,to=0.0128,by=0.0002);
