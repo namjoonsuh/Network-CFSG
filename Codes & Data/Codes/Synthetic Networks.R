@@ -6,6 +6,44 @@ source('ADMM2_Optim.R')
 library(plyr)
 library(ggplot2)
 
+CrtData <- function(alpha,L,S,N){
+  # Create empty matrix for storing adjacency matrix X and Probability for 
+  X <- matrix(0,N,N); 
+  P <- matrix(0,N,N);
+  P <- exp(alpha+L+S)/(1+exp(alpha+L+S));
+  
+  # Create random graph according to (a, L, S)
+  for(i in 1:(N-1)){
+    for(j in (i+1):N){
+      if(P[i,j]>runif(1,0,1))
+        X[i,j]<-1
+    }
+  }
+  X <- X + t(X)
+  result <- list(X,P)
+  return(result)
+}
+
+CV <- function(X,gamma,delta,K){
+  rate <- 0;
+  for(j in 1:K){
+    X_fit = X; count = 0;
+    n = nrow(X); I_1 = sample(1:n, floor(n/2)); I_2 = setdiff(1:n,I_1);
+    M = expand.grid(I_2,I_2);
+    for(i in 1:length(I_2)^2){ X_fit[M[i,1],M[i,2]]=0 }
+    res = ADMM(X_fit,gamma,delta)
+    alpha = res[[1]]; L = res[[3]]; S = res[[4]];
+    X_new = CrtData(alpha,L,S,n)[[1]];
+    
+    for(l in 1:length(I_2)^2){ 
+      if(X[M[l,1],M[l,2]]!=X_new[M[l,1],M[l,2]])
+        count <- count + 1;
+    }
+    rate <- rate + (count/length(I_2)^2)/K;
+  }
+  return(rate)
+}
+
 Network1 <- function(N,K,NNZ, case){
   ### Ingredients for creating network : alpha, F, D, S                      
   ### Generate alpha from uniform distribution
@@ -44,8 +82,7 @@ Network1 <- function(N,K,NNZ, case){
   
   ### call function to generate the adjacency matrix
   X1 <- as.matrix(SynData(alpha,F,D,S,N))
-  P <- SynData(alpha,F,D,S,N)[[2]]
-  
+
   ### generate the figure to illustrate the network
   X_draw <- graph_from_adjacency_matrix(X1, mode = c("undirected"))
   
