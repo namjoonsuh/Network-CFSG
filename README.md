@@ -66,6 +66,8 @@ for(i in 1:length(gamma)){
 CV_ind <- which(MisCl_rate1==min(MisCl_rate1[Kar_model[[4]][1:5,]==2]),arr.ind=TRUE)
 ```
 - Following lines of code evaluate the selected model through Network cross-validation.
+Since the ground truth labels of nodes in the network are known, we can know true ad-hoc edges of the network.
+It is found that the selected model renders 11 pairs of ad-hoc edges,  
 
 ```R
 #### Selected Model
