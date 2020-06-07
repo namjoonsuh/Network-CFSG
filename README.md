@@ -7,6 +7,7 @@
 </p>
 
 # Overview
+- **[Model Description]: 
 - **[Paper link](https://arxiv.org/abs/1912.00524)**: "Latent Factor + Sparse Matrix logistic regression model for network data"
 
 # Karate club data example
