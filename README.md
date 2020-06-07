@@ -17,7 +17,7 @@
     3. final value is decided by thresholding the number of cumulative predicted deaths for a hospital (=current recorded deaths + predicted future deaths)
 
 - **Main functions**
-    1. [ADMM_Optim.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/ADMM_Optim.R)
+    1. [ADMM_Optim.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/ADMM_Optim.R) : Take adjacency matrix X and tuning parameters for models, (\gamma,\delta) as input parameters. 
 
 # Karate club data example
 
