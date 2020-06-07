@@ -1,4 +1,4 @@
-<h1 align="center"> Latent Factor + Sparse Matrix logistic regression model for network data
+<h1 align="center"> Latent Factor + Sparse Matrix logistic regression model for network data </h1>
 > Subtitle or Short Description Goes Here
 
 > ideally one sentence
