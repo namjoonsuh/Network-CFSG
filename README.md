@@ -27,7 +27,7 @@
     **(4)** a list of pairs of nodes which create the ad-hoc edges of the selected model. 
     
 # Karate club data example
-We take a simple example on the application of our model to famous [Zachary's Karate club dataset](https://en.wikipedia.org/wiki/Zachary%27s_karate_club). First we import libraries and functions for the analysis, and load the network data and make the adjacency matrix from the network data. 
+We take a simple example on the application of our model to famous [Zachary's Karate club dataset](https://en.wikipedia.org/wiki/Zachary%27s_karate_club). First we import necessary libraries and functions for the analysis, load the network data, and make the adjacency matrix from the network data. 
 ```R
 ##### Load libraries and functions for analysis 
 library(igraphdata) # for karate data 
@@ -42,6 +42,7 @@ Karate_ad <- as.matrix(as_adjacency_matrix(karate, type = c("both", "upper", "lo
                     sparse = igraph_opt("sparsematrices")))
 ```
 
+Over the given grid points with gamma being ranged from 0.012 to 0.0128 with 0.0002 interval and delta being ranged from 0.04 to 0.05 with 0.002 interval, 
 
 ```R
 ##### Model Selection through HNCV #####
