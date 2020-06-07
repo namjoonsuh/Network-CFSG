@@ -28,10 +28,16 @@
     
 # Karate club data example
 ```R
+##### Load libraries and functions for analysis 
 library(igraphdata) # for karate data 
 library(igraph)
 source('Synthetic Networks.R')
 source('ADMM_Optim.R') # delta = 10^-7, r = 15
-# first time it runs, downloads and caches the data
-df = load_data.load_county_level(data_dir='/path/to/data') 
+
+##### Load the Karate dataset 
+data(karate) # type: ?karate to see description 
+Karate_ad <- as.matrix(as_adjacency_matrix(karate, type = c("both", "upper", "lower"),
+                    attr = NULL, edges = FALSE, names = TRUE,
+                    sparse = igraph_opt("sparsematrices")))
+
 ```
