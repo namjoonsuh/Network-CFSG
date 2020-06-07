@@ -16,7 +16,8 @@
     2. county-level predictions are allocated to hospitals within counties proportional the their total number of employees
     3. final value is decided by thresholding the number of cumulative predicted deaths for a hospital (=current recorded deaths + predicted future deaths)
 
-
+- **Key Codes**
+    1. ADMM_Optim.R
 
 # Karate club data example
 
