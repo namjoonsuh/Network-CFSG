@@ -65,6 +65,7 @@ for(i in 1:length(gamma)){
 
 CV_ind <- which(MisCl_rate1==min(MisCl_rate1[Kar_model[[4]][1:5,]==2]),arr.ind=TRUE)
 ```
+- Following lines of code evaluate the selected model through Network cross-validation.
 
 ```R
 #### Selected Model
