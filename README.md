@@ -23,7 +23,8 @@
     4. [Eval_func](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : Code for evaluation of the selected model. Given the adjacency matrix of the network data, and selected model parameters (gamma, delta) through AIC, BIC or Heuristic Network Cross-validation, the function gives:
     **(1)** the rank of estimated L matrix. (i.e. K)
     **(2)** K clustered nodes by applying k-means algorithm on K eigen-vectors of estimated L matrix. 
-    **(3)** 
+    **(3)** the number of non-zero entries on upper-triangular part of the estimated S matrix. 
+    **(4)** a list of pairs of nodes which create the ad-hoc edges of the selected model. 
     
 # Karate club data example
 ```R
