@@ -9,3 +9,9 @@
 # Overview
 
 - **[Paper link](https://arxiv.org/abs/1912.00524)**: "Latent Factor + Sparse Matrix logistic regression model for network data"
+
+```R
+import load_data
+# first time it runs, downloads and caches the data
+df = load_data.load_county_level(data_dir='/path/to/data') 
+```
