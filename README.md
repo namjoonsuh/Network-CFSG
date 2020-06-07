@@ -27,7 +27,7 @@
     **(4)** a list of pairs of nodes which create the ad-hoc edges of the selected model. 
     
 # Karate club data example
-We take a simple example on the application of our model to famous [Zachary's Karate club data-set](https://en.wikipedia.org/wiki/Zachary%27s_karate_club). First we import libraries and functions for the analysis, and load the network data and make the adjacency matrix from the network data. 
+We take a simple example on the application of our model to famous [Zachary's Karate club dataset](https://en.wikipedia.org/wiki/Zachary%27s_karate_club). First we import libraries and functions for the analysis, and load the network data and make the adjacency matrix from the network data. 
 ```R
 ##### Load libraries and functions for analysis 
 library(igraphdata) # for karate data 
