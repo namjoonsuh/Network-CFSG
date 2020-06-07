@@ -8,4 +8,4 @@
 
 # Overview
 
-- **[Paper link](https://arxiv.org/abs/2005.07882)**: "Curating a COVID-19 data repository and forecasting county-level death counts in the United States"
+- **[Paper link](https://arxiv.org/abs/1912.00524)**: "Latent Factor + Sparse Matrix logistic regression model for network data"
