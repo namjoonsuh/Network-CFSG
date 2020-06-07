@@ -93,6 +93,8 @@ plot(vc[,1],vc[,2])
 a<-kmeans(vc[,1:2], 2, iter.max = 1000, nstart = 100, 
        algorithm = "Hartigan-Wong")$cluster
 
-C1 <- which(a==1,arr.ind=TRUE) # Nodes selected for C1 : 1  2  3  4  8 13 14 18 20 22
-C2 <- which(a==2,arr.ind=TRUE) # Nodes selected for C2 : 5  6  7  9 10 11 12 15 16 17 19 21 23 24 25 26 27 28 29 30 31 32 33 34
+C1 <- which(a==1,arr.ind=TRUE) 
+# Nodes selected for C1 : 1  2  3  4  8 13 14 18 20 22
+C2 <- which(a==2,arr.ind=TRUE) 
+# Nodes selected for C2 : 5  6  7  9 10 11 12 15 16 17 19 21 23 24 25 26 27 28 29 30 31 32 33 34
 ```
