@@ -12,6 +12,12 @@
 
 - **[Paper link](https://arxiv.org/abs/1912.00524)**: "Latent Factor + Sparse Matrix logistic regression model for network data"
 
+1. county-level predictions for number of deaths are modeled
+2. county-level predictions are allocated to hospitals within counties proportional the their total number of employees
+3. final value is decided by thresholding the number of cumulative predicted deaths for a hospital (=current recorded deaths + predicted future deaths)
+
+
+
 # Karate club data example
 
 ```R
