@@ -104,3 +104,8 @@ C2 <- which(a==2,arr.ind=TRUE)
 ```
 - Here we draw the plot of network. Nodes classified as first community are colored in blue, nodes classified as second community are colored in orange. Discovered ad-hoc edges are colored in green. 
 ![](Manuscript%20for%20submission/Rplot.pdf)
+
+
+## Data reference for section 6.2.
+Ji, P. and Jin, J. (2016). Coauthorship and citation networks for statisticians. Annals of Applied Statistics with discussion, Vol. 10, No. 4, 1779-1812. Data set available from :
+http://faculty.franklin.uga.edu/psji/statistician-coauthorship-and-citation
