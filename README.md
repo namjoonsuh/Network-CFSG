@@ -27,6 +27,7 @@
     **(4)** a list of pairs of nodes which create the ad-hoc edges of the selected model. 
     
 # Karate club data example
+We take a simple example on the application of our model to famous Zachary Karate club data-set. 
 ```R
 ##### Load libraries and functions for analysis 
 library(igraphdata) # for karate data 
@@ -39,5 +40,5 @@ data(karate) # type: ?karate to see description
 Karate_ad <- as.matrix(as_adjacency_matrix(karate, type = c("both", "upper", "lower"),
                     attr = NULL, edges = FALSE, names = TRUE,
                     sparse = igraph_opt("sparsematrices")))
-
 ```
+
