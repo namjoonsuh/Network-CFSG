@@ -68,7 +68,7 @@ CV_ind <- which(MisCl_rate1==min(MisCl_rate1[Kar_model[[4]][1:5,]==2]),arr.ind=T
 - Following lines of code evaluate the selected model through Network cross-validation.
 Since the ground truth labels of nodes in the network are known, we can know true ad-hoc edges of the network.
   1. It is found that the selected model renders 11 pairs of ad-hoc edges. When compared with true ad-hoc edges, the model gives all 10 true ad-hoc edges with 1 extra edge (25-28).
-  2. 
+  2. Six nodes are mis-classified as the Second community. (5th, 6h, 7th, 11th, 12th and 17th) 
 
 ```R
 #### Selected Model
