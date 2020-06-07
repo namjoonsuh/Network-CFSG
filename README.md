@@ -20,9 +20,9 @@
       **(3)** the number of non-zero entries of the estimated S for each point on the grid. 
       **(4)** the rank of the estimated L for each point on the grid.
     3. [CV](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : Code for Network Cross-validation. Refer Section 6.2. of the [paper](https://arxiv.org/abs/1912.00524) for detailed explanation of the procedure. Takes the adjacency matrix of the network data, a pair of tuning parameters (gamma, delta) and the number of K iterations for the averaged mis-classifation rate of edges. Gives the K averaged mis-classification rate as output. 
+    4. [Eval_func](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R)
     
 # Karate club data example
-
 ```R
 import load_data
 # first time it runs, downloads and caches the data
