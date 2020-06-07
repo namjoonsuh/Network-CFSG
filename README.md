@@ -42,3 +42,24 @@ Karate_ad <- as.matrix(as_adjacency_matrix(karate, type = c("both", "upper", "lo
                     sparse = igraph_opt("sparsematrices")))
 ```
 
+
+```R
+##### Model Selection through HNCV #####
+gamma = seq(from=0.012,to=0.0128,by=0.0002);
+delta = seq(from=0.04,to=0.05,by=0.002);
+
+Kar_model <- Model_Sel(Karate_ad, gamma, delta);
+
+count <- 1;
+MisCl_rate1 <- matrix(rep(0,length(gamma)*length(delta)),nrow=length(gamma),ncol=length(delta));
+for(i in 1:length(gamma)){
+  for(j in 1:length(delta)){
+    MisCl_rate1[i,j] <- CV(Karate_ad,gamma[i],delta[j],10)
+    print(count)
+    count <- count + 1;
+  }
+}
+
+CV_ind <- which(MisCl_rate1==min(MisCl_rate1[Kar_model[[4]][1:5,]==2]),arr.ind=TRUE)
+```
+
