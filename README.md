@@ -8,7 +8,7 @@
 
 # Overview
 
-- Model Description : We propose a combined model, which integrates the latent factor model and the logistic regression model, for the network data.
+- ** Model Description ** : We propose a combined model, which integrates the latent factor model and the logistic regression model, for the network data.
 It is noticed that neither a latent factor model nor a logistic regression model alone is sufficient to capture the structure of the data.
 The proposed model has a latent (i.e., factor analysis) model to represents the main technological trends (a.k.a., factors), and adds a sparse component that captures the remaining ad-hoc dependence.
 
