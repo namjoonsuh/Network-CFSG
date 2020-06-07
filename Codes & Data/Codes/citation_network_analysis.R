@@ -19,6 +19,7 @@ source('SynData.R')    ## Function for creating binary network
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
 source('GD.R')
+source('Synthetic Networks.R')    ## Function for creating binary network
 
 ###### Get a network whose degree is greater than or equal to 10 ######
 ind <- which(Node_deg>=10,arr.ind=TRUE)
@@ -26,7 +27,8 @@ X_new <- X[ind,ind]
 N <- ncol(X_new)
 A = rowSums(X_new)
 ind = which(A==0,arr.ind=TRUE)
-X = X_new[-ind,-ind]
+Cit = X_new[-ind,-ind]
+nrow(Cit)
 
 par(mfrow=c(1,2),mar = c(2, 2, 1.5, 1.5)) # ??? ??? ??? ??? # 
 plotScree(X)
@@ -36,78 +38,68 @@ plotScree(X_chunk)
 title(TeX("$\\X^{sub}$"),cex.main=0.85)
 
 ################### Model Selection ###################
-gamma = seq(from=0.0021091,to=0.0021095,by=0.00000006);
-delta = seq(from=0.01913,to=0.0194,by=0.00003);
-lambda = 1; Count = 1;
-AIC <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
-BIC <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
-
-non_zeroS <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
-L_Rank <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
-Like <- matrix( 0, nrow=length(gamma),ncol=length(delta) )
-N = ncol(X)
-
-setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Codes') ## Function of ADMM algorithm for estimation
+setwd('C:/Users/Namjoon Suh/Desktop/Stat+PDE/Citation-Network/Codes & Data/Codes')
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
-source('functions.R')
-source('GD.R')
+Res <- ADMM(Cit,0.0021094,0.01913)
+qr(Res[[3]])$rank
 
-for(g in 1:length(gamma)){
-  for(d in 1:length(delta)) {
-    ### Use the ADMM method to estimate the parameters ###
-    result <- ADMM(X, gamma[g], delta[d])
-
-    a<-result[[1]]
-    M<-result[[2]]
-    L<-result[[3]]
-    S<-result[[4]]
-    
-    non_zero_S <- 0
-    for(i in 1:N){
-      for(j in 1:N){
-        if(i<j){
-          if(S[i,j] != 0)
-            non_zero_S = non_zero_S + 1
-        }
+non_zero_S <- 0
+for(i in 1:232){
+  for(j in 1:232){
+    if(i<j){
+      if(Res[[4]][i,j] > 0){
+        non_zero_S = non_zero_S + 1
+        print(Res[[4]][i,j])
       }
     }
-    
-    non_zeroS[g,d] <- non_zero_S
-    L_Rank[g,d] <- qr(L)$rank
-    
-    print(Count)
-    Count <- Count + 1
   }
 }
-#################### Choose the proper tuning parameters #######################
-N = ncol(X)
-result1 <- ADMM(X, 0.002109, 0.0194)  ## Gamma : 0.002109, Delta : 0.0194
-a1 <- result1[[1]]
-M1 <- result1[[2]]
-L1 <- result1[[3]]
-S1 <- result1[[4]]
+non_zero_S
 
-K<-qr(L1)$rank; K;
+gamma = seq(from=0.000901,to=0.00091,by=0.000001);
+delta = seq(from=0.006,to=0.015,by=0.001);
+
+source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
+Res_pol <- Model_Sel(X,gamma,delta);
+
+### Run CV
+count <- 1;
+MisCl_rate_pol <- matrix(rep(0,length(gamma)^2),nrow=length(gamma),ncol=length(delta));
+for(i in 1:10){
+    MisCl_rate_pol[i,5] <- CV(Cit,gamma[i],delta[5],10)    
+    print(count)
+    count <- count + 1;
+}
+
+min(MisCl_rate_pol[,5])
+save(MisCl_rate_pol, file = "MisCl_rate_pol_result.RData")
+
+### Selected model : 
+Res <- ADMM(Cit,0.000906,0.01)
+qr(Res[[3]])$rank
+
 non_zero_S <- 0
-for(i in 1:N){
-  for(j in 1:N){
+for(i in 1:840){
+  for(j in 1:840){
     if(i<j){
-      if(S1[i,j] != 0)
+      if(Res[[4]][i,j] > 0){
         non_zero_S = non_zero_S + 1
+        print(Res[[4]][i,j])
+      }
     }
   }
 }
-non_zero_S;
+non_zero_S
 
 ####################### Cluster the nodes by K-means #######################
-set.seed(1233)
-K = qr(L1)$rank;
-setwd('C:/Users/namjo/Documents/GitHub/Citation-Network/Codes & Data/Statistician network data')
+set.seed(1233); L1 = Res[[3]];
+K = qr(L1)$rank; K = 3;
 KMeans = kmeans(eigen(L1)$vectors[,1:K], K, iter.max = 1000, nstart = 100, algorithm = "Hartigan-Wong")
 Topic1 = which(KMeans$cluster == 1,arr.ind = TRUE)
 Topic2 = which(KMeans$cluster == 2,arr.ind = TRUE)
 Topic3 = which(KMeans$cluster == 3,arr.ind = TRUE)
 
+setwd('C:/Users/Namjoon Suh/Desktop/Stat+PDE/Citation-Network/Codes & Data/Statistician network data')
 paperList = read.table("paperList.txt", sep=",", stringsAsFactors=F, header=T)
 community = rep(0,nrow(paperList))
 paperList = cbind(paperList,community)

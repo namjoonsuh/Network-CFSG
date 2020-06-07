@@ -6,6 +6,8 @@ library('igraph')      ## For drawing graph
 source('SynData.R')    ## Function for creating binary network
 source('ADMM_Optim.R') ## Function of ADMM algorithm for estimation
 source('functions.R')
+source('Synthetic Networks.R')
+
 #################### data generation N = 30, K = 3, NNZ = 10 ####################
 set.seed(1234)
 N = 30; K = 3; NNZ = 10;

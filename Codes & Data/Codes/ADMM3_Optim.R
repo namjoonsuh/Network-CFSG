@@ -1,7 +1,7 @@
-ADMM <- function(X, gamma, delta){
+ADMM3 <- function(X, gamma, delta){
   library(RSpectra)
   N <- nrow(X)
-  source('GD.R')
+  source('GD3.R')
   # Initialization
   # Initialization on X^m = (X_a, X_M, X_L, X_S)
   X_a <- runif(1,0,1); X_M <- matrix(0,N,N);
@@ -10,20 +10,20 @@ ADMM <- function(X, gamma, delta){
   # Initialization on Z^m = (Z_a, Z_M, Z_L, Z_S)
   Z_a <- runif(1,0,1); Z_M <- matrix(0,N,N);
   Z_L <- matrix(0,N,N); Z_S <- matrix(0,N,N);
-    
+  
   # Initialization on U^m = (U_a, U_M, U_L, U_S)
   U_a <- runif(1,0,1); U_M <- matrix(0,N,N);
   U_L <- matrix(0,N,N); U_S <- matrix(0,N,N);
   
   J = diag(1,N)-(1/N)*matrix(1,N,N)
   
-  lambda <- 0.5; k <- 1; r <- 15;
+  lambda <- 0.5; k <- 1; r <- 20;
   Obj <- rep(0,500);
   
   #Obj_Val<-function(para_v){
   #    X_a <- para_v[1]
   #    X_M <- matrix(para_v[2:(N^2+1)],N,N)
-    
+  
   #    A <- log(1+exp(X_a + X_M))
   #    (-X_a/N)*sum(X[upper.tri(X,diag=FALSE)]) + (-1/(2*N))*sum(X*X_M) + 
   #      (1/N)*sum(A[upper.tri(A,diag=FALSE)]) + 
@@ -56,7 +56,7 @@ ADMM <- function(X, gamma, delta){
     #eigen_threshold <- ev$values-(delta*lambda)
     #eigen_threshold[eigen_threshold<0]<-0
     #D <- diag(eigen_threshold)
-    #X_L <- J%*%(EV%*%D%*%t(EV))%*%J      
+    #X_L <- J%*%(EV%*%D%*%t(EV))%*%J
     
     # S Update : Soft_thresholding : sign(x)*max(|x|-gamma*lambda,0)
     for(i in 1:N){
@@ -85,12 +85,12 @@ ADMM <- function(X, gamma, delta){
     U_M <- U_M + (X_M - Z_M)
     U_L <- U_L + (X_L - Z_L)
     U_S <- U_S + (X_S - Z_S)
-  
+    
     # res <- (X_a-Z_a)^2 + sum((X_M-Z_M)^2) + sum((X_L-Z_L)^2) + sum((X_S-Z_S)^2)
     res <- sqrt(sum((X_M-X_L-X_S)^2))
     # print(res)
     # Convergence Check
-    if(res < 1e-7){
+    if(res < 1e-2){
       result <- list(X_a, X_M, X_L, X_S)
       break
     }

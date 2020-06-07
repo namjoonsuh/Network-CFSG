@@ -166,7 +166,7 @@ plotScree=function(adj,case)
   values = eigen(adj %*% t(adj))$values 
   plot(sqrt(values[1:15]), cex=1, pch=22, type="b", 
        lty=2, lwd=3, col="red", bg="red", xlab="", ylab="")
-  # title(sprintf("Case %d",case),family="LM Roman 10")
+  title(sprintf("Case %d",case))
 }
 
 
