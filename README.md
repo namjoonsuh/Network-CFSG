@@ -66,3 +66,33 @@ for(i in 1:length(gamma)){
 CV_ind <- which(MisCl_rate1==min(MisCl_rate1[Kar_model[[4]][1:5,]==2]),arr.ind=TRUE)
 ```
 
+```R
+#### Selected Model
+Kara <- ADMM(Karate_ad,0.0126,0.048)
+
+##### discovered ad-hoc list
+list <- c();
+for(i in 1:34){
+  for(j in 1:34){
+    if(i<j && Kara[[4]][i,j]!=0){
+      list = rbind(list, c(i,j));
+    }
+  }
+}
+print(list)
+
+##### 11 pairs of ad-hoc edges are discovered #####
+##### (1,9), (1,32), (2,31), (3,9), (3,10), (3,28), (3,29), (3,33)
+##### (14,34), (20,34), (25,28)
+
+##### Cluster nodes through K-means clustering #####
+K=qr(Kara[[3]])$rank
+vc <- eigen(Kara[[3]])$vectors[,1:2]
+plot(vc[,1],vc[,2])
+
+a<-kmeans(vc[,1:2], 2, iter.max = 1000, nstart = 100, 
+       algorithm = "Hartigan-Wong")$cluster
+
+C1 <- which(a==1,arr.ind=TRUE)
+C2 <- which(a==2,arr.ind=TRUE)
+```
