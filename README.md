@@ -102,4 +102,5 @@ C1 <- which(a==1,arr.ind=TRUE)
 C2 <- which(a==2,arr.ind=TRUE) 
 # Nodes selected for C2 : 5  6  7  9 10 11 12 15 16 17 19 21 23 24 25 26 27 28 29 30 31 32 33 34
 ```
+- Here we draw the plot of network. Nodes classified as 
 ![](Manuscript%20for%20submission/Rplotdfdfdf.png)
