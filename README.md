@@ -29,6 +29,10 @@
 - **Codes for Simulations and Real Data analysis**
     1. [Simulation1](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation1.R) : Code for reproducing results presented in Section 6.1. of the paper.
     2. [Simulation2](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation2.R) : Code for reproducing results presented in Section 6.2. of the paper.
+    3. [Zachary_Karate](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Zhacary_Karate.R) : Code for reproducing results presented in Section 6.2. of the paper.
+    4. [Polblog](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Polblog.R) : Code for reproducing results presented in Section 6.2. of the paper.
+    5. [Citation_network](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation2.R) : Code for reproducing results presented in Section 6.2. of the paper.
+
 
 # Karate club data example
 - We take a simple example on the application of our model to famous [Zachary's Karate club dataset](https://en.wikipedia.org/wiki/Zachary%27s_karate_club). First we import necessary libraries and functions for the analysis, load the network data, and make the adjacency matrix from the network data. 
