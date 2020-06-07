@@ -12,13 +12,9 @@
 
 - **[Paper link](https://arxiv.org/abs/1912.00524)**: "Latent Factor + Sparse Matrix logistic regression model for network data"
 
-    1. county-level predictions for number of deaths are modeled
-    2. county-level predictions are allocated to hospitals within counties proportional the their total number of employees
-    3. final value is decided by thresholding the number of cumulative predicted deaths for a hospital (=current recorded deaths + predicted future deaths)
-
 - **Main functions**
     1. [ADMM_Optim.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/ADMM_Optim.R) : Main function for making inference for model parameters. Takes adjacency matrix and tuning parameters of models (gamma,delta) as input parameters. Gives the estimated alpha, matrices M, L and S as output of the function.
-    2. [Model_Sel.R]
+    2. [Model_Sel.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : 
     
 # Karate club data example
 
