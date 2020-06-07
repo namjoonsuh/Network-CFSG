@@ -14,7 +14,7 @@
 
 - **Main functions**
     1. [ADMM_Optim.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/ADMM_Optim.R) : Main function for making inference for model parameters. Takes adjacency matrix and tuning parameters of models (gamma,delta) as input parameters. Gives the estimated alpha, matrices M, L and S as output of the function.
-    2. [Model_Sel.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : 
+    2. [Model_Sel.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Synthetic%20Networks.R) : Given the adjacency of matrix of the network and range of grids of gamma and delta to search over, the function gives the 1)   
     
 # Karate club data example
 
