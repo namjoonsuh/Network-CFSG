@@ -7,10 +7,9 @@
 </p>
 
 # Overview
-
-# Zachary Karate club example
-
 - **[Paper link](https://arxiv.org/abs/1912.00524)**: "Latent Factor + Sparse Matrix logistic regression model for network data"
+
+# Karate club data example
 
 ```R
 import load_data
