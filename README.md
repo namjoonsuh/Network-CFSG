@@ -18,7 +18,7 @@
 
 - **Main functions**
     1. [ADMM_Optim.R](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/ADMM_Optim.R) : Take adjacency matrix X and tuning parameters for models, (\gamma,\delta) as input parameters. 
-
+$`\sqrt{2}`$
 ```math
 SE = \frac{\sigma}{\sqrt{n}}
 ```
