@@ -27,11 +27,13 @@
     **(4)** a list of pairs of nodes which create the ad-hoc edges of the selected model. 
  
 - **Codes for Simulations and Real Data analysis**
+We made a simple demonstration on how our model can be applied to a network data by using aforementioned functions.
+A famous Zachary Karate Club Network data is analzyed [here](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Zhacary_Karate.R). 
+
     1. [Simulation1](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation1.R) : Code for reproducing results presented in Section 6.1. of the paper.
     2. [Simulation2](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation2.R) : Code for reproducing results presented in Section 6.2. of the paper.
-    3. [Zachary_Karate](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Zhacary_Karate.R) : Simple demonstration on how our model is applied for this data set is posted [here](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Karate_example.md).
-    4. [Polblog](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Polblog.R) : Code for reproducing results presented in Section 7.1. of the paper.
-    5. [Citation_network](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/citation_network.R) : Code for reproducing results presented in Section 7.2. of the paper.
+    3. [Polblog](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Polblog.R) : Code for reproducing results presented in Section 7.1. of the paper.
+    4. [Citation_network](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/citation_network.R) : Code for reproducing results presented in Section 7.2. of the paper.
 
 - **Data References**
 
