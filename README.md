@@ -26,7 +26,7 @@
     **(3)** the number of non-zero entries on upper-triangular part of the estimated S matrix. 
     **(4)** a list of pairs of nodes which create the ad-hoc edges of the selected model. 
  
-- **Codes for Simulations and Real Data analysis**
+- **Codes for Simulations and Real Data analysis** : 
 We made a simple demonstration on how our model can be applied to a network data by using aforementioned functions.
 A famous [Zachary Karate Club Network](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) data is analzyed [here](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Karate_example.md). 
 
