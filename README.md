@@ -28,7 +28,7 @@
  
 - **Codes for Simulations and Real Data analysis**
 We made a simple demonstration on how our model can be applied to a network data by using aforementioned functions.
-A famous [Zachary Karate Club Network](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) data is analzyed [here](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Zhacary_Karate.R). 
+A famous [Zachary Karate Club Network](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) data is analzyed [here](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Karate_example.md). 
 
     1. [Simulation1](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation1.R) : Code for reproducing results presented in Section 6.1. of the paper.
     2. [Simulation2](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Simulation2.R) : Code for reproducing results presented in Section 6.2. of the paper.
