@@ -33,3 +33,8 @@
     4. [Polblog](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/Polblog.R) : Code for reproducing results presented in Section 7.1. of the paper.
     5. [Citation_network](https://github.com/namjoonsuh/Citation-Network/blob/master/Codes%20%26%20Data/Codes/citation_network.R) : Code for reproducing results presented in Section 7.2. of the paper.
 
+- **Data References**
+
+
+
+
