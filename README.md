@@ -1,4 +1,4 @@
-<h1 align="center"> Latent Factor + Sparse Matrix logistic regression model for network data </h1>
+<h1 align="center"> A new network model that combines latent factors and sparse graphs </h1>
 
 <p align="center">
   <a href="#overview">Overview</a> •
